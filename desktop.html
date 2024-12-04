@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>proxy</title>
+    <link rel="icon" href="./assets/imgs/anonymous.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://jibz.dev/assets/js/808.js"></script>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body class="h-full overflow-hidden">
+    <img src="https://files.catbox.moe/bt684y.jpeg" 
+         alt="Background Image" 
+         class="fixed top-0 left-0 min-w-full min-h-full object-cover z-[-1]">
+</body>
+    
+    <!-- Taskbar -->
+    <div class="fixed bottom-0 left-0 right-0 bg-black bg-opacity-60 backdrop-blur-sm p-1 flex items-center justify-between">
+        <div class="w-1/3"></div>
+        <div class="flex items-center justify-center space-x-1 w-1/3" id="taskbar-icons">
+            <button id="start-button" class="taskbar-icon p-1 rounded-md hover:bg-white hover:bg-opacity-10">
+                <img src="https://win11.blueedge.me/img/icon/home.png" alt="Start" class="w-5 h-5">
+            </button>
+            <button class="taskbar-icon p-1 rounded-md hover:bg-white hover:bg-opacity-10">
+                <img src="./assets/imgs/MullvadVPN_logo_Round_RGB_Color_negative.png" alt="Search" class="w-8 h-8">
+            </button>
+            <button class="taskbar-icon p-1 rounded-md hover:bg-white hover:bg-opacity-10">
+                <img src="https://win11.blueedge.me/img/icon/settings.png" alt="Widgets" class="w-6 h-6">
+            </button>
+            <button class="taskbar-icon p-1 rounded-md hover:bg-white hover:bg-opacity-10">
+                <img src="https://win11.blueedge.me/img/icon/explorer.png" alt="File Explorer" class="w-6 h-6">
+            </button>
+            <button class="taskbar-icon p-1 rounded-md hover:bg-white hover:bg-opacity-10">
+                <img src="https://win11.blueedge.me/img/icon/edge.png" alt="Microsoft Edge" class="w-6 h-6">
+            </button>
+            <button id="music-player-button" class="taskbar-icon p-1 rounded-md hover:bg-white hover:bg-opacity-10">
+                <img src="./assets/imgs/music.png" alt="Music Player" class="w-6 h-6">
+            </button>
+        </div>
+        <div class="flex items-center justify-end space-x-2 text-white w-1/3">
+            <button id="arrow-up" class="taskbar-icon p-1 rounded-md hover:bg-white hover:bg-opacity-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                </svg>
+            </button>
+            <button id="wifi" class="taskbar-icon p-1 rounded-md hover:bg-white hover:bg-opacity-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                </svg>
+            </button>
+            <button id="volume" class="taskbar-icon p-1 rounded-md hover:bg-white hover:bg-opacity-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                </svg>
+            </button>
+            <div id="datetime" class="text-xs flex flex-col items-center taskbar-icon p-1 rounded-md hover:bg-white hover:bg-opacity-10">
+                <span id="time">12:00 PM</span>
+                <span id="date">1/1/2023</span>
+            </div>
+            <button id="notifications" class="taskbar-icon p-1 rounded-md hover:bg-white hover:bg-opacity-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
+            </button>
+            <button id="wos-taskbar" class="taskbar-icon p-1 rounded-md hover:bg-white hover:bg-opacity-10 hidden">
+                <img src="./assets/imgs/skull.png" alt="Wall of Shame" class="w-6 h-6">
+            </button>
+        </div>
+    </div>
+    <!-- Desktop Icons -->
+    <div class="grid grid-cols-12 gap-4 p-4">
+        <div id="slit-icon" class="text-center text-white cursor-pointer transition-transform duration-200 hover:scale-110" style="position: absolute; left: 50px; top: 40px;">
+            <img src="./assets/imgs/logo.jpg" alt="Slit" class="w-16 h-16 mx-auto mb-2 rounded-full">
+            <p class="text-sm">proxy.exe</p>
+        </div>
+        <div class="text-center text-white transition-transform duration-200 hover:scale-110" id="wos-desktop-icon" style="position: absolute; left: 300px; top: 40px;">
+            <img src="./assets/imgs/folder.png" alt="This PC" class="w-16 h-16 mx-auto mb-2 rounded-full">
+            <p class="text-sm"></p>
+        </div>
+        <!-- Recycle Bin Icon -->
+        <div class="text-center text-white transition-transform duration-200 hover:scale-110" style="position: absolute; left: 50px; bottom: 70px;">
+            <img src="./assets/imgs/bin.png" alt="Recycle Bin" class="w-16 h-16 mx-auto mb-2 rounded-full">
+            <p class="text-sm">Recycle Bin</p>
+        </div>
+    </div>
+
+    <!-- Telegram Apps -->
+    <div id="slit-app" class="hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 bg-gray-900 text-white rounded-lg shadow-lg overflow-hidden">
+        <div class="flex justify-between items-center bg-gray-800 p-2">
+            <h2 class="text-xl font-bold">slit.exe</h2>
+            <button class="close-app hover:bg-red-600 rounded-full p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+        <div class="p-4 flex flex-col items-center">
+            <img src="./assets/imgs/slit.png" alt="Slit" class="w-24 h-24 rounded-full mb-4">
+            <a href="https://t.me/bleedable" target="_blank" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded flex items-center">
+                <svg class="w-6 h-6 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.008-1.252-.241-1.865-.44-.752-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.178.121.13.145.309.164.472-.001.039.001.127-.007.218z"/>
+                </svg>
+                Open Telegram Profile
+            </a>
+            <a href="https://doxbin.org/user/Harambe713" target="_blank" class="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg flex items-center mt-4 transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
+                <img src="./assets/imgs/dox.jpg" alt="Slit" class="w-8 h-8 rounded-full mr-3">
+                <span class="text-sm">Open Doxbin Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // CS2 App
+        const cs2Icon = document.getElementById('cs2-icon');
+        const cs2App = document.getElementById('cs2-app');
+        const closeCs2App = cs2App.querySelector('.close-app');
+        let cs2TaskbarIcon;
+
+        cs2Icon.addEventListener('click', () => {
+            cs2App.classList.remove('hidden');
+            if (!cs2TaskbarIcon) {
+                cs2TaskbarIcon = createTaskbarIcon('cs2', './assets/imgs/cs2.jpg', 'CS2');
+                taskbarIcons.appendChild(cs2TaskbarIcon);
+            }
+        });
+
+        closeCs2App.addEventListener('click', () => {
+            cs2App.classList.add('hidden');
+            if (cs2TaskbarIcon) {
+                cs2TaskbarIcon.remove();
+                cs2TaskbarIcon = null;
+            }
+        });
+
+        // Jayze App
+        const jayzeIcon = document.getElementById('jayze-icon');
+        const jayzeApp = document.getElementById('jayze-app');
+        const closeJayzeApp = jayzeApp.querySelector('.close-app');
+        let jayzeTaskbarIcon;
+
+        jayzeIcon.addEventListener('click', () => {
+            jayzeApp.classList.remove('hidden');
+            if (!jayzeTaskbarIcon) {
+                jayzeTaskbarIcon = createTaskbarIcon('jayze', './assets/imgs/jayze.jpg', 'Jayze');
+                taskbarIcons.appendChild(jayzeTaskbarIcon);
+            }
+        });
+
+        closeJayzeApp.addEventListener('click', () => {
+            jayzeApp.classList.add('hidden');
+            if (jayzeTaskbarIcon) {
+                jayzeTaskbarIcon.remove();
+                jayzeTaskbarIcon = null;
+            }
+        });
+
+        // Make apps draggable
+        function makeDraggable(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            element.querySelector('.flex.justify-between.items-center').onmousedown = dragMouseDown;
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+
+        makeDraggable(cs2App);
+        makeDraggable(jayzeApp);
+
+        // Function to create taskbar icons
+        const taskbarIcons = document.getElementById('taskbar-icons');
+
+        function createTaskbarIcon(id, imgSrc, altText) {
+            const taskbarIcon = document.createElement('button');
+            taskbarIcon.className = 'taskbar-icon p-1 rounded-md hover:bg-white hover:bg-opacity-10';
+            taskbarIcon.innerHTML = `<img src="${imgSrc}" alt="${altText}" class="w-6 h-6 rounded-full">`;
+            taskbarIcon.addEventListener('click', () => {
+                document.getElementById(`${id}-app`).classList.toggle('hidden');
+            });
+            return taskbarIcon;
+        }
+    </script>
+    
+    <!-- Music Player -->
+    <div id="music-player" class="fixed top-20 left-20 w-[500px] bg-gray-900 bg-opacity-95 backdrop-blur-md rounded-lg shadow-lg overflow-hidden">
+        <div id="player-header" class="cursor-move flex justify-between items-center bg-gray-800 text-white p-2">
+            <h3 class="text-lg font-semibold">Music Player</h3>
+            <div class="flex space-x-2">
+                <button id="minimize-player" class="hover:bg-gray-700 rounded-full p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button id="maximize-player" class="hover:bg-gray-700 rounded-full p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 2v8h10V6H5z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button id="close-player" class="hover:bg-red-600 rounded-full p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="p-4 space-y-4">
+            <div class="flex items-center space-x-4">
+                <img id="song-thumbnail" src="" alt="Song Thumbnail" class="w-24 h-24 rounded-lg shadow-md">
+                <div id="now-playing" class="flex-grow">
+                    <p class="text-sm text-gray-500">Now Playing:</p>
+                    <p id="song-title" class="font-semibold text-lg text-gray-200"></p>
+                    <p id="artist-name" class="text-sm text-gray-500"></p>
+                    <div class="flex items-center justify-end space-x-2">
+                        <svg id="volume-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 transition-all duration-300" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" />
+                        </svg>
+                        <input type="range" id="volume-control" min="0" max="100" value="100" class="w-24 appearance-none bg-gray-700 h-2 rounded-full outline-none slider-thumb">
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center items-center space-x-6">
+                <button id="prev-song" class="text-2xl text-gray-500 hover:text-blue-400 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M8.445 14.832A1 1 0 0010 14v-2.798l5.445 3.63A1 1 0 0017 14V6a1 1 0 00-1.555-.832L10 8.798V6a1 1 0 00-1.555-.832l-6 4a1 1 0 000 1.664l6 4z" />
+                    </svg>
+                </button>
+                <button id="play-pause" class="text-3xl text-blue-400 hover:text-blue-500 transition-colors" onclick="document.getElementById('song-progress').value = 100; this.classList.toggle('playing');">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button id="next-song" class="text-2xl text-gray-500 hover:text-blue-400 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M4.555 5.168A1 1 0 003 6v8a1 1 0 001.555.832L10 11.202V14a1 1 0 001.555.832l6-4a1 1 0 000-1.664l-6-4A1 1 0 0010 6v2.798l-5.445-3.63z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="space-y-2">
+                <input type="range" id="song-progress" min="0" max="100" value="100" class="w-full appearance-none bg-gray-700 h-2 rounded-full outline-none slider-thumb">
+                <div class="flex justify-between text-xs text-gray-500">
+                    <span id="current-time">0:00</span>
+                    <span id="total-time">0:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wall of Shame App -->
+    <div id="wos-app" class="wos-app fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-gray-900 rounded-lg shadow-lg overflow-hidden hidden">
+        <div id="wos-header" class="cursor-move flex justify-between items-center bg-gray-800 text-white p-2">
+            <div class="flex items-center space-x-2">
+                <img src="./assets/imgs/folder.png" alt="Folder" class="w-5 h-5">
+                <h3 class="text-lg font-semibold"></h3>
+            </div>
+            <div class="flex space-x-2">
+                <button id="minimize-wos" class="hover:bg-gray-700 rounded-full p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button id="maximize-wos" class="hover:bg-gray-700 rounded-full p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 2v8h10V6H5z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button id="close-wos" class="hover:bg-red-600 rounded-full p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Wall of shame content -->
+        <div class="flex h-[calc(100%-2.5rem)]">
+            <div class="w-1/4 bg-gray-800 p-4 border-r border-gray-700">
+                <div class="flex items-center space-x-2 mb-4">
+                    <img src="./assets/imgs/skull.png" alt="Quick access" class="w-5 h-5">
+                    <span class="text-sm font-semibold text-white">Quick access</span>
+                </div>
+                <button id="pedo1-btn" class="flex items-center space-x-2 mb-2 text-sm text-gray-300 hover:bg-gray-700 p-1 rounded w-full">
+                    <img src="./assets/imgs/kevin.jpg" alt="Desktop" class="w-4 h-4">
+                    <span>Ray</span>
+                </button>
+                <!--<button id="pedo2-btn" class="flex items-center space-x-2 mb-2 text-sm text-gray-300 hover:bg-gray-700 p-1 rounded w-full">
+                    <img src="./assets/imgs/andrew.png" alt="Desktop" class="w-4 h-4">
+                    <span>andrew</span>
+                </button>
+                <!-- <button id="pedo2-btn" class="flex items-center space-x-2 mb-2 text-sm text-gray-300 hover:bg-gray-700 p-1 rounded w-full">
+                    <img src="./assets/imgs/downloads.png" alt="Downloads" class="w-4 h-4">
+                    <span>Pedo2.exe</span>
+                </button>
+                 -->
+            </div>
+            <!-- Content inside buttons-->
+            <div class="w-3/4 p-4 overflow-y-scroll bg-gray-900">
+                <h2 class="text-xl font-bold text-white mb-4">Wall of Shame</h2>
+                <!-- remember change ids -->
+                <div id="pedo1-content" class="hidden flex flex-col items-center justify-center">
+                    <h1 class="text-2xl font-bold text-white mb-4 font-['VT323']">Ray</h1>
+                    <img src="./assets/imgs/kevin.jpg" alt="Pedo1" class="mb-4 rounded h-[200px] w-[200px]">
+                    <ul class="text-gray-300 text-center font-['VT323']">
+                        <li>Ray aka beingbetrayed, cutslut, whore comslut that grooms little boys</li>
+                        <li>Big mouth</li>
+                        <li>Larps being asian</li>
+                        <li>Gets cucked by femboys.</li>
+                        <li>Disowned by own family publicly.</li>
+                    </ul>
+                </div>
+                <!--div id="pedo2-content" class="hidden flex flex-col items-center justify-center">
+                    <h1 class="text-2xl font-bold text-white mb-4 font-['VT323']">Andrew Sillman</h1>
+                    <img src="./assets/imgs/andrew.png" alt="Pedo2" class="mb-4 rounded h-[200px] w-[200px]">
+                    <ul class="text-gray-300 text-center font-['VT323']">
+                        <li>Engages in extortions</li>
+                        <li>Acts harmful to manipulate little girls</li>
+                        <li>Threatens to killhim self if the girl doesnt make "content"</li>
+                        <li>Cross dresser/ femboy</li>
+                    </ul>
+                </div>
+                <!-- 
+                <div id="pedo2-content" class="hidden flex flex-col items-center justify-center">
+                    <h1 class="text-2xl font-bold text-white mb-4 font-['VT323']">Name of pedo</h1>
+                    <img src="./assets/imgs/skull.png" alt="Pedo1" class="mb-4 rounded h-[200px] w-[200px]">
+                    <p class="text-gray-300 text-center font-['VT323']">Content for Pedo1.exe goes here.</p>
+                </div>
+                 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pedo1Btn = document.getElementById('pedo1-btn');
+            //const pedo2Btn = document.getElementById('pedo2-btn');
+            const pedo1Content = document.getElementById('pedo1-content');
+            //const pedo2Content = document.getElementById('pedo2-content');
+
+            function showContent(contentToShow) {
+                // put pedo2 after pedo1Content,
+                [pedo1Content].forEach(content => {
+                    content.classList.add('hidden');
+                });
+                contentToShow.classList.remove('hidden');
+            }
+
+            pedo1Btn.addEventListener('click', () => showContent(pedo1Content));
+            //pedo2Btn.addEventListener('click', () => showContent(pedo2Content));
+        });
+    </script>
+</body>
+</html>
+
+
