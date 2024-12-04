@@ -1,1 +1,1 @@
-proxythegod1234.hithub.io
+proxythegod1234.github.io
