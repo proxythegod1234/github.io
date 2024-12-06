@@ -1,146 +1,296 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="referrer" content="no-referrer">
-    <meta name="X-Content-Type-Options" content="nosniff">
-    <title>Proxy</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-    <link href="silenced_files/css2.css" rel="stylesheet">
-    <script src="silenced_files/3.4.15"></script>
+    <title>Firework Sparkler Cursor Effect</title>
     <style>
         @import url("https://fonts.googleapis.com/css?family=VT323");
+
+        body {
+            font-family: "VT323", monospace;
+            margin: 0;
+            padding: 0;
+            background: black;
+            color: white;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            cursor: default; /* Ensure the default cursor is visible */
+        }
+
+        /* Snowflake animation */
+        .snowflake {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            pointer-events: none;
+            visibility: hidden; /* Initially hide the snowflakes */
+            z-index: -1; /* Ensures snowflakes stay behind the content */
+            animation: fall linear infinite, drift linear infinite;
+        }
+
+        /* Falling animation */
+        @keyframes fall {
+            0% {
+                top: -50px;
+                visibility: visible;
+                opacity: 1;
+            }
+            100% {
+                top: 100vh; /* Move to the bottom of the screen */
+                opacity: 0.6;
+            }
+        }
+
+        /* Horizontal drift animation */
+        @keyframes drift {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(10px * var(--drift))); /* Drift horizontally */
+            }
+        }
+
+        /* Overlay Styles */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        /* Hidden class for the overlay after click */
+        #overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Main Content */
+        .content {
+            display: none;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Button Styles */
+        .button-container {
+            display: flex;
+            gap: 12px;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            background-color: #7a1910;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #9a2a2a;
+            transform: scale(1.05);
+        }
+
+        .image-container img {
+            max-width: 150px;
+            border-radius: 10px;
+            transform: translateY(-20px);
+        }
+
+        /* Swing Animation for Image */
+        .swing-animation {
+            animation: swing 4s infinite ease-in-out;
+        }
+
         @keyframes swing {
             0% { transform: rotate(-1deg); }
             50% { transform: rotate(3deg); }
             100% { transform: rotate(-1deg); }
         }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
+
+        /* Firework Sparkler Effect */
+        .spark {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #00ccff; /* Blue color for the sparks */
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 1;
+            animation: firework-animation 0.6s ease-out forwards;
+        }
+
+        @keyframes firework-animation {
+            0% {
+                transform: scale(0) translate(0, 0);
                 opacity: 1;
-                transform: translateY(0);
+            }
+            100% {
+                transform: scale(1.5) translate(var(--x), var(--y)); /* Spread particles outward */
+                opacity: 0;
             }
         }
-        @keyframes glow {
-            0% { text-shadow: 0 0 5px #7a1910; }
-            50% { text-shadow: 0 0 20px #7a1910; }
-            100% { text-shadow: 0 0 5px #7a1910; }
-        }
-        .swing-animation {
-            animation: swing 4s infinite ease-in-out;
-        }
-        .glow-effect:hover {
-            animation: glow 2s infinite;
-        }
-        body {
-            font-family: "VT323", monospace;
-            overflow-x: hidden; /* Ensures no horizontal scroll */
-            margin: 0;
-            padding: 0;
-            user-select: none;  /* Prevent text selection */
-        }
-        #overlay {
-            z-index: 100;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 1.5em;
-            cursor: pointer;
-            transition: opacity 0.5s ease;
-        }
-        .button {
-            background-color: #7a1910;
-            color: black;  /* Button text color */
-            font-weight: bold;
-            padding: 10px 20px;  /* Adjusted for better spacing */
-            border-radius: 8px;
-            text-transform: uppercase;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
-        }
-        .button:hover {
-            background-color: #9a2a2a;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            transform: scale(1.05);
-        }
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;  /* Reduced gap between buttons */
-            margin-top: -10px;  /* Adjusted to bring buttons closer to the image */
-        }
-        .image-container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            padding: 8px;
-        }
-        img {
-            -webkit-user-drag: none;
-            -moz-user-drag: none;
-            user-drag: none;  /* Prevent dragging of image */
-        }
-        /* Prevent Right-Click */
-        body {
-            -webkit-touch-callout: none; /* Disable callout on touch devices */
-            -webkit-user-select: none;   /* Prevent text selection in Webkit browsers */
-            -moz-user-select: none;      /* Prevent text selection in Firefox */
-            -ms-user-select: none;       /* Prevent text selection in IE/Edge */
-        }
+
     </style>
-<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.15 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.z-10{z-index:10}.-mt-10{margin-top:-2.5rem}.mb-8{margin-bottom:2rem}.flex{display:flex}.min-h-screen{min-height:100vh}.max-w-md{max-width:28rem}.flex-col{flex-direction:column}.items-center{align-items:center}.rounded-lg{border-radius:0.5rem}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}</style></head>
-<body class="bg-black min-h-screen flex flex-col items-center">
+</head>
+<body>
 
-    <!-- Overlay Section -->
-    <div id="overlay" onclick="playMusicAndHideOverlay()" style="opacity: 0; display: none;">
-        Click to Enter
-    </div>
+<!-- Snowflakes will be generated dynamically after entering the site -->
 
-    <!-- Main Image -->
+<!-- Overlay Section -->
+<div id="overlay" onclick="playMusicAndHideOverlay()">
+    Click to Enter
+</div>
+
+<!-- Main Content -->
+<div class="content">
     <div class="image-container">
-        <img src="https://r2.drifloons.us/main.jpg" alt="Main Image" class="swing-animation max-w-md rounded-lg shadow-2xl mb-8 z-10 -mt-10" width="150" draggable="false">
+        <img src="https://r2.drifloons.us/main.jpg" alt="Main Image" class="swing-animation">
     </div>
-
-    <!-- Buttons Section -->
     <div class="button-container">
-        <div class="button">
-            <a href="https://t.me/bleedable" target="_blank" rel="noopener noreferrer">Proxy</a>
-        </div>
-        <div class="button">
-            <a href="https://doxbin.org/hoa">Hall of Autism</a>
-        </div>
+        <a class="button" href="https://t.me/bleedable" target="_blank" rel="noopener noreferrer">Proxy</a>
+        <a class="button" href="https://doxbin.org/hoa">Hall of Autism</a>
     </div>
+</div>
 
 <!-- Background Music -->
-<audio id="my_audio" src="https://files.catbox.moe/68sp85.mp3" loop="loop" autoplay></audio>
+<audio id="my_audio" src="https://files.catbox.moe/68sp85.mp3" loop></audio>
 
-<!-- JavaScript for Overlay and Music -->
 <script>
-    // Lower the volume to 50% (0.5)
-    document.getElementById("my_audio").volume = 0.3;
+    const snowflakeContainer = document.body; // Snowflakes will be appended to the body
+    let snowflakes = []; // Array to store snowflakes
+
+    function createSnowflake() {
+        const snowflake = document.createElement('div');
+        snowflake.classList.add('snowflake');
+        
+        // Randomize size, position, and animation speed of the snowflakes
+        const size = Math.random() * 5 + 2; // Random size between 2px and 7px
+        const leftPosition = Math.random() * 100; // Random left position
+        const animationDuration = Math.random() * 3 + 3; // Faster duration (3s to 6s)
+        const animationDelay = Math.random() * 3; // Random delay between 0s and 3s
+        const driftDirection = Math.random() > 0.5 ? 1 : -1; // Random direction for horizontal drift
+        
+        // Apply random styles
+        snowflake.style.width = `${size}px`;
+        snowflake.style.height = `${size}px`;
+        snowflake.style.left = `${leftPosition}%`;
+        snowflake.style.animationDuration = `${animationDuration}s`;
+        snowflake.style.animationDelay = `${animationDelay}s`;
+        snowflake.style.setProperty('--drift', driftDirection); // Set random drift direction
+
+        // Add snowflake to the container
+        snowflakeContainer.appendChild(snowflake);
+        
+        // Store snowflake in array for potential future removal
+        snowflakes.push(snowflake);
+
+        // Remove snowflake after it falls off screen
+        setTimeout(() => {
+            snowflake.remove();
+            snowflakes = snowflakes.filter(s => s !== snowflake); // Remove from the array as well
+        }, animationDuration * 1000);
+    }
+
+    // Show the snowflakes immediately once the user clicks to enter
+    function showSnowflakes() {
+        setInterval(() => {
+            createSnowflake();
+        }, 100); // Create a new snowflake every 100ms
+    }
+
+    const overlay = document.getElementById("overlay");
+    const content = document.querySelector(".content");
+    const audio = document.getElementById("my_audio");
+
+    audio.volume = 0.3; // Set audio volume to 30%
 
     function playMusicAndHideOverlay() {
-        document.getElementById("my_audio").play();
-        document.getElementById("overlay").style.opacity = '0';
+        // Play the background music
+        audio.play();
+
+        // Hide the overlay with animation
+        overlay.classList.add("hidden");
+
+        // Show the main content after the overlay disappears
         setTimeout(() => {
-            document.getElementById("overlay").style.display = 'none';
-        }, 500);
+            overlay.style.display = "none";
+            content.style.display = "block";
+            showSnowflakes(); // Start creating snowflakes immediately after the overlay is gone
+        }, 500); // Match this with CSS transition duration
+    }
+
+    // Firework Sparkler Effect
+    document.body.addEventListener('mousemove', function(event) {
+        createSpark(event.clientX, event.clientY);
+    });
+
+    // Function to create a firework spark effect at the cursor position
+    function createSpark(x, y) {
+        const numSparks = 10; // Reduced number of sparks for each mouse move
+        for (let i = 0; i < numSparks; i++) {
+            const spark = document.createElement('div');
+            spark.classList.add('spark');
+            
+            // Randomize the direction and distance of each spark
+            const angle = Math.random() * 360;
+            const distance = Math.random() * 100 + 50;  // Random distance of the sparks
+            const duration = Math.random() * 0.6 + 0.4;  // Duration for each spark
+
+            // Set the position and direction of the spark
+            spark.style.left = `${x - 5}px`;  // Position it around the cursor
+            spark.style.top = `${y - 5}px`;
+            spark.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
+            spark.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
+            spark.style.animationDuration = `${duration}s`;
+
+            // Append the spark to the body
+            document.body.appendChild(spark);
+
+            // Remove the spark after the animation ends
+            setTimeout(() => {
+                spark.remove();
+            }, duration * 1000);  // Remove after the spark's duration
+        }
     }
 </script>
+
+</body>
+</html>
