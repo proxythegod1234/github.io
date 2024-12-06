@@ -20,22 +20,22 @@
             align-items: center;
             min-height: 100vh;
             position: relative;
-            cursor: default; /* Ensure the default cursor is visible */
+            cursor: default;
         }
 
-        /* Snowflake animation */
+
         .snowflake {
             position: absolute;
             background-color: white;
             border-radius: 50%;
             opacity: 0.8;
             pointer-events: none;
-            visibility: hidden; /* Initially hide the snowflakes */
-            z-index: -1; /* Ensures snowflakes stay behind the content */
+            visibility: hidden;
+            z-index: -1;
             animation: fall linear infinite, drift linear infinite;
         }
 
-        /* Falling animation */
+
         @keyframes fall {
             0% {
                 top: -50px;
@@ -43,22 +43,22 @@
                 opacity: 1;
             }
             100% {
-                top: 100vh; /* Move to the bottom of the screen */
+                top: 100vh;
                 opacity: 0.6;
             }
         }
 
-        /* Horizontal drift animation */
+
         @keyframes drift {
             0% {
                 transform: translateX(0);
             }
             100% {
-                transform: translateX(calc(10px * var(--drift))); /* Drift horizontally */
+                transform: translateX(calc(10px * var(--drift)));
             }
         }
 
-        /* Overlay Styles */
+
         #overlay {
             position: fixed;
             top: 0;
@@ -76,13 +76,13 @@
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
-        /* Hidden class for the overlay after click */
+
         #overlay.hidden {
             opacity: 0;
             pointer-events: none;
         }
 
-        /* Main Content */
+ 
         .content {
             display: none;
             opacity: 0;
@@ -102,7 +102,7 @@
             }
         }
 
-        /* Button Styles */
+
         .button-container {
             display: flex;
             gap: 12px;
@@ -134,7 +134,7 @@
             transform: translateY(-20px);
         }
 
-        /* Swing Animation for Image */
+
         .swing-animation {
             animation: swing 4s infinite ease-in-out;
         }
@@ -145,12 +145,12 @@
             100% { transform: rotate(-1deg); }
         }
 
-        /* Firework Sparkler Effect */
+
         .spark {
             position: absolute;
             width: 8px;
             height: 8px;
-            background-color: #00ccff; /* Blue color for the sparks */
+            background-color: #00ccff;
             border-radius: 50%;
             pointer-events: none;
             opacity: 1;
@@ -163,7 +163,7 @@
                 opacity: 1;
             }
             100% {
-                transform: scale(1.5) translate(var(--x), var(--y)); /* Spread particles outward */
+                transform: scale(1.5) translate(var(--x), var(--y));
                 opacity: 0;
             }
         }
@@ -172,14 +172,14 @@
 </head>
 <body>
 
-<!-- Snowflakes will be generated dynamically after entering the site -->
 
-<!-- Overlay Section -->
+
+
 <div id="overlay" onclick="playMusicAndHideOverlay()">
     Click to Enter
 </div>
 
-<!-- Main Content -->
+
 <div class="content">
     <div class="image-container">
         <img src="https://r2.drifloons.us/main.jpg" alt="Main Image" class="swing-animation">
@@ -190,104 +190,104 @@
     </div>
 </div>
 
-<!-- Background Music -->
+
 <audio id="my_audio" src="https://files.catbox.moe/68sp85.mp3" loop></audio>
 
 <script>
-    const snowflakeContainer = document.body; // Snowflakes will be appended to the body
-    let snowflakes = []; // Array to store snowflakes
+    const snowflakeContainer = document.body;
+    let snowflakes = [];
 
     function createSnowflake() {
         const snowflake = document.createElement('div');
         snowflake.classList.add('snowflake');
         
-        // Randomize size, position, and animation speed of the snowflakes
-        const size = Math.random() * 5 + 2; // Random size between 2px and 7px
-        const leftPosition = Math.random() * 100; // Random left position
-        const animationDuration = Math.random() * 3 + 3; // Faster duration (3s to 6s)
-        const animationDelay = Math.random() * 3; // Random delay between 0s and 3s
-        const driftDirection = Math.random() > 0.5 ? 1 : -1; // Random direction for horizontal drift
+
+        const size = Math.random() * 5 + 2;
+        const leftPosition = Math.random() * 100;
+        const animationDuration = Math.random() * 3 + 3;
+        const animationDelay = Math.random() * 3;
+        const driftDirection = Math.random() > 0.5 ? 1 : -1;
         
-        // Apply random styles
+
         snowflake.style.width = `${size}px`;
         snowflake.style.height = `${size}px`;
         snowflake.style.left = `${leftPosition}%`;
         snowflake.style.animationDuration = `${animationDuration}s`;
         snowflake.style.animationDelay = `${animationDelay}s`;
-        snowflake.style.setProperty('--drift', driftDirection); // Set random drift direction
+        snowflake.style.setProperty('--drift', driftDirection);
 
-        // Add snowflake to the container
+
         snowflakeContainer.appendChild(snowflake);
         
-        // Store snowflake in array for potential future removal
+
         snowflakes.push(snowflake);
 
-        // Remove snowflake after it falls off screen
+
         setTimeout(() => {
             snowflake.remove();
-            snowflakes = snowflakes.filter(s => s !== snowflake); // Remove from the array as well
+            snowflakes = snowflakes.filter(s => s !== snowflake);
         }, animationDuration * 1000);
     }
 
-    // Show the snowflakes immediately once the user clicks to enter
+
     function showSnowflakes() {
         setInterval(() => {
             createSnowflake();
-        }, 100); // Create a new snowflake every 100ms
+        }, 100);
     }
 
     const overlay = document.getElementById("overlay");
     const content = document.querySelector(".content");
     const audio = document.getElementById("my_audio");
 
-    audio.volume = 0.3; // Set audio volume to 30%
+    audio.volume = 0.3;
 
     function playMusicAndHideOverlay() {
-        // Play the background music
+
         audio.play();
 
-        // Hide the overlay with animation
+
         overlay.classList.add("hidden");
 
-        // Show the main content after the overlay disappears
+
         setTimeout(() => {
             overlay.style.display = "none";
             content.style.display = "block";
-            showSnowflakes(); // Start creating snowflakes immediately after the overlay is gone
-        }, 500); // Match this with CSS transition duration
+            showSnowflakes();
+        }, 500);
     }
 
-    // Firework Sparkler Effect
+
     document.body.addEventListener('mousemove', function(event) {
         createSpark(event.clientX, event.clientY);
     });
 
-    // Function to create a firework spark effect at the cursor position
+
     function createSpark(x, y) {
-        const numSparks = 10; // Reduced number of sparks for each mouse move
+        const numSparks = 10;
         for (let i = 0; i < numSparks; i++) {
             const spark = document.createElement('div');
             spark.classList.add('spark');
             
-            // Randomize the direction and distance of each spark
-            const angle = Math.random() * 360;
-            const distance = Math.random() * 100 + 50;  // Random distance of the sparks
-            const duration = Math.random() * 0.6 + 0.4;  // Duration for each spark
 
-            // Set the position and direction of the spark
-            spark.style.left = `${x - 5}px`;  // Position it around the cursor
+            const angle = Math.random() * 360;
+            const distance = Math.random() * 100 + 50;
+            const duration = Math.random() * 0.6 + 0.4;
+
+
+            spark.style.left = `${x - 5}px`;
             spark.style.top = `${y - 5}px`;
             spark.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
             spark.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
             spark.style.animationDuration = `${duration}s`;
 
-            // Append the spark to the body
+
             document.body.appendChild(spark);
 
-            // Remove the spark after the animation ends
+
             setTimeout(() => {
                 spark.remove();
-            }, duration * 1000);  // Remove after the spark's duration
+            }, duration * 1000);
         }
     }
 </script>
