@@ -23,7 +23,6 @@
             cursor: default;
         }
 
-
         .snowflake {
             position: absolute;
             background-color: white;
@@ -34,7 +33,6 @@
             z-index: -1;
             animation: fall linear infinite, drift linear infinite;
         }
-
 
         @keyframes fall {
             0% {
@@ -48,7 +46,6 @@
             }
         }
 
-
         @keyframes drift {
             0% {
                 transform: translateX(0);
@@ -57,7 +54,6 @@
                 transform: translateX(calc(10px * var(--drift)));
             }
         }
-
 
         #overlay {
             position: fixed;
@@ -76,13 +72,11 @@
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
-
         #overlay.hidden {
             opacity: 0;
             pointer-events: none;
         }
 
- 
         .content {
             display: none;
             opacity: 0;
@@ -101,7 +95,6 @@
                 opacity: 1;
             }
         }
-
 
         .button-container {
             display: flex;
@@ -134,7 +127,6 @@
             transform: translateY(-20px);
         }
 
-
         .swing-animation {
             animation: swing 4s infinite ease-in-out;
         }
@@ -145,16 +137,15 @@
             100% { transform: rotate(-1deg); }
         }
 
-
         .spark {
             position: absolute;
-            width: 8px;
-            height: 8px;
-            background-color: #00ccff;
+            width: 4px;
+            height: 4px;
+            background-color: rgba(0, 204, 255, 0.6);
             border-radius: 50%;
             pointer-events: none;
             opacity: 1;
-            animation: firework-animation 0.6s ease-out forwards;
+            animation: firework-animation 0.4s ease-out forwards;
         }
 
         @keyframes firework-animation {
@@ -167,18 +158,13 @@
                 opacity: 0;
             }
         }
-
     </style>
 </head>
 <body>
 
-
-
-
 <div id="overlay" onclick="playMusicAndHideOverlay()">
     Click to Enter
 </div>
-
 
 <div class="content">
     <div class="image-container">
@@ -190,7 +176,6 @@
     </div>
 </div>
 
-
 <audio id="my_audio" src="https://files.catbox.moe/68sp85.mp3" loop></audio>
 
 <script>
@@ -200,14 +185,12 @@
     function createSnowflake() {
         const snowflake = document.createElement('div');
         snowflake.classList.add('snowflake');
-        
 
         const size = Math.random() * 5 + 2;
         const leftPosition = Math.random() * 100;
         const animationDuration = Math.random() * 3 + 3;
         const animationDelay = Math.random() * 3;
         const driftDirection = Math.random() > 0.5 ? 1 : -1;
-        
 
         snowflake.style.width = `${size}px`;
         snowflake.style.height = `${size}px`;
@@ -216,19 +199,15 @@
         snowflake.style.animationDelay = `${animationDelay}s`;
         snowflake.style.setProperty('--drift', driftDirection);
 
-
         snowflakeContainer.appendChild(snowflake);
-        
 
         snowflakes.push(snowflake);
-
 
         setTimeout(() => {
             snowflake.remove();
             snowflakes = snowflakes.filter(s => s !== snowflake);
         }, animationDuration * 1000);
     }
-
 
     function showSnowflakes() {
         setInterval(() => {
@@ -243,12 +222,8 @@
     audio.volume = 0.3;
 
     function playMusicAndHideOverlay() {
-
         audio.play();
-
-
         overlay.classList.add("hidden");
-
 
         setTimeout(() => {
             overlay.style.display = "none";
@@ -257,23 +232,19 @@
         }, 500);
     }
 
-
     document.body.addEventListener('mousemove', function(event) {
         createSpark(event.clientX, event.clientY);
     });
 
-
     function createSpark(x, y) {
-        const numSparks = 10;
+        const numSparks = 5;
         for (let i = 0; i < numSparks; i++) {
             const spark = document.createElement('div');
             spark.classList.add('spark');
-            
 
             const angle = Math.random() * 360;
-            const distance = Math.random() * 100 + 50;
-            const duration = Math.random() * 0.6 + 0.4;
-
+            const distance = Math.random() * 50 + 20;
+            const duration = Math.random() * 0.4 + 0.2;
 
             spark.style.left = `${x - 5}px`;
             spark.style.top = `${y - 5}px`;
@@ -281,9 +252,7 @@
             spark.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
             spark.style.animationDuration = `${duration}s`;
 
-
             document.body.appendChild(spark);
-
 
             setTimeout(() => {
                 spark.remove();
