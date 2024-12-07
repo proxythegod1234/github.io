@@ -23,14 +23,15 @@
             cursor: default;
         }
 
+      
         .snowflake {
-            position: absolute;
+            position: fixed;
+            top: -50px;
             background-color: white;
             border-radius: 50%;
             opacity: 0.8;
             pointer-events: none;
-            visibility: hidden;
-            z-index: -1;
+            z-index: -9999; 
             animation: fall linear infinite, drift linear infinite;
         }
 
@@ -61,7 +62,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: black; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -113,18 +114,13 @@
             text-transform: uppercase;
             text-align: center;
             text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            transform: perspective(1000px);
+            transition: transform 0.1s ease-out;
         }
 
         .button:hover {
             background-color: #9a2a2a;
             transform: scale(1.05);
-        }
-
-        .image-container img {
-            max-width: 150px;
-            border-radius: 10px;
-            transform: translateY(-20px);
         }
 
         .swing-animation {
@@ -158,6 +154,22 @@
                 opacity: 0;
             }
         }
+
+    
+        .ascii-animation {
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            transform: translateX(-100%) translateY(-50%);
+            font-family: monospace;
+            font-size: 20px;
+            color: lightblue;
+            text-align: left;
+            white-space: pre;
+            z-index: 2000;
+            visibility: hidden;
+        }
+
     </style>
 </head>
 <body>
@@ -167,14 +179,14 @@
 </div>
 
 <div class="content">
-    <div class="image-container">
-        <img src="https://r2.drifloons.us/main.jpg" alt="Main Image" class="swing-animation">
-    </div>
     <div class="button-container">
         <a class="button" href="https://t.me/bleedable" target="_blank" rel="noopener noreferrer">Proxy</a>
         <a class="button" href="https://doxbin.org/hoa">Hall of Autism</a>
     </div>
 </div>
+
+
+<script src="http://www.qqpr.com/ascii/js/1095.js"></script>
 
 <audio id="my_audio" src="https://files.catbox.moe/68sp85.mp3" loop></audio>
 
@@ -228,8 +240,15 @@
         setTimeout(() => {
             overlay.style.display = "none";
             content.style.display = "block";
-            showSnowflakes();
+            showSnowflakes()
+            showAsciiCube();
         }, 500);
+    }
+
+
+    function showAsciiCube() {
+        const asciiArt = document.querySelector('.ascii-animation');
+        asciiArt.style.visibility = "visible";
     }
 
     document.body.addEventListener('mousemove', function(event) {
@@ -259,6 +278,32 @@
             }, duration * 1000);
         }
     }
+
+
+    const buttons = document.querySelectorAll('.button');
+
+    buttons.forEach(button => {
+        button.addEventListener('mousemove', (event) => {
+            const buttonRect = button.getBoundingClientRect();
+            const centerX = buttonRect.left + buttonRect.width / 2;
+            const centerY = buttonRect.top + buttonRect.height / 2;
+            const deltaX = event.clientX - centerX;
+            const deltaY = event.clientY - centerY;
+
+            const strength = 25;
+
+     
+            const rotateX = (deltaY / buttonRect.height) * strength;
+            const rotateY = (deltaX / buttonRect.width) * strength;
+
+         
+            button.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        button.addEventListener('mouseleave', () => {
+            button.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+        });
+    });
 </script>
 
 </body>
