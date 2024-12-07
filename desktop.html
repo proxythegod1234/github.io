@@ -23,14 +23,15 @@
             cursor: default;
         }
 
+        /* Snowflakes Styling */
         .snowflake {
-            position: absolute;
+            position: fixed;
+            top: -50px; /* Start from above the screen */
             background-color: white;
             border-radius: 50%;
             opacity: 0.8;
             pointer-events: none;
-            visibility: hidden;
-            z-index: -1;
+            z-index: -9999; /* Ensure snowflakes are behind other content */
             animation: fall linear infinite, drift linear infinite;
         }
 
@@ -41,7 +42,7 @@
                 opacity: 1;
             }
             100% {
-                top: 100vh;
+                top: 100vh; /* Fall to the bottom of the screen */
                 opacity: 0.6;
             }
         }
@@ -159,6 +160,30 @@
                 opacity: 0;
             }
         }
+
+        /* Spinning ASCII Cube */
+        .ascii-animation {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-family: monospace;
+            font-size: 20px;
+            color: lightblue;
+            text-align: left;
+            white-space: pre;
+            animation: spinCube 3s infinite linear;
+            z-index: 2000;
+            visibility: hidden; /* Initially hidden */
+        }
+
+        @keyframes spinCube {
+            0% { transform: rotateY(0deg) rotateX(0deg); }
+            25% { transform: rotateY(90deg) rotateX(0deg); }
+            50% { transform: rotateY(90deg) rotateX(90deg); }
+            75% { transform: rotateY(0deg) rotateX(90deg); }
+            100% { transform: rotateY(0deg) rotateX(0deg); }
+        }
+
     </style>
 </head>
 <body>
@@ -176,6 +201,9 @@
         <a class="button" href="https://doxbin.org/hoa">Hall of Autism</a>
     </div>
 </div>
+
+<!-- External ASCII Art Script -->
+<script src="http://www.qqpr.com/ascii/js/1095.js"></script>
 
 <audio id="my_audio" src="https://files.catbox.moe/68sp85.mp3" loop></audio>
 
@@ -229,8 +257,15 @@
         setTimeout(() => {
             overlay.style.display = "none";
             content.style.display = "block";
-            showSnowflakes();
+            showSnowflakes(); // Start snowflakes after Enter is clicked
+            showAsciiCube();  // Show ASCII art after Enter
         }, 500);
+    }
+
+    // Make the ASCII art visible when Enter is clicked
+    function showAsciiCube() {
+        const asciiArt = document.querySelector('.ascii-animation');
+        asciiArt.style.visibility = "visible"; // Show the ASCII art
     }
 
     document.body.addEventListener('mousemove', function(event) {
