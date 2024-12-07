@@ -16,14 +16,14 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
             position: relative;
             cursor: default;
         }
 
-      
+        /* Snowflakes */
         .snowflake {
             position: fixed;
             top: -50px;
@@ -31,7 +31,7 @@
             border-radius: 50%;
             opacity: 0.8;
             pointer-events: none;
-            z-index: -9999; 
+            z-index: -9999;
             animation: fall linear infinite, drift linear infinite;
         }
 
@@ -56,19 +56,20 @@
             }
         }
 
+        /* Overlay */
         #overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: black; 
+            background: black;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
             color: white;
-            font-size: 1.5em;
+            font-size: 2rem;
             cursor: pointer;
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
@@ -78,13 +79,13 @@
             pointer-events: none;
         }
 
+        /* Content */
         .content {
             display: none;
             opacity: 0;
             animation: fadeIn 1s ease forwards;
             width: 100%;
             max-width: 600px;
-            margin-top: 10px;
             text-align: center;
         }
 
@@ -97,11 +98,12 @@
             }
         }
 
+        /* Button Container */
         .button-container {
             display: flex;
-            gap: 12px;
             flex-direction: column;
             align-items: center;
+            gap: 12px;
             margin-top: 20px;
         }
 
@@ -123,16 +125,7 @@
             transform: scale(1.05);
         }
 
-        .swing-animation {
-            animation: swing 4s infinite ease-in-out;
-        }
-
-        @keyframes swing {
-            0% { transform: rotate(-1deg); }
-            50% { transform: rotate(3deg); }
-            100% { transform: rotate(-1deg); }
-        }
-
+        /* Spark Effects */
         .spark {
             position: absolute;
             width: 4px;
@@ -155,19 +148,64 @@
             }
         }
 
-    
-        .ascii-animation {
-            position: absolute;
-            top: 50%;
-            left: 100%;
-            transform: translateX(-100%) translateY(-50%);
-            font-family: monospace;
-            font-size: 20px;
-            color: lightblue;
-            text-align: left;
-            white-space: pre;
-            z-index: 2000;
-            visibility: hidden;
+        /* Circle Profile */
+        .profile-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #ff6347;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Image inside the profile */
+        .profile-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Adjustments for responsiveness */
+        @media (max-width: 768px) {
+            #overlay {
+                font-size: 1.5rem;
+            }
+
+            .button {
+                font-size: 1.2rem;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .button-container {
+                gap: 8px;
+            }
+
+            .button {
+                font-size: 1rem;
+                padding: 6px 12px;
+            }
         }
 
     </style>
@@ -180,11 +218,14 @@
 
 <div class="content">
     <div class="button-container">
+        <!-- Profile Circle with an image -->
+        <div class="profile-circle">
+            <img src="https://r2.drifloons.us/d8dccac3731c0e228c4583c80faa4121.gif" alt="Profile Picture">
+        </div>
         <a class="button" href="https://t.me/bleedable" target="_blank" rel="noopener noreferrer">Proxy</a>
         <a class="button" href="https://doxbin.org/hoa">Hall of Autism</a>
     </div>
 </div>
-
 
 <script src="http://www.qqpr.com/ascii/js/1095.js"></script>
 
@@ -240,11 +281,10 @@
         setTimeout(() => {
             overlay.style.display = "none";
             content.style.display = "block";
-            showSnowflakes()
+            showSnowflakes();
             showAsciiCube();
         }, 500);
     }
-
 
     function showAsciiCube() {
         const asciiArt = document.querySelector('.ascii-animation');
@@ -279,7 +319,6 @@
         }
     }
 
-
     const buttons = document.querySelectorAll('.button');
 
     buttons.forEach(button => {
@@ -292,11 +331,9 @@
 
             const strength = 25;
 
-     
             const rotateX = (deltaY / buttonRect.height) * strength;
             const rotateY = (deltaX / buttonRect.width) * strength;
 
-         
             button.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });
 
