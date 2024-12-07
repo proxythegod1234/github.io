@@ -7,6 +7,7 @@
     <style>
         @import url("https://fonts.googleapis.com/css?family=VT323");
 
+        /* General Styles */
         body {
             font-family: "VT323", monospace;
             margin: 0;
@@ -36,24 +37,13 @@
         }
 
         @keyframes fall {
-            0% {
-                top: -50px;
-                visibility: visible;
-                opacity: 1;
-            }
-            100% {
-                top: 100vh;
-                opacity: 0.6;
-            }
+            0% { top: -50px; opacity: 1; }
+            100% { top: 100vh; opacity: 0.6; }
         }
 
         @keyframes drift {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(calc(10px * var(--drift)));
-            }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(10px * var(--drift))); }
         }
 
         /* Overlay */
@@ -79,26 +69,41 @@
             pointer-events: none;
         }
 
-        /* Content */
+        /* Content Section */
         .content {
             display: none;
             opacity: 0;
             animation: fadeIn 1s ease forwards;
-            width: 100%;
+            width: 90%;
             max-width: 600px;
             text-align: center;
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        /* Button Container */
+        /* Profile Circle */
+        .profile-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #ff6347;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .profile-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Buttons */
         .button-container {
             display: flex;
             flex-direction: column;
@@ -114,10 +119,8 @@
             padding: 10px 20px;
             border-radius: 8px;
             text-transform: uppercase;
-            text-align: center;
             text-decoration: none;
-            transform: perspective(1000px);
-            transition: transform 0.1s ease-out;
+            transition: transform 0.1s ease-out, background-color 0.3s ease;
         }
 
         .button:hover {
@@ -125,70 +128,23 @@
             transform: scale(1.05);
         }
 
-        /* Spark Effects */
-        .spark {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background-color: rgba(0, 204, 255, 0.6);
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 1;
-            animation: firework-animation 0.4s ease-out forwards;
-        }
-
-        @keyframes firework-animation {
-            0% {
-                transform: scale(0) translate(0, 0);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1.5) translate(var(--x), var(--y));
-                opacity: 0;
-            }
-        }
-
-        /* Circle Profile */
-        .profile-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background-color: #ff6347;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            animation: pulse 1.5s infinite;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Image inside the profile */
-        .profile-circle img {
+        /* ASCII Art Container */
+        .ascii-container {
+            margin-top: 20px;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            text-align: center;
+            visibility: hidden; /* Hidden until overlay is dismissed */
         }
 
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        /* Adjustments for responsiveness */
+        /* Responsive Design */
         @media (max-width: 768px) {
             #overlay {
                 font-size: 1.5rem;
+            }
+
+            .profile-circle {
+                width: 100px;
+                height: 100px;
             }
 
             .button {
@@ -206,34 +162,39 @@
                 font-size: 1rem;
                 padding: 6px 12px;
             }
-        }
 
+            .profile-circle {
+                width: 80px;
+                height: 80px;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div id="overlay" onclick="playMusicAndHideOverlay()">
-    Click to Enter
+    Tap to Enter
 </div>
 
 <div class="content">
     <div class="button-container">
-        <!-- Profile Circle with an image -->
         <div class="profile-circle">
             <img src="https://r2.drifloons.us/d8dccac3731c0e228c4583c80faa4121.gif" alt="Profile Picture">
         </div>
         <a class="button" href="https://t.me/bleedable" target="_blank" rel="noopener noreferrer">Proxy</a>
         <a class="button" href="https://doxbin.org/hoa">Hall of Autism</a>
     </div>
-</div>
 
-<script src="http://www.qqpr.com/ascii/js/1095.js"></script>
+    <!-- ASCII Animation -->
+    <div class="ascii-container">
+        <script src="http://www.qqpr.com/ascii/js/1095.js"></script>
+    </div>
+</div>
 
 <audio id="my_audio" src="https://files.catbox.moe/68sp85.mp3" loop></audio>
 
 <script>
     const snowflakeContainer = document.body;
-    let snowflakes = [];
 
     function createSnowflake() {
         const snowflake = document.createElement('div');
@@ -254,25 +215,19 @@
 
         snowflakeContainer.appendChild(snowflake);
 
-        snowflakes.push(snowflake);
-
         setTimeout(() => {
             snowflake.remove();
-            snowflakes = snowflakes.filter(s => s !== snowflake);
         }, animationDuration * 1000);
     }
 
     function showSnowflakes() {
-        setInterval(() => {
-            createSnowflake();
-        }, 100);
+        setInterval(createSnowflake, 100);
     }
 
     const overlay = document.getElementById("overlay");
     const content = document.querySelector(".content");
+    const asciiContainer = document.querySelector('.ascii-container');
     const audio = document.getElementById("my_audio");
-
-    audio.volume = 0.3;
 
     function playMusicAndHideOverlay() {
         audio.play();
@@ -281,66 +236,10 @@
         setTimeout(() => {
             overlay.style.display = "none";
             content.style.display = "block";
+            asciiContainer.style.visibility = "visible";
             showSnowflakes();
-            showAsciiCube();
         }, 500);
     }
-
-    function showAsciiCube() {
-        const asciiArt = document.querySelector('.ascii-animation');
-        asciiArt.style.visibility = "visible";
-    }
-
-    document.body.addEventListener('mousemove', function(event) {
-        createSpark(event.clientX, event.clientY);
-    });
-
-    function createSpark(x, y) {
-        const numSparks = 5;
-        for (let i = 0; i < numSparks; i++) {
-            const spark = document.createElement('div');
-            spark.classList.add('spark');
-
-            const angle = Math.random() * 360;
-            const distance = Math.random() * 50 + 20;
-            const duration = Math.random() * 0.4 + 0.2;
-
-            spark.style.left = `${x - 5}px`;
-            spark.style.top = `${y - 5}px`;
-            spark.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
-            spark.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
-            spark.style.animationDuration = `${duration}s`;
-
-            document.body.appendChild(spark);
-
-            setTimeout(() => {
-                spark.remove();
-            }, duration * 1000);
-        }
-    }
-
-    const buttons = document.querySelectorAll('.button');
-
-    buttons.forEach(button => {
-        button.addEventListener('mousemove', (event) => {
-            const buttonRect = button.getBoundingClientRect();
-            const centerX = buttonRect.left + buttonRect.width / 2;
-            const centerY = buttonRect.top + buttonRect.height / 2;
-            const deltaX = event.clientX - centerX;
-            const deltaY = event.clientY - centerY;
-
-            const strength = 25;
-
-            const rotateX = (deltaY / buttonRect.height) * strength;
-            const rotateY = (deltaX / buttonRect.width) * strength;
-
-            button.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-
-        button.addEventListener('mouseleave', () => {
-            button.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-        });
-    });
 </script>
 
 </body>
