@@ -7,7 +7,7 @@
     <style>
         @import url("https://fonts.googleapis.com/css?family=VT323");
 
-   
+     
         body {
             font-family: "VT323", monospace;
             margin: 0;
@@ -24,7 +24,7 @@
             cursor: default;
         }
 
-     
+    
         .snowflake {
             position: fixed;
             top: -50px;
@@ -46,7 +46,7 @@
             100% { transform: translateX(calc(10px * var(--drift))); }
         }
 
-      
+        /* Overlay */
         #overlay {
             position: fixed;
             top: 0;
@@ -69,7 +69,7 @@
             pointer-events: none;
         }
 
-       
+      
         .content {
             display: none;
             opacity: 0;
@@ -84,7 +84,7 @@
             to { opacity: 1; }
         }
 
-      
+        /* Profile Circle */
         .profile-circle {
             width: 120px;
             height: 120px;
@@ -103,7 +103,7 @@
             object-fit: cover;
         }
 
-      
+        /* Buttons */
         .button-container {
             display: flex;
             flex-direction: column;
@@ -128,9 +128,9 @@
             transform: scale(1.05);
         }
 
-       
+      
         .ascii-container {
-            margin-top: 20px;
+            margin-top: 10px;
             width: 100%;
             text-align: center;
             visibility: hidden;
@@ -142,7 +142,7 @@
             scale: 1;
         }
 
-      
+        /* Responsive Design */
         @media (max-width: 768px) {
             .profile-circle {
                 width: 100px;
@@ -155,7 +155,7 @@
             }
 
             .ascii-container {
-                scale: 0.8; /
+                scale: 0.8;
             }
         }
 
@@ -186,7 +186,7 @@
         <a class="button" href="https://doxbin.org/hoa">Hall of Autism</a>
     </div>
 
-    <!-- ASCII Animation -->
+  
     <div class="ascii-container">
         <script src="http://www.qqpr.com/ascii/js/1095.js"></script>
     </div>
