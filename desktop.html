@@ -105,20 +105,23 @@
         }
 
         .button {
-            background-color: #7a1910;
+            text-decoration: none;
+            padding: 12px 24px;
+            background: linear-gradient(145deg, #7a1910, #5a0f07);
             color: white;
             font-weight: bold;
-            padding: 10px 20px;
+            border: none;
             border-radius: 8px;
-            text-transform: uppercase;
-            text-align: center;
-            text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.7), -6px -6px 15px rgba(255, 255, 255, 0.1);
+            transition: box-shadow 0.3s ease, transform 0.2s ease-out; /* Smooth transition */
+            display: inline-block;
+            font-size: 1.1em;
+            perspective: 1000px; /* Perspective for 3D effect */
         }
 
-        .button:hover {
-            background-color: #9a2a2a;
-            transform: scale(1.05);
+        /* Removed active transformation, keeping smooth transition on hover */
+        .button:active {
+            transform: translateY(2px);
         }
 
         .image-container img {
@@ -230,6 +233,37 @@
             content.style.display = "block";
             showSnowflakes();
         }, 500);
+    }
+
+    const buttons = document.querySelectorAll('.button');
+
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', () => {
+            button.addEventListener('mousemove', handleMouseMove);
+        });
+
+        button.addEventListener('mouseleave', () => {
+            button.style.transform = 'translateY(0) rotateX(0deg) rotateY(0deg)';
+            button.style.transition = 'transform 0.3s ease-out'; // Smooth transition back
+            button.removeEventListener('mousemove', handleMouseMove);
+        });
+    });
+
+    function handleMouseMove(event) {
+        const button = event.target;
+        const rect = button.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const deltaX = event.clientX - centerX;
+        const deltaY = event.clientY - centerY;
+
+        const tiltX = (deltaY / rect.height) * 20;  // Increased tilt factor for X axis
+        const tiltY = (deltaX / rect.width) * -20;  // Increased tilt factor for Y axis
+
+        // Add more tilt to the effect
+        button.style.transition = 'transform 0.1s ease-out'; // Smooth transition for tilt
+        button.style.transform = `translateY(-6px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
     }
 
     document.body.addEventListener('mousemove', function(event) {
