@@ -7,7 +7,7 @@
     <style>
         @import url("https://fonts.googleapis.com/css?family=VT323");
 
-        /* General Styles */
+   
         body {
             font-family: "VT323", monospace;
             margin: 0;
@@ -24,7 +24,7 @@
             cursor: default;
         }
 
-        /* Snowflakes */
+     
         .snowflake {
             position: fixed;
             top: -50px;
@@ -46,7 +46,7 @@
             100% { transform: translateX(calc(10px * var(--drift))); }
         }
 
-        /* Overlay */
+      
         #overlay {
             position: fixed;
             top: 0;
@@ -69,7 +69,7 @@
             pointer-events: none;
         }
 
-        /* Content Section */
+       
         .content {
             display: none;
             opacity: 0;
@@ -84,7 +84,7 @@
             to { opacity: 1; }
         }
 
-        /* Profile Circle */
+      
         .profile-circle {
             width: 120px;
             height: 120px;
@@ -103,7 +103,7 @@
             object-fit: cover;
         }
 
-        /* Buttons */
+      
         .button-container {
             display: flex;
             flex-direction: column;
@@ -128,32 +128,22 @@
             transform: scale(1.05);
         }
 
-        /* ASCII Art Container */
+       
         .ascii-container {
             margin-top: 20px;
             width: 100%;
             text-align: center;
-            visibility: hidden; /* Hidden until overlay is dismissed */
+            visibility: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             transform-origin: center;
+            scale: 1;
         }
 
-        /* Scaling for ASCII */
-        .ascii-container iframe {
-            width: 100%;
-            max-width: 400px; /* Ensures a maximum size for desktop */
-            aspect-ratio: 1; /* Maintains proportions */
-        }
-
-        /* Responsive Design */
+      
         @media (max-width: 768px) {
-            #overlay {
-                font-size: 1.5rem;
-            }
-
             .profile-circle {
                 width: 100px;
                 height: 100px;
@@ -164,28 +154,19 @@
                 padding: 8px 16px;
             }
 
-            .ascii-container iframe {
-                max-width: 300px; /* Smaller size for tablets */
+            .ascii-container {
+                scale: 0.8; /
             }
         }
 
         @media (max-width: 480px) {
-            .button-container {
-                gap: 8px;
-            }
-
-            .button {
-                font-size: 1rem;
-                padding: 6px 12px;
-            }
-
             .profile-circle {
                 width: 80px;
                 height: 80px;
             }
 
-            .ascii-container iframe {
-                max-width: 200px; /* Smaller size for mobile devices */
+            .ascii-container {
+                scale: 0.6;
             }
         }
     </style>
@@ -207,7 +188,7 @@
 
     <!-- ASCII Animation -->
     <div class="ascii-container">
-        <iframe src="http://www.qqpr.com/ascii/js/1095.js" frameborder="0"></iframe>
+        <script src="http://www.qqpr.com/ascii/js/1095.js"></script>
     </div>
 </div>
 
