@@ -132,8 +132,13 @@ buttons.forEach((button) => {
     });
 });
 
-window.onload = function() {
-            setTimeout(function() {
-                document.getElementById('ascii-fade').style.opacity = 1;
+<script>
+        // Wait for the window to load before fading in the ASCII container
+        window.onload = function () {
+            setTimeout(function () {
+                const asciiContainer = document.getElementById('ascii-container');
+                asciiContainer.style.opacity = 1;  // Fade in
+                asciiContainer.style.visibility = 'visible'; // Make it visible
             }, 3000); // Wait 3 seconds before fading in
         };
+    </script>
