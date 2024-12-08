@@ -51,7 +51,6 @@ function playMusicAndHideOverlay() {
     }, 500);
 }
 
-// Disable right-click
 document.addEventListener("contextmenu", function (e) {
     e.preventDefault();
 });
@@ -132,13 +131,33 @@ buttons.forEach((button) => {
     });
 });
 
-<script>
-        // Wait for the window to load before fading in the ASCII container
-        window.onload = function () {
-            setTimeout(function () {
-                const asciiContainer = document.getElementById('ascii-container');
-                asciiContainer.style.opacity = 1;  // Fade in
-                asciiContainer.style.visibility = 'visible'; // Make it visible
-            }, 3000); // Wait 3 seconds before fading in
-        };
-    </script>
+window.onload = function () {
+    setTimeout(function () {
+        document.getElementById('script-container').style.opacity = 1;
+    }, 3000);
+
+
+    setTimeout(() => {
+        const asciiContainer = document.getElementById('ascii-container');
+        if (asciiContainer) {
+            asciiContainer.style.opacity = 1;
+            asciiContainer.style.visibility = 'visible';
+        }
+    }, 3000);
+};
+
+
+const asciiScript = document.createElement("script");
+asciiScript.src = "https://www.qqpr.com/ascii/js/1095.js";
+document.body.appendChild(asciiScript);
+
+asciiScript.onload = function () {
+    const asciiContainer = document.getElementById('ascii-container');
+    if (asciiContainer) {
+        asciiContainer.style.opacity = 0;
+        asciiContainer.style.transition = 'opacity 2s';
+        setTimeout(() => {
+            asciiContainer.style.opacity = 1;
+        }, 100);
+    }
+};
