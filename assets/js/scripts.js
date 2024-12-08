@@ -140,10 +140,15 @@ window.onload = function () {
     setTimeout(() => {
         const asciiContainer = document.getElementById('ascii-container');
         if (asciiContainer) {
-            asciiContainer.style.opacity = 1;
+            asciiContainer.style.opacity = 0;
             asciiContainer.style.visibility = 'visible';
+            asciiContainer.style.transition = 'opacity 2s ease-in-out'; 
+
+            setTimeout(() => {
+                asciiContainer.style.opacity = 1;
+            }, 100);
         }
-    }, 3000);
+    }, 3000); 
 };
 
 
