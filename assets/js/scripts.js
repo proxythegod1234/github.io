@@ -131,3 +131,9 @@ buttons.forEach((button) => {
         button.style.transform = "perspective(1000px) rotateX(0) rotateY(0)";
     });
 });
+
+window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('ascii-fade').style.opacity = 1;
+            }, 3000); // Wait 3 seconds before fading in
+        };
