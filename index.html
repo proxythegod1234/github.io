@@ -12,6 +12,10 @@
         body {
             font-family: 'Segoe UI', sans-serif;
         }
+ 
+        * {
+            user-select: none;
+        }
         .login-container {
             animation: fadeIn 1s ease-in-out;
         }
@@ -148,7 +152,7 @@
                     document.getElementById('boot-screen').style.display = 'none';
                     document.getElementById('login-content').classList.remove('hidden');
                 }, 1000);
-            }, 5000); // 5 seconds boot screen
+            }, 5000);
         });
 
         document.getElementById('passwordSelect').addEventListener('change', function(e) {
@@ -156,12 +160,12 @@
                 document.getElementById('loginForm').classList.add('hidden');
                 document.getElementById('loadingAnimation').classList.remove('hidden');
                 
-                // Simulate loading
+            
                 setTimeout(() => {
                     document.getElementById('loadingAnimation').classList.add('animate-pulse');
                 }, 2000);
 
-                // Redirect after loading animation
+             
                 setTimeout(() => {
                     if (window.innerWidth <= 728) {
                         window.location.href = './mobile.html';
@@ -172,15 +176,20 @@
             }
         });
 
-        // Reset select element on page load
+  
         window.addEventListener('load', function() {
             const passwordSelect = document.getElementById('passwordSelect');
             passwordSelect.selectedIndex = 0;
         });
 
-        // Prevent form submission on enter key
+    
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
+        });
+
+   
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault(); 
         });
     </script>
 </body>
