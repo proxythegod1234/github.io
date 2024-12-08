@@ -7,7 +7,7 @@
     <style>
         @import url("https://fonts.googleapis.com/css?family=VT323");
 
-        /* Disable text selection globally, but allow right-click */
+     
         * {
             user-select: none;
         }
@@ -126,24 +126,24 @@
             transform: scale(1.05);
         }
 
-        /* Profile Box - Transparent with hover effect */
+    
         .profile-box {
             width: 300px;
             padding: 20px;
-            background-color: rgba(0, 0, 0, 0.4); /* Transparent background */
+            background-color: rgba(0, 0, 0, 0.4);
             border-radius: 10px;
             border: 2px solid #ff6347;
             text-align: center;
             color: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-            transition: transform 0.2s ease-out, background-color 0.3s, box-shadow 0.3s; /* Added transition for smoothness */
-            /* Enable the tilt effect */
+            transition: transform 0.2s ease-out, background-color 0.3s, box-shadow 0.3s;
+         
             transform-style: preserve-3d;
         }
 
-        /* Profile box hover effect */
+   
         .profile-box:hover {
-            background-color: rgba(0, 0, 0, 0.6); /* Slightly darker background on hover */
+            background-color: rgba(0, 0, 0, 0.6);
             box-shadow: 0 0 20px rgba(0, 0, 0, 1);
         }
 
@@ -165,7 +165,7 @@
             color: #ccc;
         }
 
-        /* Cursor Sparks */
+        
         .spark {
             position: absolute;
             width: 4px;
@@ -197,11 +197,11 @@
 
 <div class="content">
     <div class="button-container">
-
+   
         <div class="profile-box">
             <img src="https://r2.drifloons.us/d8dccac3731c0e228c4583c80faa4121.gif" alt="Profile Picture">
-            <h3>Proxy</h3>
-            <p>trying to learn code!</p>
+            <h3>Proxy User</h3>
+            <p>Passionate developer and tech enthusiast.</p>
         </div>
         <a class="button" href="https://t.me/bleedable" target="_blank" rel="noopener noreferrer">Proxy</a>
         <a class="button" href="https://doxbin.org/hoa">Hall of Autism</a>
@@ -268,9 +268,14 @@
         }, 500);
     }
 
-  
+ 
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault(); 
+    });
+
+
     $(document).ready(function() {
-     
+      
         $('.profile-box').on('mousemove', function(e) {
             const $this = $(this);
             const offset = $this.offset();
@@ -285,14 +290,14 @@
             const deltaY = (mouseY - centerY) / height;
 
          
-            const tiltX = deltaY * 30;
-            const tiltY = -deltaX * 30;
+            const tiltX = deltaY * 30; 
+            const tiltY = -deltaX * 30; 
 
-        
+      
             $this.css('transform', `perspective(1500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`);
         });
 
-       
+  
         $('.profile-box').on('mouseleave', function() {
             $(this).css('transform', 'perspective(1500px) rotateX(0) rotateY(0)');
         });
