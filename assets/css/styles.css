@@ -100,24 +100,20 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 12px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .button {
-    background-color: #7a1910;
     color: white;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 8px;
-    text-transform: uppercase;
-    text-align: center;
+    padding: 0px 0%;
+    border-radius: 0px;
     text-decoration: none;
     transform: perspective(1000px);
     transition: transform 0.1s ease-out;
+    display:inline-block;
 }
 
 .button:hover {
-    background-color: #9a2a2a;
     transform: scale(1.05);
 }
 
@@ -139,6 +135,9 @@ body {
 .profile-box:hover {
     background-color: rgba(0, 0, 0, 0.6);
     box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+    background-size: 200% 200%;
+    transition: background-position 0.1s ease;
+    position: relative;
 }
 
 .profile-box img {
@@ -163,7 +162,7 @@ body {
     position: absolute;
     width: 4px;
     height: 4px;
-    background-color: rgba(0, 204, 255, 0.6);
+    background-color: rgba(211, 85, 85, 0.966);
     border-radius: 50%;
     pointer-events: none;
     opacity: 1;
@@ -182,7 +181,7 @@ body {
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: auto) {
     .button {
         font-size: 1.1rem;
         padding: 8px 16px;
@@ -197,7 +196,7 @@ body {
     }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: auto) {
     .button {
         font-size: 1.2rem;
         padding: 9px 18px;
@@ -208,7 +207,7 @@ body {
     }
 }
 
-@media (max-width: 1280px) {
+@media (max-width: auto) {
     .button {
         font-size: 1.3rem;
         padding: 10px 20px;
@@ -219,7 +218,7 @@ body {
     }
 }
 
-@media (max-width: 1920px) {
+@media (max-width: auto) {
     .button {
         font-size: 1.4rem;
         padding: 11px 22px;
@@ -231,7 +230,7 @@ body {
 }
 
 #ascii-container {
-    width: 100%;
+    width: auto;
     height: 100vh;
     font-family: monospace;
     text-align: center;
@@ -239,24 +238,16 @@ body {
     opacity: 0;
     transition: opacity 2s ease-in-out;
     visibility: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     overflow: hidden;
-    z-index: 10;
 }
 
-@media screen and (max-width: 768px) {
-    #ascii-container {
-        font-size: 12px;
-    }
-}
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: auto) {
     #ascii-container {
-        font-size: 10px;
+        font-size: auto;
+        display:flex;
     }
 }
