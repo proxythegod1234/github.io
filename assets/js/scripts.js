@@ -108,28 +108,6 @@ function createSpark(x, y) {
     }
 }
 
-const buttons = document.querySelectorAll(".button");
-
-buttons.forEach((button) => {
-    button.addEventListener("mousemove", (event) => {
-        const buttonRect = button.getBoundingClientRect();
-        const centerX = buttonRect.left + buttonRect.width / 2;
-        const centerY = buttonRect.top + buttonRect.height / 2;
-        const deltaX = event.clientX - centerX;
-        const deltaY = event.clientY - centerY;
-
-        const strength = 25;
-
-        const rotateX = (deltaY / buttonRect.height) * strength;
-        const rotateY = (deltaX / buttonRect.width) * strength;
-
-        button.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
-
-    button.addEventListener("mouseleave", () => {
-        button.style.transform = "perspective(1000px) rotateX(0) rotateY(0)";
-    });
-});
 
 window.onload = function () {
     setTimeout(function () {
@@ -138,7 +116,7 @@ window.onload = function () {
 
 
     setTimeout(() => {
-        const asciiContainer = document.getElementById('ascii-container');
+        const container = document.getElementById('ascii-container');
         if (asciiContainer) {
             asciiContainer.style.opacity = 0;
             asciiContainer.style.visibility = 'visible';
@@ -149,20 +127,4 @@ window.onload = function () {
             }, 100);
         }
     }, 3000); 
-};
-
-
-const asciiScript = document.createElement("script");
-asciiScript.src = "https://www.qqpr.com/ascii/js/1095.js";
-document.body.appendChild(asciiScript);
-
-asciiScript.onload = function () {
-    const asciiContainer = document.getElementById('ascii-container');
-    if (asciiContainer) {
-        asciiContainer.style.opacity = 0;
-        asciiContainer.style.transition = 'opacity 2s';
-        setTimeout(() => {
-            asciiContainer.style.opacity = 1;
-        }, 100);
-    }
 };
