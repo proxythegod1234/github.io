@@ -1,48 +1,18 @@
-const snowflakeContainer = document.body;
-let snowflakes = [];
-
-function createSnowflake() {
-    const snowflake = document.createElement("div");
-    snowflake.classList.add("snowflake");
-
-    const size = Math.random() * 5 + 2;
-    const leftPosition = Math.random() * 100;
-    const animationDuration = Math.random() * 3 + 3;
-    const animationDelay = Math.random() * 3;
-    const driftDirection = Math.random() > 0.5 ? 1 : -1;
-
-    snowflake.style.width = `${size}px`;
-    snowflake.style.height = `${size}px`;
-    snowflake.style.left = `${leftPosition}%`;
-    snowflake.style.animationDuration = `${animationDuration}s`;
-    snowflake.style.animationDelay = `${animationDelay}s`;
-    snowflake.style.setProperty("--drift", driftDirection);
-
-    snowflakeContainer.appendChild(snowflake);
-
-    snowflakes.push(snowflake);
-
-    setTimeout(() => {
-        snowflake.remove();
-        snowflakes = snowflakes.filter((s) => s !== snowflake);
-    }, animationDuration * 1000);
-}
-
-function showSnowflakes() {
-    setInterval(() => {
-        createSnowflake();
-    }, 100);
-}
-
 const overlay = document.getElementById("overlay");
 const content = document.querySelector(".content");
-const audio = document.getElementById("my_audio");
+const backgroundVideo = document.getElementById("background-video");
 
-audio.volume = 0.3;
+
+backgroundVideo.volume = 0.3;
 
 function playMusicAndHideOverlay() {
-    audio.play();
+ 
+    backgroundVideo.style.display = 'block';
+    backgroundVideo.play(); 
+    
+
     overlay.classList.add("hidden");
+
 
     setTimeout(() => {
         overlay.style.display = "none";
@@ -51,36 +21,36 @@ function playMusicAndHideOverlay() {
     }, 500);
 }
 
+
 document.addEventListener("contextmenu", function (e) {
     e.preventDefault();
 });
 
-$(document).ready(function () {
-    $(".profile-box").on("mousemove", function (e) {
-        const $this = $(this);
-        const offset = $this.offset();
-        const width = $this.width();
-        const height = $this.height();
-        const centerX = offset.left + width / 2;
-        const centerY = offset.top + height / 2;
+
+document.querySelectorAll(".profile-box").forEach(box => {
+    box.addEventListener("mousemove", (e) => {
+        const rect = box.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
         const mouseX = e.pageX;
         const mouseY = e.pageY;
 
-        const deltaX = (mouseX - centerX) / width;
-        const deltaY = (mouseY - centerY) / height;
+        const deltaX = (mouseX - centerX) / rect.width;
+        const deltaY = (mouseY - centerY) / rect.height;
 
         const tiltX = deltaY * 30;
         const tiltY = -deltaX * 30;
 
-        $this.css("transform", `perspective(1500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`);
+        box.style.transform = `perspective(1500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
     });
 
-    $(".profile-box").on("mouseleave", function () {
-        $(this).css("transform", "perspective(1500px) rotateX(0) rotateY(0)");
+    box.addEventListener("mouseleave", () => {
+        box.style.transform = "perspective(1500px) rotateX(0) rotateY(0)";
     });
 });
 
-document.body.addEventListener("mousemove", function (event) {
+
+document.body.addEventListener("mousemove", (event) => {
     createSpark(event.clientX, event.clientY);
 });
 
@@ -108,23 +78,35 @@ function createSpark(x, y) {
     }
 }
 
-
-window.onload = function () {
-    setTimeout(function () {
-        document.getElementById('script-container').style.opacity = 1;
-    }, 3000);
+function playVideoAndHideOverlay() {
+    const overlay = document.getElementById('overlay');
+    overlay.style.display = 'none';
 
 
-    setTimeout(() => {
-        const container = document.getElementById('ascii-container');
-        if (asciiContainer) {
-            asciiContainer.style.opacity = 0;
-            asciiContainer.style.visibility = 'visible';
-            asciiContainer.style.transition = 'opacity 2s ease-in-out'; 
+    const background = document.getElementById('background-video');
+    background.style.display = 'block';
 
-            setTimeout(() => {
-                asciiContainer.style.opacity = 1;
-            }, 100);
-        }
-    }, 3000); 
-};
+
+    const content = document.querySelector(".content");
+    content.style.display = "block";
+    showSnowflakes();
+}
+
+
+setTimeout(() => {
+    document.getElementById('script-container').style.opacity = 1;
+}, 3000);
+
+
+setTimeout(() => {
+    const container = document.getElementById('background-video');
+    if (container) {
+        container.style.opacity = 0;
+        container.style.visibility = 'visible';
+        container.style.transition = 'opacity 2s ease-in-out'; 
+
+        setTimeout(() => {
+            container.style.opacity = 1;
+        }, 100);
+    }
+}, 3000);
