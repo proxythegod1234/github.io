@@ -37,7 +37,7 @@ body {
     border-radius: 50%;
     opacity: 0.8;
     pointer-events: none;
-    z-index: -9999;
+    z-index: auto;
     animation: fall linear infinite, drift linear infinite;
 }
 
@@ -115,16 +115,22 @@ body {
 
 .button {
     color: white;
-    padding: 0px 0%;
-    border-radius: 0px;
+    padding: 10px 20px;
+    border-radius: 5px;
     text-decoration: none;
+    background-color: transparent;
     transform: perspective(1000px);
-    transition: transform 0.1s ease-out;
+    transition: transform 0.2s, background-color 0.3s;
     display: inline-block;
+    font-size: 1rem;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
 }
 
 .button:hover {
     transform: scale(1.05);
+    background-color: transparent;
 }
 
 .profile-box {
@@ -132,35 +138,63 @@ body {
     max-width: 350px;
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
-    border: 2px solid #ff6347;
+    border-radius: 15px;
+    border: 3px solid #ff6347;
     text-align: center;
     color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-    transition: transform 0.2s ease-out, background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    transition: transform 0.3s ease, background-color 0.3s, box-shadow 0.3s;
     transform-style: preserve-3d;
-    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
 }
 
 .profile-box:hover {
-    background-color: rgba(0, 0, 0, 0.6);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 1);
-    background-size: 200% 200%;
-    transition: background-position 0.1s ease;
-    position: relative;
+    background-color: rgba(255, 99, 71, 0.2);
+    box-shadow: 0 8px 20px rgba(255, 99, 71, 0.8);
+    transform: translateY(-5px);
+}
+
+.profile-box::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 99, 71, 0.4) 20%, transparent 60%);
+    animation: rotateGlow 5s linear infinite;
+    z-index: -1;
+}
+
+@keyframes rotateGlow {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .profile-box img {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 15px;
+    border: 2px solid white;
+    transition: border-color 0.3s;
+}
+
+.profile-box img:hover {
+    border-color: #ff6347;
 }
 
 .profile-box h3 {
     margin: 10px 0;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
 }
 
 .profile-box p {
@@ -172,69 +206,9 @@ body {
     position: absolute;
     width: 4px;
     height: 4px;
-    background-color: rgba(211, 85, 85, 0.966);
+    background-color: rgba(228, 10, 10, 0.966);
     border-radius: 50%;
     pointer-events: none;
     opacity: 1;
-    animation: firework-animation 0.4s ease-out forwards;
-}
-
-@keyframes firework-animation {
-    0% {
-        transform: scale(0) translate(0, 0);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(1.5) translate(var(--x), var(--y));
-        opacity: 0;
-    }
-}
-
-@media (max-width: auto) {
-    .button {
-        font-size: 1.1rem;
-        padding: 8px 16px;
-    }
-
-    .profile-box {
-        width: 90%;
-    }
-
-    .button-container {
-        margin-top: 15px;
-    }
-}
-
-@media (max-width: auto) {
-    .button {
-        font-size: 1.2rem;
-        padding: 9px 18px;
-    }
-
-    .profile-box {
-        width: 85%;
-    }
-}
-
-@media (max-width: auto) {
-    .button {
-        font-size: 1.3rem;
-        padding: 10px 20px;
-    }
-
-    .profile-box {
-        width: 75%;
-    }
-}
-
-@media (max-width: auto) {
-    .button {
-        font-size: 1.4rem;
-        padding: 11px 22px;
-    }
-
-    .profile-box {
-        width: 65%;
-    }
+    animation: firework-animation 0.4s 
 }
