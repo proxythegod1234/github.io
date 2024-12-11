@@ -1,3 +1,4 @@
+
 const overlay = document.getElementById("overlay");
 const content = document.querySelector(".content");
 const backgroundVideo = document.getElementById("background-video");
@@ -13,7 +14,6 @@ function playMusicAndHideOverlay() {
     setTimeout(() => {
         overlay.style.display = "none";
         content.style.display = "block";
-        showSnowflakes();
     }, 500);
 }
 
@@ -43,30 +43,25 @@ document.querySelectorAll(".profile-box").forEach(box => {
     });
 });
 
-document.body.addEventListener("mousemove", function (event) {
-    createFirework(event.clientX, event.clientY);
-});
+    document.addEventListener('mousemove', (e) => {
+      createFairyDust(e.pageX, e.pageY);
+    });
 
-function createFirework(x, y) {
-    const numSparks = 10;
-    for (let i = 0; i < numSparks; i++) {
-        const spark = document.createElement("div");
-        spark.classList.add("spark");
+    function createFairyDust(x, y) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.left = `${x}px`;
+      particle.style.top = `${y}px`;
 
-        const angle = Math.random() * 360;
-        const distance = Math.random() * 50 + 20;
-        const duration = Math.random() * 0.4 + 0.2;
+  
+      particle.style.setProperty('--x-offset', Math.random() - 0.5);
+      particle.style.setProperty('--y-offset', Math.random() - 0.5);
 
-        spark.style.left = `${x - 5}px`;
-        spark.style.top = `${y - 5}px`;
-        spark.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
-        spark.style.setProperty("--y", `${Math.sin(angle) * distance}px`);
-        spark.style.animationDuration = `${duration}s`;
+      document.body.appendChild(particle);
 
-        document.body.appendChild(spark);
-
-        setTimeout(() => {
-            spark.remove();
-        }, duration * 1000);
+     
+      setTimeout(() => {
+        particle.remove();
+      }, 1500);
     }
-}
+ 
