@@ -21,6 +21,7 @@ document.addEventListener("contextmenu", function (e) {
     e.preventDefault();
 });
 
+
 document.querySelectorAll(".profile-box").forEach(box => {
     box.addEventListener("mousemove", (e) => {
         const rect = box.getBoundingClientRect();
@@ -65,3 +66,5 @@ document.querySelectorAll(".profile-box").forEach(box => {
       }, 1500);
     }
  
+    
+    
