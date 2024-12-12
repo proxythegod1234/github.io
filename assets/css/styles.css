@@ -64,6 +64,7 @@ body {
     }
 }
 
+
 #overlay {
     position: fixed;
     top: 0;
@@ -81,6 +82,7 @@ body {
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
+
 #overlay.hidden {
     opacity: 0;
     pointer-events: none;
@@ -94,7 +96,7 @@ body {
     max-width: 600px;
     text-align: center;
 }
-
+ 
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -104,6 +106,7 @@ body {
         opacity: 1;
     }
 }
+
 
 .button-container {
     display: flex;
@@ -167,6 +170,7 @@ body {
     }
 }
 
+
 .profile-box img {
     width: 90px;
     height: 90px;
@@ -181,6 +185,16 @@ body {
     border-color: #0a80e0;
 }
 
+.kity {
+	position: absolute !important;
+	top: 29.1%;
+	right: auto;
+	pointer-events: none;
+	width: 100px;
+	height: auto;
+	z-index: 4;
+}
+
 .profile-box h3 {
     margin: 10px 0;
     font-size: 1.5rem;
@@ -193,12 +207,6 @@ body {
     color: #ccc;
 }
 
-body {
-      margin: 0;
-      overflow: hidden;
-      height: 100vh;
-      background: linear-gradient(to bottom, #0d1b2a, #1b263b);
-    }
 
     .particle {
       position: absolute;
@@ -210,6 +218,7 @@ body {
       animation: move-and-fade 1.5s ease-out forwards;
     }
 
+
     @keyframes move-and-fade {
       0% {
         opacity: 1;
@@ -219,3 +228,4 @@ body {
         opacity: 0;
         transform: translate(calc(-50px + 100px * var(--x-offset)), calc(-50px + 100px * var(--y-offset))) scale(0.5);
       }
+      
