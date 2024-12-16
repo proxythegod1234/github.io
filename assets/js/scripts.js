@@ -65,6 +65,43 @@ document.querySelectorAll(".profile-box").forEach(box => {
         particle.remove();
       }, 1500);
     }
+    const phrases = [
+        "Welcome to My Site!",
+      ];
+      const speed = 100;
+      const delayBetweenPhrases = 1500;
+      
+      const typewriterText = document.getElementById("typewriter-text");
+      
+      let phraseIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      
+      function type() {
+        const currentPhrase = phrases[phraseIndex];
+        if (isDeleting) {
+          charIndex--;
+        } else {
+          charIndex++;
+        }
+      
+        typewriterText.textContent = currentPhrase.slice(0, charIndex);
+      
+        
+        if (!isDeleting && charIndex === currentPhrase.length) {
+          isDeleting = true;
+          setTimeout(type, delayBetweenPhrases);
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          setTimeout(type, 300);
+        } else {
+          setTimeout(type, isDeleting ? speed / 2 : speed);
+        }
+      }
+      
+     
+      type();
  
     
     
