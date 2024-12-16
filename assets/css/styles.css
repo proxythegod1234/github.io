@@ -146,6 +146,7 @@ body {
     font-size: 1.5rem;
     color: white;
     font-family: "Poppins", sans-serif;
+    height: 40px;
   }
   
   @keyframes blink {
