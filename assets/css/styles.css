@@ -118,14 +118,9 @@ body {
     transform: rotateY(0deg) rotateX(0deg) translateY(0) scale(1);
 }
 
-.profile-box.no-tilt:hover {
-    transform: none;
-}
-
 .profile-box:hover {
     background-color: rgba(8, 165, 228, 0.6);
     box-shadow: 0 30px 70px rgba(255, 0, 0, 0.8);
-    transform: translateY(-25px) rotateY(80deg) rotateX(45deg) scale(1.3) translateZ(100px);
     transition: transform 0.5s ease-out, box-shadow 0.5s ease-out, background-color 0.5s ease-out;
 }
 
