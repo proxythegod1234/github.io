@@ -23,25 +23,33 @@ document.addEventListener("contextmenu", function (e) {
 
 
 document.querySelectorAll(".profile-box").forEach(box => {
-    box.addEventListener("mousemove", (e) => {
-        const rect = box.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const mouseX = e.pageX;
-        const mouseY = e.pageY;
+  let timer;
+  
+  box.addEventListener("mousemove", (e) => {
+      const rect = box.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const mouseX = e.pageX;
+      const mouseY = e.pageY;
 
-        const deltaX = (mouseX - centerX) / rect.width;
-        const deltaY = (mouseY - centerY) / rect.height;
+      const deltaX = (mouseX - centerX) / rect.width;
+      const deltaY = (mouseY - centerY) / rect.height;
 
-        const tiltX = deltaY * 30;
-        const tiltY = -deltaX * 30;
+      const tiltX = deltaY * 30;
+      const tiltY = -deltaX * 30;
 
-        box.style.transform = `perspective(1500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-    });
+      box.style.transition = 'transform 0.1s ease-out';
+      box.style.transform = `perspective(1500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+  });
 
-    box.addEventListener("mouseleave", () => {
-        box.style.transform = "perspective(1500px) rotateX(0) rotateY(0)";
-    });
+  box.addEventListener("mouseleave", () => {
+      clearTimeout(timer); 
+
+      timer = setTimeout(() => {
+          box.style.transition = 'transform 0.3s ease-out';
+          box.style.transform = "perspective(1500px) rotateX(0) rotateY(0)";
+      }, 50);
+  });
 });
 
     document.addEventListener('mousemove', (e) => {
