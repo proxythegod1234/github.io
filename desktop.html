@@ -4,25 +4,25 @@
     <meta charset="UTF-0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Proxy</title>
-    <link rel="stylesheet" href="./assets/css/styles.css"/>
+    <link rel="stylesheet" href="./css/styles.css"/>
 </head>
 <body>
     <video id="background-video" autoplay loop style="display: none;">
-        <source src="https://files.catbox.moe/zs9uad.mp4" type="video/mp4">
+        <source src="https://filebin.net/4rrwigw7deo0xlfe/Pok%c3%a9mon%20lo-fi%20beats%20GEN2%20complete.mp4" type="video/mp4">
     </video>
     <div id="overlay" role="button" aria-label="Click to play music and enter" onclick="playMusicAndHideOverlay()">
         Click to Enter
     </div>
     <div class="content">
         <div class="button-container">
-            <img src="https://files.catbox.moe/gaxyco.gif" alt="kity Animation" class="kity">
-            <div class="profile-box">
-                <img src="https://files.catbox.moe/1yyqoz.gif" alt="Profile Picture" />
-                <h3 class="sparkle-bg">Proxy</h3>
-                <div class="typewriter">
-                    <h3 id="typewriter-text"></h3>
-                  </div>
-                <p>Trying to learn code!</p>
+            <div class="tilt-wrapper">
+                <div class="profile-box">
+                    <img src="https://files.catbox.moe/1yyqoz.gif" alt="Profile Picture" />
+                    <h3 class="sparkle-bg">Proxy</h3>
+                    <div class="typewriter">
+                        <h3 id="typewriter-text"></h3>
+                    </div>
+                    <p>Trying to learn code!</p>
                 <a class="button" href="https://t.me/bleedable" target="_blank" rel="noopener noreferrer">
                     <img src="https://files.catbox.moe/02r5fg.jpg" style="width:3.5em; height:3.5em;" />
                 </a>
@@ -51,11 +51,24 @@
                     <img src="https://files.catbox.moe/zv6cra.webp" style="width: 3.5em; height:3.5em"/>
                 </a>
                 </a>
+                
             </div>
         </div>
     </div>
+    <script>
+
+        VanillaTilt.init(document.querySelectorAll(".tilt-wrapper"), {
+            max: 10,
+            speed: 500,
+            easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+            glare: true,
+            "max-glare": 0.3,
+            transition: true,
+            reset: true,
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
-    <script src="./assets/js/scripts.js"></script>
+    <script src="./js/scripts.js"></script>
 </body>
 </html>
