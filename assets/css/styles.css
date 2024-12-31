@@ -87,10 +87,10 @@ body {
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
     margin: 0;
     line-height: 0;
+    padding: 8px;
 }
 
 .button:hover {
-    transform: scale(1.05);
     background-color: transparent;
 }
 
@@ -109,8 +109,10 @@ body {
     color: white;
     box-shadow: 0 15px 45px rgba(255, 0, 0, 0.6);
     transform-style: preserve-3d;
-    width: 250%;
+    width: 600px;
     max-width: 100%;
+    min-width: 300px;
+    min-height: 400px;
     overflow: hidden;
     margin: 30px auto;
     transition: transform 0.5s ease-out, box-shadow 0.5s ease-out, background-color 0.5s ease-out;
