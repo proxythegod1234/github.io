@@ -17,6 +17,10 @@ function playMusicAndHideOverlay() {
     }, 500);
 }
 
+window.addEventListener('load', function () {
+  const profileBox = document.querySelector('.profile-box');
+  profileBox.classList.remove('no-tilt');
+});
 document.addEventListener("contextmenu", function (e) {
     e.preventDefault();
 });
