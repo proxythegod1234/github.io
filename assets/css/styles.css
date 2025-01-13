@@ -21,16 +21,26 @@ body {
 }
 
 #background-video {
-    display: none;
+    display: block;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     object-fit: cover;
     z-index: -1;
 }
 
+@media (max-width: 768px) {
+    #background-video {
+        display: none;
+    }
+    body {
+        background-image: url("fallback-image.jpg");
+        background-size: cover;
+        background-position: center;
+    }
+}
 #overlay {
     position: fixed;
     top: 0;
@@ -102,12 +112,12 @@ body {
 
 .profile-box {
     padding: 30px;
-    background: linear-gradient(145deg, rgba(0, 255, 191, 0.8), rgba(255, 0, 0, 0.8));
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     border-radius: 30px;
-    border: 3px solid #ffcc00;
+    border: 3px solid rgba(255, 255, 255, 0.2);
     text-align: center;
-    color: white;
-    box-shadow: 0 15px 45px rgba(255, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.8);
     transform-style: preserve-3d;
     width: 600px;
     max-width: 100%;
@@ -120,9 +130,8 @@ body {
     transform: rotateY(0deg) rotateX(0deg) translateY(0) scale(1);
 }
 
+
 .profile-box:hover {
-    background-color: rgba(8, 165, 228, 0.6);
-    box-shadow: 0 30px 70px rgba(255, 0, 0, 0.8);
     transition: transform 0.5s ease-out, box-shadow 0.5s ease-out, background-color 0.5s ease-out;
 }
 
