@@ -7,7 +7,7 @@ backgroundVideo.volume = 0.3;
 function playMusicAndHideOverlay() {
     backgroundVideo.play();
 
-    overlay.classList.add("hidden");
+    overlay.classList.add("show");
 
     setTimeout(() => {
         overlay.style.display = "none";
