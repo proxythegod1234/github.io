@@ -1,4 +1,3 @@
-
 const overlay = document.getElementById("overlay");
 const content = document.querySelector(".content");
 const backgroundVideo = document.getElementById("background-video");
@@ -6,7 +5,6 @@ const backgroundVideo = document.getElementById("background-video");
 backgroundVideo.volume = 0.3;
 
 function playMusicAndHideOverlay() {
-    backgroundVideo.style.display = 'block';
     backgroundVideo.play();
 
     overlay.classList.add("hidden");
@@ -21,10 +19,10 @@ window.addEventListener('load', function () {
   const profileBox = document.querySelector('.profile-box');
   profileBox.classList.remove('no-tilt');
 });
+
 document.addEventListener("contextmenu", function (e) {
     e.preventDefault();
 });
-
 
 document.querySelectorAll(".profile-box").forEach(box => {
   let timer;
@@ -56,64 +54,58 @@ document.querySelectorAll(".profile-box").forEach(box => {
   });
 });
 
-    document.addEventListener('mousemove', (e) => {
-      createFairyDust(e.pageX, e.pageY);
-    });
+document.addEventListener('mousemove', (e) => {
+  createFairyDust(e.pageX, e.pageY);
+});
 
-    function createFairyDust(x, y) {
-      const particle = document.createElement('div');
-      particle.classList.add('particle');
-      particle.style.left = `${x}px`;
-      particle.style.top = `${y}px`;
+function createFairyDust(x, y) {
+  const particle = document.createElement('div');
+  particle.classList.add('particle');
+  particle.style.left = `${x}px`;
+  particle.style.top = `${y}px`;
 
-  
-      particle.style.setProperty('--x-offset', Math.random() - 0.5);
-      particle.style.setProperty('--y-offset', Math.random() - 0.5);
+  particle.style.setProperty('--x-offset', Math.random() - 0.5);
+  particle.style.setProperty('--y-offset', Math.random() - 0.5);
 
-      document.body.appendChild(particle);
+  document.body.appendChild(particle);
 
-     
-      setTimeout(() => {
-        particle.remove();
-      }, 1500);
-    }
-    const phrases = [
-        "Welcome to My Site!",
-      ];
-      const speed = 100;
-      const delayBetweenPhrases = 1500;
-      
-      const typewriterText = document.getElementById("typewriter-text");
-      
-      let phraseIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
-      
-      function type() {
-        const currentPhrase = phrases[phraseIndex];
-        if (isDeleting) {
-          charIndex--;
-        } else {
-          charIndex++;
-        }
-      
-        typewriterText.textContent = currentPhrase.slice(0, charIndex);
-      
-        
-        if (!isDeleting && charIndex === currentPhrase.length) {
-          isDeleting = true;
-          setTimeout(type, delayBetweenPhrases);
-        } else if (isDeleting && charIndex === 0) {
-          isDeleting = false;
-          phraseIndex = (phraseIndex + 1) % phrases.length;
-          setTimeout(type, 300);
-        } else {
-          setTimeout(type, isDeleting ? speed / 2 : speed);
-        }
-      }
-      
-     
-      type();
- 
-    
-    
+  setTimeout(() => {
+    particle.remove();
+  }, 1500);
+}
+
+const phrases = [
+    "Welcome to My Site!",
+];
+const speed = 100;
+const delayBetweenPhrases = 1500;
+
+const typewriterText = document.getElementById("typewriter-text");
+
+let phraseIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+function type() {
+  const currentPhrase = phrases[phraseIndex];
+  if (isDeleting) {
+    charIndex--;
+  } else {
+    charIndex++;
+  }
+
+  typewriterText.textContent = currentPhrase.slice(0, charIndex);
+
+  if (!isDeleting && charIndex === currentPhrase.length) {
+    isDeleting = true;
+    setTimeout(type, delayBetweenPhrases);
+  } else if (isDeleting && charIndex === 0) {
+    isDeleting = false;
+    phraseIndex = (phraseIndex + 1) % phrases.length;
+    setTimeout(type, 300);
+  } else {
+    setTimeout(type, isDeleting ? speed / 2 : speed);
+  }
+}
+
+type();
