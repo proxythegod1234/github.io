@@ -1,111 +1,136 @@
-const overlay = document.getElementById("overlay");
-const content = document.querySelector(".content");
-const backgroundVideo = document.getElementById("background-video");
+ const overlay = document.getElementById("overlay");
+ const content = document.querySelector(".content");
+ const backgroundVideo = document.getElementById("background-video");
 
-backgroundVideo.volume = 0.3;
 
-function playMusicAndHideOverlay() {
-    backgroundVideo.play();
+ backgroundVideo.volume = 0.3;
 
-    overlay.classList.add("show");
 
-    setTimeout(() => {
-        overlay.style.display = "none";
-        content.style.display = "block";
-    }, 500);
-}
+ function playMusicAndHideOverlay() {
+     backgroundVideo.style.display = 'block';
+     
 
-window.addEventListener('load', function () {
-  const profileBox = document.querySelector('.profile-box');
-  profileBox.classList.remove('no-tilt');
-});
-
-document.addEventListener("contextmenu", function (e) {
-    e.preventDefault();
-});
-
-document.querySelectorAll(".profile-box").forEach(box => {
-  let timer;
+     backgroundVideo.play().catch(error => {
+         console.log("Autoplay blocked, waiting for user interaction.");
   
-  box.addEventListener("mousemove", (e) => {
-      const rect = box.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const mouseX = e.pageX;
-      const mouseY = e.pageY;
+         document.body.addEventListener('click', function() {
+             backgroundVideo.play();
+         });
+     });
 
-      const deltaX = (mouseX - centerX) / rect.width;
-      const deltaY = (mouseY - centerY) / rect.height;
+     overlay.classList.add("hidden");
 
-      const tiltX = deltaY * 30;
-      const tiltY = -deltaX * 30;
+     setTimeout(() => {
+         overlay.style.display = "none";
+         content.style.display = "block";
+     }, 500);
+ }
 
-      box.style.transition = 'transform 0.1s ease-out';
-      box.style.transform = `perspective(1500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-  });
 
-  box.addEventListener("mouseleave", () => {
-      clearTimeout(timer); 
+ window.addEventListener('load', function () {
+     const profileBox = document.querySelector('.profile-box');
+     profileBox.classList.remove('no-tilt');
+     profileBox.classList.remove('loading');
+ });
 
-      timer = setTimeout(() => {
-          box.style.transition = 'transform 0.3s ease-out';
-          box.style.transform = "perspective(1500px) rotateX(0) rotateY(0)";
-      }, 50);
-  });
-});
 
-document.addEventListener('mousemove', (e) => {
-  createFairyDust(e.pageX, e.pageY);
-});
+ if (document.addEventListener) {
+     document.addEventListener('contextmenu', function(e) {
+         e.preventDefault();
+     });
+ } else if (document.attachEvent) {
+     document.attachEvent('oncontextmenu', function(e) {
+         e.preventDefault();
+     });
+ }
 
-function createFairyDust(x, y) {
-  const particle = document.createElement('div');
-  particle.classList.add('particle');
-  particle.style.left = `${x}px`;
-  particle.style.top = `${y}px`;
 
-  particle.style.setProperty('--x-offset', Math.random() - 0.5);
-  particle.style.setProperty('--y-offset', Math.random() - 0.5);
+ document.querySelectorAll(".profile-box").forEach(box => {
+     let timer;
+     
+     box.addEventListener("mousemove", (e) => {
+         const rect = box.getBoundingClientRect();
+         const centerX = rect.left + rect.width / 2;
+         const centerY = rect.top + rect.height / 2;
+         const mouseX = e.pageX;
+         const mouseY = e.pageY;
 
-  document.body.appendChild(particle);
+         const deltaX = (mouseX - centerX) / rect.width;
+         const deltaY = (mouseY - centerY) / rect.height;
 
-  setTimeout(() => {
-    particle.remove();
-  }, 1500);
-}
+         const tiltX = deltaY * 30;
+         const tiltY = -deltaX * 30;
 
-const phrases = [
-    "Welcome to My Site!",
-];
-const speed = 100;
-const delayBetweenPhrases = 1500;
+         box.style.transition = 'transform 0.1s ease-out';
+         box.style.transform = `perspective(1500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+     });
 
-const typewriterText = document.getElementById("typewriter-text");
+     box.addEventListener("mouseleave", () => {
+         clearTimeout(timer); 
 
-let phraseIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
+         timer = setTimeout(() => {
+             box.style.transition = 'transform 0.3s ease-out';
+             box.style.transform = "perspective(1500px) rotateX(0) rotateY(0)";
+         }, 50);
+     });
+ });
 
-function type() {
-  const currentPhrase = phrases[phraseIndex];
-  if (isDeleting) {
-    charIndex--;
-  } else {
-    charIndex++;
-  }
 
-  typewriterText.textContent = currentPhrase.slice(0, charIndex);
+ document.addEventListener('mousemove', (e) => {
+     createFairyDust(e.pageX, e.pageY);
+ });
 
-  if (!isDeleting && charIndex === currentPhrase.length) {
-    isDeleting = true;
-    setTimeout(type, delayBetweenPhrases);
-  } else if (isDeleting && charIndex === 0) {
-    isDeleting = false;
-    phraseIndex = (phraseIndex + 1) % phrases.length;
-    setTimeout(type, 300);
-  } else {
-    setTimeout(type, isDeleting ? speed / 2 : speed);
-  }
-}
+ function createFairyDust(x, y) {
+     const particle = document.createElement('div');
+     particle.classList.add('particle');
+     particle.style.left = `${x}px`;
+     particle.style.top = `${y}px`;
 
-type();
+   
+     particle.style.setProperty('--x-offset', Math.random() - 0.5);
+     particle.style.setProperty('--y-offset', Math.random() - 0.5);
+
+     document.body.appendChild(particle);
+
+ 
+     setTimeout(() => {
+         particle.remove();
+     }, 1500);
+ }
+
+
+ const phrases = [
+     "Welcome to My Site!",
+ ];
+ const speed = 100;
+ const delayBetweenPhrases = 1500;
+ 
+ const typewriterText = document.getElementById("typewriter-text");
+ 
+ let phraseIndex = 0;
+ let charIndex = 0;
+ let isDeleting = false;
+ 
+ function type() {
+     const currentPhrase = phrases[phraseIndex];
+     if (isDeleting) {
+         charIndex--;
+     } else {
+         charIndex++;
+     }
+ 
+     typewriterText.textContent = currentPhrase.slice(0, charIndex);
+ 
+     if (!isDeleting && charIndex === currentPhrase.length) {
+         isDeleting = true;
+         setTimeout(type, delayBetweenPhrases);
+     } else if (isDeleting && charIndex === 0) {
+         isDeleting = false;
+         phraseIndex = (phraseIndex + 1) % phrases.length;
+         setTimeout(type, 300);
+     } else {
+         setTimeout(type, isDeleting ? speed / 2 : speed);
+     }
+ }
+
+ type();
