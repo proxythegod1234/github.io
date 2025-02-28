@@ -4,89 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Press Start 2P', monospace;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background: linear-gradient(145deg, #120057, #240090);
-            color: #fff;
+            background: linear-gradient(135deg, #6a82fb, #fc5c7d);
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            position: relative;
+            font-size: 16px;
         }
 
-      
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255, 0, 255, 0.1), rgba(0, 0, 0, 0.9));
-            z-index: -1;
-        }
-
-     
-        .loading-screen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.9);
-            color: #00ffcc;
-            font-size: 2rem;
-        }
-
-        .loading-screen .retro-logo {
-            width: 120px;
-            height: 120px;
-            background: url('https://via.placeholder.com/120?text=Retro') no-repeat center/cover;
-            animation: spin 2s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-      
         .login-container {
-            display: none;
+            display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             width: 90%;
-            max-width: 400px;
-            background: linear-gradient(145deg, #1e014f, #310080);
+            max-width: 380px;
+            background: #ffffff;
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px #00ffcc, 0 0 50px rgba(0, 255, 204, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             animation: fadeIn 1s ease-out;
+            text-align: center;
         }
 
         @keyframes fadeIn {
             0% {
                 opacity: 0;
-                transform: translateY(-20px);
+                transform: translateY(-30px);
             }
             100% {
                 opacity: 1;
@@ -95,11 +50,10 @@
         }
 
         .login-form h1 {
-            font-size: 1.5rem;
-            color: #00ffcc;
-            text-shadow: 0 0 10px #00ffcc, 0 0 20px rgba(0, 255, 204, 0.6);
-            margin-bottom: 20px;
-            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 25px;
         }
 
         .select-dropdown {
@@ -109,55 +63,49 @@
 
         .select-dropdown select {
             width: 100%;
-            padding: 14px;
-            border-radius: 5px;
-            border: 2px solid #ff007f;
-            background: #240090;
-            color: #fff;
+            padding: 12px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            background: #f9f9f9;
+            color: #333;
             font-size: 1rem;
-            text-transform: uppercase;
             outline: none;
-            cursor: pointer;
-            transition: border 0.3s, box-shadow 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
         .select-dropdown select:hover,
         .select-dropdown select:focus {
-            border-color: #00ffcc;
-            box-shadow: 0 0 10px #00ffcc;
+            border-color: #6a82fb;
+            box-shadow: 0 0 10px rgba(106, 130, 251, 0.5);
         }
 
         button {
             width: 100%;
             padding: 12px 0;
-            margin: 10px 0;
-            background: linear-gradient(145deg, #ff007f, #ff00bf);
+            margin-top: 20px;
+            background: #6a82fb;
             color: #fff;
-            font-size: 1rem;
+            font-size: 1.1rem;
             text-transform: uppercase;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: transform 0.2s, background 0.3s;
-            text-shadow: 0 0 5px #fff;
+            transition: transform 0.2s, background 0.3s ease;
         }
 
         button:hover {
-            transform: scale(1.1);
-            background: linear-gradient(145deg, #00ffcc, #00bfff);
+            transform: scale(1.05);
+            background: #fc5c7d;
         }
 
         button:active {
             transform: scale(1);
         }
+
     </style>
 </head>
 <body>
-    <div class="overlay"></div>
-    <div class="loading-screen">
-        <div class="retro-logo"></div>
-        <p>Loading...</p>
-    </div>
+
     <div class="login-container">
         <div class="login-form">
             <h1>Login</h1>
@@ -172,14 +120,8 @@
             </form>
         </div>
     </div>
-    <script>
-        window.onload = function() {
-            setTimeout(() => {
-                document.querySelector('.loading-screen').style.display = 'none';
-                document.querySelector('.login-container').style.display = 'flex';
-            }, 2000);
-        };
 
+    <script>
         document.querySelector("#loginForm").addEventListener("submit", function(event) {
             event.preventDefault();
             window.location.href = "desktop.html";
