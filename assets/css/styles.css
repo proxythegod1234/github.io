@@ -7,6 +7,15 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow: hidden;
+    height: 100%;
+}
+
+::-webkit-scrollbar {
+    display: none; 
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -18,6 +27,7 @@ body {
     font-family: "VT323", monospace;
     min-height: 100vh;
     cursor: default;
+    touch-action: none;
 }
 
 #background-video {
@@ -41,6 +51,7 @@ body {
         background-position: center;
     }
 }
+
 #overlay {
     position: fixed;
     top: 0;
@@ -129,7 +140,6 @@ body {
     will-change: transform, box-shadow, background-color;
     transform: rotateY(0deg) rotateX(0deg) translateY(0) scale(1);
 }
-
 
 .profile-box:hover {
     transition: transform 0.5s ease-out, box-shadow 0.5s ease-out, background-color 0.5s ease-out;
