@@ -59,24 +59,42 @@
         .select-dropdown {
             width: 100%;
             margin: 20px 0;
+            position: relative;
         }
 
         .select-dropdown select {
             width: 100%;
-            padding: 12px;
+            padding: 15px 40px 15px 15px;
             border-radius: 10px;
             border: 2px solid #ddd;
             background: #f9f9f9;
             color: #333;
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
+            appearance: none;
+            cursor: pointer;
+            box-sizing: border-box;
         }
+
+   
+        .select-dropdown::after {
+            content: '▼';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #333;
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+
 
         .select-dropdown select:hover,
         .select-dropdown select:focus {
             border-color: #6a82fb;
-            box-shadow: 0 0 10px rgba(106, 130, 251, 0.5);
+            background: #fff;
+            box-shadow: 0 0 8px rgba(106, 130, 251, 0.5);
         }
 
         button {
