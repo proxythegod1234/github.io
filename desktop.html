@@ -1,53 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🕯 Proxy's Crypt 🕯</title>
-    <link rel="stylesheet" href="/assets/css/styles.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🕯 Proxy's Crypt 🕯</title>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0d0d1a;
+      color: #e0d6cd;
+      font-family: 'UnifrakturCook', cursive;
+    }
+
+    .tilt-wrapper {
+      display: inline-block;
+      perspective: 1000px;
+    }
+
+    .profile-box {
+      transition: transform 0.6s ease-out;
+      text-align: center;
+      transform-style: preserve-3d;
+      position: relative;
+      padding: 1rem;
+    }
+
+    .profile-box:hover {
+      transform: rotateY(15deg) rotateX(10deg);
+    }
+
+    .profile-box img {
+      width: 100px;
+      height: auto;
+      filter: drop-shadow(0 0 6px #dc143c);
+      border-radius: 50%;
+      animation: floatImg 4s ease-in-out infinite;
+    }
+
+    @keyframes floatImg {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+
+    .badge-text {
+      font-family: 'UnifrakturCook', cursive;
+      font-size: 1rem;
+      color: #dc143c;
+      text-shadow: 0 0 6px #8b0000;
+      margin: 0.5em 0;
+      animation: flickerBadge 3s infinite;
+    }
+
+    @keyframes flickerBadge {
+      0%, 100% { opacity: 1; }
+      20%, 22%, 24%, 55% { opacity: 0.4; }
+      21%, 23%, 25%, 54% { opacity: 1; }
+    }
+
+    .button-container {
+      margin-top: 2rem;
+    }
+
+    .button {
+      margin: 0.5em;
+      display: inline-block;
+    }
+
+    .button img {
+      width: 3.5em;
+      height: 3.5em;
+      transition: transform 0.3s ease;
+    }
+
+    .button img:hover {
+      transform: scale(1.1);
+    }
+
+    .typewriter h3 {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #e0d6cd;
+      animation: typing 4s steps(40, end), blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { border-color: transparent; }
+      50% { border-color: #e0d6cd; }
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0d0d1a;
+      color: #e0d6cd;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 999;
+    }
+  </style>
 </head>
 <body>
-    <div id="overlay" role="button" aria-label="Click to play gothic music and enter the crypt" onclick="playMusicAndHideOverlay()">
-        Enter the Crypt
-    </div>
+  <div id="overlay" role="button" aria-label="Click to play gothic music and enter the crypt" onclick="playMusicAndHideOverlay()">
+    Enter the Crypt
+  </div>
 
-    <video id="background-video" disablePictureInPicture playsinline style="display: none;" loop>
-        <source src="https://pub-771679a3149d43669bc14f66cc6c90a8.r2.dev/1nonly%20-%20STRAIGHT%202%20IT%20(Official%20Music%20Video).mp4">
-    </video>
+  <video id="background-video" disablePictureInPicture playsinline style="display: none;" loop>
+    <source src="https://pub-771679a3149d43669bc14f66cc6c90a8.r2.dev/1nonly%20-%20STRAIGHT%202%20IT%20(Official%20Music%20Video).mp4">
+  </video>
 
-    <div class="content">
-        <div class="button-container">
-            <div class="tilt-wrapper">
-                <div class="profile-box">
-                    <img src="https://files.catbox.moe/1yyqoz.gif" alt="Proxy's Gothic Avatar" />
-                    <h3 class="sparkle-bg">Proxy</h3>
+  <div class="content">
+    <div class="button-container">
+      <div class="tilt-wrapper">
+        <div class="profile-box">
+          
+          <img src="https://files.catbox.moe/zv7b5w.gif" alt="Bat Profile Avatar" />
 
-                    <div class="typewriter">
-                        <h3 id="typewriter-text">Just a lost soul learning to code...</h3>
-                    </div>
+          
+          <div class="badge-text">🦇 Soulbound to the Shadows 🦇</div>
 
-                    <p>Wandering through the realms of code and chaos</p>
+          <h3 class="sparkle-bg">Proxy</h3>
 
-                    <a class="button" href="https://t.me/bleedable" target="_blank" rel="noopener noreferrer">
-                        <img src="https://files.catbox.moe/02r5fg.jpg" style="width:3.5em; height:3.5em;" alt="Telegram Gothic Link" />
-                    </a>
-                    <a class="button" href="https://x.com/trialware" target="_blank" rel="noopener noreferrer">
-                        <img src="https://files.catbox.moe/9r28re.png" style="width:3.5em; height:3.5em;" alt="X Gothic Link" />
-                    </a>
-                    <a class="button" href="https://discord.com/users/842076404082409522" target="_blank" rel="noopener noreferrer">
-                        <img src="https://files.catbox.moe/opp07c.png" style="width:3.5em; height:3.5em;" alt="Discord Gothic Link" />
-                    </a>
-                    <a class="button" href="https://github.com/proxythegod1234" target="_blank" rel="noopener noreferrer">
-                        <img src="https://files.catbox.moe/28hgzt.png" style="width:3.5em; height:3.5em;" alt="GitHub Gothic Link" />
-                    </a>
-                </div>
-            </div>
+         
+          <div class="typewriter">
+            <h3 id="typewriter-text">Just a lost soul learning to code...</h3>
+          </div>
+
+          <p>Wandering through the realms of code and chaos</p>
+
+         
+          <a class="button" href="https://t.me/bleedable" target="_blank" rel="noopener noreferrer">
+            <img src="https://files.catbox.moe/02r5fg.jpg" alt="Telegram Gothic Link" />
+          </a>
+          <a class="button" href="https://x.com/trialware" target="_blank" rel="noopener noreferrer">
+            <img src="https://files.catbox.moe/9r28re.png" alt="X Gothic Link" />
+          </a>
+          <a class="button" href="https://discord.com/users/842076404082409522" target="_blank" rel="noopener noreferrer">
+            <img src="https://files.catbox.moe/opp07c.png" alt="Discord Gothic Link" />
+          </a>
+          <a class="button" href="https://github.com/proxythegod1234" target="_blank" rel="noopener noreferrer">
+            <img src="https://files.catbox.moe/28hgzt.png" alt="GitHub Gothic Link" />
+          </a>
         </div>
+      </div>
     </div>
+  </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
-    <script src="/assets/js/scripts.js"></script>
+  <script>
+    function playMusicAndHideOverlay() {
+      const overlay = document.getElementById('overlay');
+      const video = document.getElementById('background-video');
+      overlay.style.display = 'none';
+      video.style.display = 'block';
+      video.play();
+    }
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+  <script src="/assets/js/scripts.js"></script>
 </body>
 </html>
