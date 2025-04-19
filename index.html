@@ -159,7 +159,6 @@
           <select id="username" name="username" required>
             <option value="" selected disabled>Select Your Path</option>
             <option value="user1">Proxy</option>
-            <option value="user1">Wave</option>
           </select>
         </div>
         <div class="links-container">
@@ -168,20 +167,18 @@
       </form>
     </div>
   </div>
-
   <script>
-  document.querySelector("#loginForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    const selectedUser = document.getElementById("username").value;
-
-    if (selectedUser === "proxy") {
-      window.location.href = "proxy"; 
-    } else if (selectedUser === "wave") {
-      window.location.href = "c2";
-    }
-  });
-  </script>
+    document.querySelector("#loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const selectedUser = document.getElementById("username").value;
   
+      if (selectedUser === "proxy") {
+        window.location.href = "proxy";
+      } else if (selectedUser === "wave") {
+        window.location.href = "c2"; 
+      }
+    });
   </script>
+
 </body>
 </html>
