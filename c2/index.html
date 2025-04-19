@@ -3,177 +3,183 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=MedievalSharp&display=swap" rel="stylesheet">
+  <title>WaveC2</title>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --midnight: #0d0d1a;
-      --gothic-purple: #4b0082;
-      --blood-red: #8b0000;
-      --crimson: #dc143c;
-      --bone: #e0d6cd;
-      --smoke: rgba(255, 255, 255, 0.05);
-      --flicker-speed: 0.15s;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      background: linear-gradient(135deg, #0f0f1a, #1a001a, #2a0a2a);
-      color: var(--bone);
-      font-family: 'Inter', sans-serif;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      font-size: 16px;
+      background: radial-gradient(circle at bottom, #001f3f 0%, #000814 100%);
+      color: #e0f7fa;
+      font-family: 'UnifrakturCook', cursive;
+      background-attachment: fixed;
     }
 
-    .login-container {
-      background: var(--midnight);
-      padding: 3rem 2rem;
-      border: 2px solid var(--blood-red);
-      box-shadow: 0 0 40px rgba(220, 20, 60, 0.2), 0 0 60px rgba(75, 0, 130, 0.3);
-      border-radius: 12px;
-      max-width: 380px;
-      width: 90%;
-      animation: fadeIn 1.2s ease-out;
-      backdrop-filter: blur(8px);
+    .tilt-wrapper {
+      display: inline-block;
+      perspective: 1000px;
     }
 
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .profile-box {
+      transition: transform 0.6s ease-out;
+      text-align: center;
+      transform-style: preserve-3d;
+      position: relative;
+      padding: 1rem;
+      background: rgba(0, 31, 63, 0.2);
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(0, 191, 255, 0.2);
     }
 
-    .login-form h1 {
-      font-family: 'MedievalSharp', cursive;
-      font-size: 2.2rem;
-      color: var(--crimson);
-      margin-bottom: 25px;
-      text-shadow: 0 0 10px var(--blood-red);
+    .profile-box:hover {
+      transform: rotateY(15deg) rotateX(10deg);
     }
 
-    .select-dropdown {
-      width: 100%;
-      margin: 20px 0;
+    .profile-box img {
+      width: 100px;
+      height: auto;
+      filter: drop-shadow(0 0 6px #00bcd4);
+      border-radius: 50%;
+      animation: floatImg 4s ease-in-out infinite;
     }
 
-    .select-dropdown select {
-      width: 100%;
-      padding: 12px;
-      border-radius: 0;
-      border: 2px solid var(--blood-red);
-      background: #1a1a2e;
-      color: var(--bone);
+    @keyframes floatImg {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+
+    .badge-text {
+      font-family: 'UnifrakturCook', cursive;
       font-size: 1rem;
-      font-family: 'Inter', sans-serif;
-      outline: none;
-      transition: border-color 0.3s, box-shadow 0.3s;
+      color: #00bcd4;
+      text-shadow: 0 0 6px #007bff;
+      margin: 0.5em 0;
+      animation: flickerBadge 3s infinite;
     }
 
-    .select-dropdown select:hover,
-    .select-dropdown select:focus {
-      border-color: var(--crimson);
-      box-shadow: 0 0 15px var(--crimson);
+    @keyframes flickerBadge {
+      0%, 100% { opacity: 1; }
+      20%, 22%, 24%, 55% { opacity: 0.4; }
+      21%, 23%, 25%, 54% { opacity: 1; }
     }
 
-    .links-container {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
+    .button-container {
       margin-top: 2rem;
     }
 
-    .link-btn {
-      position: relative;
-      padding: 1rem 2rem;
-      background: linear-gradient(to right, var(--midnight), var(--gothic-purple), var(--midnight));
-      color: var(--bone);
-      border: 2px solid var(--blood-red);
-      font-family: 'MedievalSharp', cursive;
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-decoration: none;
-      overflow: hidden;
-      transition: all 0.5s ease;
-      box-shadow:
-        0 0 10px rgba(139, 0, 0, 0.3),
-        inset 0 0 10px rgba(139, 0, 0, 0.3);
-      z-index: 1;
-      cursor: pointer;
+    .button {
+      margin: 0.5em;
+      display: inline-block;
     }
 
-    .link-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
+    .button img {
+      width: 3.5em;
+      height: 3.5em;
+      transition: transform 0.3s ease;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(0, 191, 255, 0.3);
+    }
+
+    .button img:hover {
+      transform: scale(1.1);
+    }
+
+    .typewriter h3 {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #e0f7fa;
+      animation: typing 4s steps(40, end), blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { border-color: transparent; }
+      50% { border-color: #e0f7fa; }
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.4), transparent);
-      transition: all 0.5s ease;
-      z-index: -1;
+      background: rgba(0, 8, 20, 0.9);
+      color: #00d4ff;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 999;
+      text-shadow: 0 0 6px #00ffff;
     }
 
-    .link-btn:hover {
-      color: white;
-      border-color: var(--crimson);
-      box-shadow: 0 0 20px var(--crimson), inset 0 0 20px rgba(220, 20, 60, 0.5);
-      transform: translateY(-3px);
+    .sparkle-bg {
+      background: linear-gradient(45deg, #007bff, #00c6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .link-btn:hover::before {
-      left: 100%;
-    }
-
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-      }
-      20%, 22%, 24%, 55% {
-        opacity: 0.3;
-      }
+    p {
+      font-size: 1rem;
+      color: #b2ebf2;
+      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
+  <div id="overlay" role="button" aria-label="Click to dive into the abyss" onclick="playMusicAndHideOverlay()">
+    Enter the C2 Abyss
+  </div>
 
-  <div class="login-container">
-    <div class="login-form">
-      <h1>Welcome, Wanderer</h1>
-      <form id="loginForm">
-        <div class="select-dropdown">
-          <select id="username" name="username" required>
-            <option value="" selected disabled>Select Your Path</option>
-            <option value="user1">Wave</option>
-          </select>
+  <video id="background-video" disablePictureInPicture playsinline style="display: none;" loop>
+    <source src="https://pub-771679a3149d43669bc14f66cc6c90a8.r2.dev/1nonly%20-%20STRAIGHT%202%20IT%20(Official%20Music%20Video).mp4">
+  </video>
+
+  <div class="content">
+    <div class="button-container">
+      <div class="tilt-wrapper">
+        <div class="profile-box">
+          
+          <img src="https://files.catbox.moe/zv7b5w.gif" alt="Bat Profile Avatar" />
+          
+          <div class="badge-text">best C2 under the sea</div>
+
+          <h3 class="sparkle-bg">Wave</h3>
+
+          <div class="typewriter">
+            <h3 id="typewriter-text">Surfing the darknet tide...</h3>
+          </div>
+
+          <p>Dive deep with WaveC2 – secure, stealthy, submerged</p>
+
+          <a class="button" href="https://t.me/bleedable" target="_blank" rel="noopener noreferrer">
+            <img src="https://files.catbox.moe/02r5fg.jpg" alt="Telegram Link" />
+          </a>
+          <a class="button" href="https://x.com/trialware" target="_blank" rel="noopener noreferrer">
+            <img src="https://files.catbox.moe/9r28re.png" alt="X Link" />
+          </a>
+          <a class="button" href="https://discord.com/users/842076404082409522" target="_blank" rel="noopener noreferrer">
+            <img src="https://files.catbox.moe/opp07c.png" alt="Discord Link" />
+          </a>
+          <a class="button" href="https://github.com/proxythegod1234" target="_blank" rel="noopener noreferrer">
+            <img src="https://files.catbox.moe/28hgzt.png" alt="GitHub Link" />
+          </a>
         </div>
-        <div class="links-container">
-          <button type="submit" class="link-btn">Enter</button>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 
   <script>
-    document.querySelector("#loginForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-      window.location.href = "c2";
-    });
+    function playMusicAndHideOverlay() {
+      const overlay = document.getElementById('overlay');
+      const video = document.getElementById('background-video');
+      overlay.style.display = 'none';
+      video.style.display = 'block';
+      video.play();
+    }
   </script>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+  <script src="/assets/js/scripts.js"></script>
 </body>
 </html>
