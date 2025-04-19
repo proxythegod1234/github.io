@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=MedievalSharp&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --midnight: #0d0d1a;
+      --gothic-purple: #4b0082;
+      --blood-red: #8b0000;
+      --crimson: #dc143c;
+      --bone: #e0d6cd;
+      --smoke: rgba(255, 255, 255, 0.05);
+      --flicker-speed: 0.15s;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f0f1a, #1a001a, #2a0a2a);
+      color: var(--bone);
+      font-family: 'Inter', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-size: 16px;
+    }
+
+    .login-container {
+      background: var(--midnight);
+      padding: 3rem 2rem;
+      border: 2px solid var(--blood-red);
+      box-shadow: 0 0 40px rgba(220, 20, 60, 0.2), 0 0 60px rgba(75, 0, 130, 0.3);
+      border-radius: 12px;
+      max-width: 380px;
+      width: 90%;
+      animation: fadeIn 1.2s ease-out;
+      backdrop-filter: blur(8px);
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-form h1 {
+      font-family: 'MedievalSharp', cursive;
+      font-size: 2.2rem;
+      color: var(--crimson);
+      margin-bottom: 25px;
+      text-shadow: 0 0 10px var(--blood-red);
+    }
+
+    .select-dropdown {
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    .select-dropdown select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 0;
+      border: 2px solid var(--blood-red);
+      background: #1a1a2e;
+      color: var(--bone);
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .select-dropdown select:hover,
+    .select-dropdown select:focus {
+      border-color: var(--crimson);
+      box-shadow: 0 0 15px var(--crimson);
+    }
+
+    .links-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .link-btn {
+      position: relative;
+      padding: 1rem 2rem;
+      background: linear-gradient(to right, var(--midnight), var(--gothic-purple), var(--midnight));
+      color: var(--bone);
+      border: 2px solid var(--blood-red);
+      font-family: 'MedievalSharp', cursive;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-decoration: none;
+      overflow: hidden;
+      transition: all 0.5s ease;
+      box-shadow:
+        0 0 10px rgba(139, 0, 0, 0.3),
+        inset 0 0 10px rgba(139, 0, 0, 0.3);
+      z-index: 1;
+      cursor: pointer;
+    }
+
+    .link-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.4), transparent);
+      transition: all 0.5s ease;
+      z-index: -1;
+    }
+
+    .link-btn:hover {
+      color: white;
+      border-color: var(--crimson);
+      box-shadow: 0 0 20px var(--crimson), inset 0 0 20px rgba(220, 20, 60, 0.5);
+      transform: translateY(-3px);
+    }
+
+    .link-btn:hover::before {
+      left: 100%;
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+      }
+      20%, 22%, 24%, 55% {
+        opacity: 0.3;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="login-form">
+      <h1>Welcome, Wanderer</h1>
+      <form id="loginForm">
+        <div class="select-dropdown">
+          <select id="username" name="username" required>
+            <option value="" selected disabled>Select Your Path</option>
+            <option value="user1">Wave</option>
+          </select>
+        </div>
+        <div class="links-container">
+          <button type="submit" class="link-btn">Enter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector("#loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      window.location.href = "c2";
+    });
+  </script>
+
+</body>
+</html>
