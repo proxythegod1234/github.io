@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wave C2</title>
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap")
+    @import url("https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Source+Code+Pro&display=swap");
 
     * {
       user-select: none;
@@ -30,7 +30,7 @@
       align-items: center;
       background: linear-gradient(to bottom, #0a1f33, #001a26);
       color: #1994d1;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Source Code Pro', monospace;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
@@ -69,7 +69,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background:rgba(10, 20, 30, 0.9);
+      background: rgba(10, 20, 30, 0.9);
       cursor: pointer;
       color: #2cbae6;
       font-size: 2rem;
@@ -105,6 +105,10 @@
     }
 
     .profile-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
       padding: 30px;
       background: rgba(20, 20, 20, 0.9);
       backdrop-filter: blur(8px);
@@ -147,12 +151,6 @@
       text-shadow: 2px 2px 5px #000;
     }
 
-    .profile-box p {
-      font-size: 1.2rem;
-      color: #bfbfbf;
-      font-style: italic;
-    }
-
     .typewriter {
       display: inline-block;
       overflow: hidden;
@@ -163,6 +161,42 @@
       padding-right: 10px;
       vertical-align: middle;
       height: 3.5em;
+      margin-top: 10px;
+    }
+
+    .telegram-button {
+      margin-top: auto;
+      margin-bottom: 10px;
+      display: inline-block;
+      text-decoration: none;
+      background-color: transparent;
+      color: #30a3c0;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease, background-color 0.3s ease;
+      line-height: 0;
+      padding: 10px;
+      border-radius: 50%;
+      background: transparent;
+      width: 60px;
+      height: 60px;
+    }
+
+    .telegram-button img {
+      width: 60px;
+      height: 60px;
+      filter: brightness(1.2) drop-shadow(0 0 2px #1994d1);
+    }
+
+    .telegram-button:hover {
+      background: transparent;
+      transform: scale(1.1);
+      box-shadow: transparent;
+      animation: waveEffect 0.5s ease-in-out infinite;
+    }
+
+    @keyframes waveEffect {
+      0% { transform: scale(1.1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(10deg); }
+      100% { transform: scale(1.1) rotate(0deg); }
     }
 
     .rain {
@@ -192,46 +226,6 @@
 
     .rain .raindrop:nth-child(odd) { animation-duration: 0.6s; }
     .rain .raindrop:nth-child(even) { animation-duration: 0.8s; }
-
-    .telegram-button {
-    display: inline-block;
-    text-decoration: none;
-    background-color: transparent;
-    color: #30a3c0;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease, background-color 0.3s ease;
-    margin: 2px;
-    line-height: 0;
-    padding: 10px;
-    border-radius: 50%;
-    background: transparent;
-    width: 60px;
-    height: 60px;
-}
-
-.telegram-button img {
-    width: 60px;
-    height: 60px;
-    filter: brightness(1.2) drop-shadow(0 0 2px #1994d1);
-}
-
-.telegram-button:hover {
-    background: transparent; 
-    transform: scale(1.1);
-    box-shadow: transparent; 
-    animation: waveEffect 0.5s ease-in-out infinite;
-}
-
-@keyframes waveEffect {
-    0% {
-        transform: scale(1.1) rotate(0deg);
-    }
-    50% {
-        transform: scale(1.1) rotate(10deg);
-    }
-    100% {
-        transform: scale(1.1) rotate(0deg);
-    }
-}
 
     canvas {
       position: fixed;
@@ -267,12 +261,9 @@
       <div class="profile-box">
         <img src="https://files.catbox.moe/uphml6.jpg" alt="Wave Profile Avatar" />
         <h3>Wave</h3>
-        <div class="typewriter">
-          <h3 id="typewriter-text">Hardest Hitting c2!</h3>
-        </div>
+        <div class="typewriter" id="typewriter-text">Hardest Hitting c2!</div>
         <a class="telegram-button" href="https://t.me/wavec2" target="_blank">
           <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram Icon" />
-
         </a>
       </div>
     </div>
@@ -346,7 +337,6 @@
 
     type();
 
-  
     const canvas = document.getElementById("mouse-canvas");
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
