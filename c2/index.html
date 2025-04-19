@@ -13,6 +13,20 @@
       color: #e0f7fa;
       font-family: 'Orbitron', sans-serif;
       background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
     }
 
     .tilt-wrapper {
@@ -111,7 +125,6 @@
       cursor: pointer;
       z-index: 999;
       text-shadow: 0 0 10px #00ffff;
-      transition: all 0.4s ease-in-out;
     }
 
     .highlight-text {
@@ -122,6 +135,14 @@
       font-weight: bold;
     }
 
+    .wave {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1;
+    }
+
     p {
       font-size: 1rem;
       color: #b2ebf2;
@@ -130,46 +151,41 @@
   </style>
 </head>
 <body>
+  <div id="particles-js"></div>
+
   <div id="overlay" role="button" aria-label="Click to dive in" onclick="playMusicAndHideOverlay()">
     <span class="highlight-text">Enter the Wave</span>
   </div>
 
   <video id="background-video" disablePictureInPicture playsinline style="display: none;" loop>
-    <source src="https://files.catbox.moe/3s8f2y.mp4">
+    <source src="https://pub-771679a3149d43669bc14f66cc6c90a8.r2.dev/1nonly%20-%20STRAIGHT%202%20IT%20(Official%20Music%20Video).mp4">
   </video>
 
   <div class="content">
     <div class="button-container">
       <div class="tilt-wrapper">
         <div class="profile-box">
-          <img src="https://files.catbox.moe/lbq95r.gif" alt="Wave Profile Avatar" />
-          
+          <img src="https://files.catbox.moe/lbq95r.gif" alt="Wave Avatar" />
           <div class="badge-text">WaveC2: Secure beneath the surface</div>
-
           <h3 class="highlight-text">Wave</h3>
-
           <div class="typewriter">
             <h3 id="typewriter-text">Flowing with the current...</h3>
           </div>
-
           <p>Deep, silent, and adaptive — welcome to WaveC2</p>
 
-          <a class="button" href="https://t.me/bleedable" target="_blank" rel="noopener noreferrer">
-            <img src="https://files.catbox.moe/02r5fg.jpg" alt="Telegram" />
-          </a>
-          <a class="button" href="https://x.com/trialware" target="_blank" rel="noopener noreferrer">
-            <img src="https://files.catbox.moe/9r28re.png" alt="X" />
-          </a>
-          <a class="button" href="https://discord.com/users/842076404082409522" target="_blank" rel="noopener noreferrer">
-            <img src="https://files.catbox.moe/opp07c.png" alt="Discord" />
-          </a>
-          <a class="button" href="https://github.com/proxythegod1234" target="_blank" rel="noopener noreferrer">
-            <img src="https://files.catbox.moe/28hgzt.png" alt="GitHub" />
-          </a>
+          <a class="button" href="https://t.me/bleedable" target="_blank"><img src="https://files.catbox.moe/02r5fg.jpg" alt="Telegram" /></a>
+          <a class="button" href="https://x.com/trialware" target="_blank"><img src="https://files.catbox.moe/9r28re.png" alt="X" /></a>
+          <a class="button" href="https://discord.com/users/842076404082409522" target="_blank"><img src="https://files.catbox.moe/opp07c.png" alt="Discord" /></a>
+          <a class="button" href="https://github.com/proxythegod1234" target="_blank"><img src="https://files.catbox.moe/28hgzt.png" alt="GitHub" /></a>
         </div>
       </div>
     </div>
   </div>
+
+
+  <svg class="wave" viewBox="0 0 1440 320">
+    <path fill="#00cfff" fill-opacity="0.3" d="M0,160L40,144C80,128,160,96,240,90.7C320,85,400,107,480,117.3C560,128,640,128,720,144C800,160,880,192,960,192C1040,192,1120,160,1200,149.3C1280,139,1360,149,1400,154.7L1440,160L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path>
+  </svg>
 
   <script>
     function playMusicAndHideOverlay() {
@@ -179,6 +195,38 @@
       video.style.display = 'block';
       video.play();
     }
+  </script>
+
+  <!-- Load Particles.js for raindrops -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 100 },
+        "color": { "value": "#00cfff" },
+        "shape": { "type": "circle" },
+        "opacity": {
+          "value": 0.4,
+          "random": true
+        },
+        "size": {
+          "value": 2,
+          "random": true
+        },
+        "move": {
+          "direction": "bottom",
+          "speed": 3,
+          "out_mode": "out"
+        }
+      },
+      "interactivity": {
+        "events": {
+          "onhover": { "enable": false },
+          "onclick": { "enable": false }
+        }
+      },
+      "retina_detect": true
+    });
   </script>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
