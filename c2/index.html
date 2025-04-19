@@ -2,31 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WaveC2</title>
-  <link rel="stylesheet" href="/assets/css/styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Waves C2</title>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
+      background: linear-gradient(#031926, #062d44);
+      color: #c6f9ff;
+      font-family: 'UnifrakturCook', cursive;
+      overflow: hidden;
       margin: 0;
-      background: linear-gradient(180deg, #001f3f 0%, #007bff 100%);
-      color: #e0f7fa;
-      font-family: 'Orbitron', sans-serif;
-      background-attachment: fixed;
-      overflow-x: hidden;
-    }
-
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .content {
-      position: relative;
-      z-index: 2;
+      padding: 0;
     }
 
     .tilt-wrapper {
@@ -39,42 +25,38 @@
       text-align: center;
       transform-style: preserve-3d;
       position: relative;
-      padding: 2rem;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 1.5rem;
-      box-shadow: 0 0 20px rgba(0, 191, 255, 0.25);
-      backdrop-filter: blur(6px);
+      padding: 1rem;
     }
 
     .profile-box:hover {
-      transform: rotateY(10deg) rotateX(6deg);
+      transform: rotateY(15deg) rotateX(10deg);
     }
 
     .profile-box img {
-      width: 110px;
+      width: 100px;
       height: auto;
-      filter: drop-shadow(0 0 8px #00ffff);
+      filter: drop-shadow(0 0 6px #00e5ff);
       border-radius: 50%;
       animation: floatImg 4s ease-in-out infinite;
     }
 
     @keyframes floatImg {
       0% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      50% { transform: translateY(-6px); }
       100% { transform: translateY(0); }
     }
 
     .badge-text {
       font-size: 1rem;
-      color: #00d4ff;
-      text-shadow: 0 0 4px #00ffff;
+      color: #00e5ff;
+      text-shadow: 0 0 6px #0077b6;
       margin: 0.5em 0;
       animation: flickerBadge 3s infinite;
     }
 
     @keyframes flickerBadge {
       0%, 100% { opacity: 1; }
-      20%, 22%, 24%, 55% { opacity: 0.5; }
+      20%, 22%, 24%, 55% { opacity: 0.4; }
       21%, 23%, 25%, 54% { opacity: 1; }
     }
 
@@ -91,8 +73,6 @@
       width: 3.5em;
       height: 3.5em;
       transition: transform 0.3s ease;
-      border-radius: 50%;
-      box-shadow: 0 0 12px rgba(0, 191, 255, 0.4);
     }
 
     .button img:hover {
@@ -116,76 +96,123 @@
       top: 0; left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 8, 20, 0.9);
-      color: #00d4ff;
+      background: rgba(10, 20, 30, 0.85);
+      color: #c6f9ff;
       font-size: 2rem;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       z-index: 999;
-      text-shadow: 0 0 10px #00ffff;
     }
 
-    .highlight-text {
-      background: linear-gradient(45deg, #00e5ff, #00c6ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: 2rem;
-      font-weight: bold;
-    }
-
-    .wave {
-      position: absolute;
-      bottom: 0;
+    #water-overlay {
+      position: fixed;
+      top: 0;
       left: 0;
       width: 100%;
-      z-index: 1;
+      height: 100%;
+      background: repeating-radial-gradient(circle, rgba(255, 255, 255, 0.03) 0, rgba(0, 229, 255, 0.02) 2px);
+      animation: ripple 6s infinite linear;
+      pointer-events: none;
+      z-index: 10;
     }
 
-    p {
-      font-size: 1rem;
-      color: #b2ebf2;
-      margin-top: 1rem;
+    @keyframes ripple {
+      from {
+        background-position: 0 0;
+      }
+      to {
+        background-position: 100px 100px;
+      }
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -100px;
+      width: 20px;
+      height: 20px;
+      background: rgba(173, 216, 230, 0.5);
+      border-radius: 50%;
+      animation: rise 10s infinite ease-in;
+      z-index: 5;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(-120vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .jellyfish {
+      position: absolute;
+      bottom: -150px;
+      width: 40px;
+      height: 60px;
+      background: radial-gradient(circle at 20px 20px, #00e5ff 0%, #004e6e 100%);
+      border-radius: 50% 50% 40% 40%;
+      animation: floatJelly 20s infinite ease-in-out;
+      filter: blur(0.5px);
+      opacity: 0.7;
+      z-index: 4;
+    }
+
+    @keyframes floatJelly {
+      0% {
+        transform: translateY(0) translateX(0) scale(1);
+      }
+      50% {
+        transform: translateY(-80vh) translateX(20px) scale(1.1);
+      }
+      100% {
+        transform: translateY(0) translateX(-20px) scale(1);
+      }
     }
   </style>
 </head>
 <body>
-  <div id="particles-js"></div>
-
-  <div id="overlay" role="button" aria-label="Click to dive in" onclick="playMusicAndHideOverlay()">
-    <span class="highlight-text">Enter the Wave</span>
+  <div id="overlay" role="button" aria-label="Click to play ocean music and enter" onclick="playMusicAndHideOverlay()">
+    Enter the C2
   </div>
 
   <video id="background-video" disablePictureInPicture playsinline style="display: none;" loop>
-    <source src="https://pub-771679a3149d43669bc14f66cc6c90a8.r2.dev/1nonly%20-%20STRAIGHT%202%20IT%20(Official%20Music%20Video).mp4">
+    <source src="https://files.catbox.moe/3s8f2y.mp4">
   </video>
 
   <div class="content">
     <div class="button-container">
       <div class="tilt-wrapper">
         <div class="profile-box">
-          <img src="https://files.catbox.moe/lbq95r.gif" alt="Wave Avatar" />
-          <div class="badge-text">WaveC2: Secure beneath the surface</div>
-          <h3 class="highlight-text">Wave</h3>
+          <img src="https://files.catbox.moe/zv7b5w.gif" alt="Wave Avatar" />
+          <div class="badge-text">best C2 on the tide!</div>
+          <h3 class="sparkle-bg">Wave</h3>
           <div class="typewriter">
-            <h3 id="typewriter-text">Flowing with the current...</h3>
+            <h3 id="typewriter-text">If it ain't Wave, I don't want it!...</h3>
           </div>
-          <p>Deep, silent, and adaptive — welcome to WaveC2</p>
-
-          <a class="button" href="https://t.me/bleedable" target="_blank"><img src="https://files.catbox.moe/02r5fg.jpg" alt="Telegram" /></a>
-          <a class="button" href="https://x.com/trialware" target="_blank"><img src="https://files.catbox.moe/9r28re.png" alt="X" /></a>
-          <a class="button" href="https://discord.com/users/842076404082409522" target="_blank"><img src="https://files.catbox.moe/opp07c.png" alt="Discord" /></a>
-          <a class="button" href="https://github.com/proxythegod1234" target="_blank"><img src="https://files.catbox.moe/28hgzt.png" alt="GitHub" /></a>
+          <p>Drifting through the currents of WaveC2</p>
+          <a class="button" href="https://t.me/bleedable" target="_blank" rel="noopener noreferrer">
+            <img src="https://files.catbox.moe/02r5fg.jpg" alt="Telegram" />
+          </a>
+          <a class="button" href="https://x.com/trialware" target="_blank" rel="noopener noreferrer">
+            <img src="https://files.catbox.moe/9r28re.png" alt="X" />
+          </a>
+          <a class="button" href="https://discord.com/users/842076404082409522" target="_blank" rel="noopener noreferrer">
+            <img src="https://files.catbox.moe/opp07c.png" alt="Discord" />
+          </a>
+          <a class="button" href="https://github.com/proxythegod1234" target="_blank" rel="noopener noreferrer">
+            <img src="https://files.catbox.moe/28hgzt.png" alt="GitHub" />
+          </a>
         </div>
       </div>
     </div>
   </div>
 
-
-  <svg class="wave" viewBox="0 0 1440 320">
-    <path fill="#00cfff" fill-opacity="0.3" d="M0,160L40,144C80,128,160,96,240,90.7C320,85,400,107,480,117.3C560,128,640,128,720,144C800,160,880,192,960,192C1040,192,1120,160,1200,149.3C1280,139,1360,149,1400,154.7L1440,160L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path>
-  </svg>
+  <div id="water-overlay"></div>
 
   <script>
     function playMusicAndHideOverlay() {
@@ -195,42 +222,27 @@
       video.style.display = 'block';
       video.play();
     }
-  </script>
 
-  <!-- Load Particles.js for raindrops -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <script>
-    particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 100 },
-        "color": { "value": "#00cfff" },
-        "shape": { "type": "circle" },
-        "opacity": {
-          "value": 0.4,
-          "random": true
-        },
-        "size": {
-          "value": 2,
-          "random": true
-        },
-        "move": {
-          "direction": "bottom",
-          "speed": 3,
-          "out_mode": "out"
-        }
-      },
-      "interactivity": {
-        "events": {
-          "onhover": { "enable": false },
-          "onclick": { "enable": false }
-        }
-      },
-      "retina_detect": true
-    });
+  
+    for (let i = 0; i < 20; i++) {
+      const bubble = document.createElement("div");
+      bubble.classList.add("bubble");
+      bubble.style.left = Math.random() * 100 + "vw";
+      bubble.style.animationDuration = 6 + Math.random() * 6 + "s";
+      document.body.appendChild(bubble);
+    }
+
+
+    for (let j = 0; j < 3; j++) {
+      const jelly = document.createElement("div");
+      jelly.classList.add("jellyfish");
+      jelly.style.left = Math.random() * 90 + "vw";
+      jelly.style.animationDuration = 12 + Math.random() * 10 + "s";
+      document.body.appendChild(jelly);
+    }
   </script>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
-  <script src="/assets/js/scripts.js"></script>
 </body>
 </html>
