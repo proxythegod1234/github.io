@@ -7,12 +7,13 @@
   <link rel="stylesheet" href="/assets/css/styles.css" />
   <style>
     body {
-      background: linear-gradient(to bottom, #0f1f2f, #0b223d);
+      background: linear-gradient(to bottom, #0a1f33, #001a26);
       color: #d4f1ff;
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
+      position: relative;
     }
 
     .tilt-wrapper {
@@ -35,7 +36,7 @@
     .profile-box img {
       width: 100px;
       height: auto;
-      filter: drop-shadow(0 0 6px #5ec8e5);
+      filter: drop-shadow(0 0 6px #6ec1e4);
       border-radius: 50%;
       animation: floatImg 4s ease-in-out infinite;
     }
@@ -48,8 +49,8 @@
 
     .badge-text {
       font-size: 1rem;
-      color: #5ec8e5;
-      text-shadow: 0 0 6px #3e99cc;
+      color: #6ec1e4;
+      text-shadow: 0 0 4px #4fa3c7;
       margin: 0.5em 0;
     }
 
@@ -90,7 +91,7 @@
       top: 0; left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(15, 31, 47, 0.9);
+      background: rgba(10, 20, 30, 0.9);
       color: #d4f1ff;
       font-size: 2rem;
       display: flex;
@@ -104,6 +105,46 @@
       font-style: italic;
       color: #a7d8f1;
     }
+
+ 
+    .rain {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .raindrop {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.7);
+      width: 2px;
+      height: 15px;
+      animation: fall 0.5s linear infinite;
+      opacity: 0;
+      animation-delay: calc(-0.5s * var(--i));
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+ 
+    .rain .raindrop:nth-child(odd) {
+      animation-duration: 0.6s;
+    }
+    .rain .raindrop:nth-child(even) {
+      animation-duration: 0.8s;
+    }
   </style>
 </head>
 <body>
@@ -115,11 +156,30 @@
     <source src="https://files.catbox.moe/3s8f2y.mp4">
   </video>
 
+
+  <div class="rain">
+    <div class="raindrop" style="--i: 1;"></div>
+    <div class="raindrop" style="--i: 2;"></div>
+    <div class="raindrop" style="--i: 3;"></div>
+    <div class="raindrop" style="--i: 4;"></div>
+    <div class="raindrop" style="--i: 5;"></div>
+    <div class="raindrop" style="--i: 6;"></div>
+    <div class="raindrop" style="--i: 7;"></div>
+    <div class="raindrop" style="--i: 8;"></div>
+    <div class="raindrop" style="--i: 9;"></div>
+    <div class="raindrop" style="--i: 10;"></div>
+    <div class="raindrop" style="--i: 11;"></div>
+    <div class="raindrop" style="--i: 12;"></div>
+    <div class="raindrop" style="--i: 13;"></div>
+    <div class="raindrop" style="--i: 14;"></div>
+    <div class="raindrop" style="--i: 15;"></div>
+  </div>
+
   <div class="content">
     <div class="button-container">
       <div class="tilt-wrapper">
         <div class="profile-box">
-          <img src="https://files.catbox.moe/zv7b5w.gif" alt="Wave Profile Avatar" />
+          <img src="https://files.catbox.moe/uphml6.jpg" alt="Wave Profile Avatar" />
           <div class="badge-text">best C2 on the market!</div>
           <h3>Wave</h3>
           <div class="typewriter">
