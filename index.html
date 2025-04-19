@@ -158,7 +158,8 @@
         <div class="select-dropdown">
           <select id="username" name="username" required>
             <option value="" selected disabled>Select Your Path</option>
-            <option value="user1">Proxy</option>
+            <option value="proxy">Proxy</option>
+            <option value="c2">Wave</option>
           </select>
         </div>
         <div class="links-container">
@@ -173,10 +174,10 @@
       const selectedUser = document.getElementById("username").value;
   
       if (selectedUser === "proxy") {
-        window.location.href = "proxy";
-      } else if (selectedUser === "c2") {
-        window.location.href = "Wave"; 
-      }
+  window.location.href = "proxy";
+} else if (selectedUser === "c2") {
+  window.location.href = "Wave";
+}
     });
   </script>
 
