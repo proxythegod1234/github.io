@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Waves C2</title>
+  <title>Wave C2</title>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=VT323&display=swap");
 
@@ -69,7 +69,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: rgba(61, 107, 126, 0.85);
+      background:rgba(10, 20, 30, 0.9);
       cursor: pointer;
       color: #2cbae6;
       font-size: 2rem;
@@ -165,30 +165,6 @@
       height: 3.5em;
     }
 
-    .button {
-      display: inline-block;
-      text-decoration: none;
-      background-color: rgba(0, 170, 255, 0.1);
-      color: #fff;
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-      margin-top: 20px;
-      padding: 8px;
-      border-radius: 50%;
-    }
-
-    .button:hover {
-      transform: scale(1.1);
-      filter: drop-shadow(0 0 10px rgb(12, 168, 207));
-      background-color: rgba(0, 170, 255, 0.3);
-    }
-
-    .button img {
-      width: 50px;
-      height: 50px;
-
-    }
-
-
     .rain {
       position: absolute;
       top: 0;
@@ -217,6 +193,53 @@
     .rain .raindrop:nth-child(odd) { animation-duration: 0.6s; }
     .rain .raindrop:nth-child(even) { animation-duration: 0.8s; }
 
+    .telegram-button {
+    display: inline-block;
+    text-decoration: none;
+    background-color: transparent;
+    color: #30a3c0;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease, background-color 0.3s ease;
+    margin: 2px;
+    line-height: 0;
+    padding: 10px;
+    border-radius: 50%;
+    background: transparent;
+    width: 60px;
+    height: 60px;
+}
+
+.telegram-button img {
+    width: 60px;
+    height: 60px;
+    filter: brightness(1.2) drop-shadow(0 0 2px #1994d1);
+}
+
+.telegram-button:hover {
+    background: transparent; 
+    transform: scale(1.1);
+    box-shadow: transparent; 
+    animation: waveEffect 0.5s ease-in-out infinite;
+}
+
+@keyframes waveEffect {
+    0% {
+        transform: scale(1.1) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.1) rotate(10deg);
+    }
+    100% {
+        transform: scale(1.1) rotate(0deg);
+    }
+}
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
   </style>
 </head>
 <body>
@@ -227,6 +250,8 @@
   <video id="background-video" disablePictureInPicture playsinline style="display: none;" loop>
     <source src="https://files.catbox.moe/3s8f2y.mp4">
   </video>
+
+  <canvas id="mouse-canvas"></canvas>
 
   <div class="rain">
     <div class="raindrop" style="--i: 1; left: 10%;"></div>
@@ -242,15 +267,14 @@
       <div class="profile-box">
         <img src="https://files.catbox.moe/uphml6.jpg" alt="Wave Profile Avatar" />
         <div class="badge-text">The best waves on the market!</div>
-        <h3>Oceanic Waves</h3>
+        <h3>Wave</h3>
         <div class="typewriter">
           <h3 id="typewriter-text">Ride the wave, feel the flow...</h3>
         </div>
         <p>Surfing through the digital ocean of WaveC2</p>
-        
-      
-        <a class="button" href="https://t.me/bleedable" target="_blank" rel="noopener noreferrer">
-          <img src="https://files.catbox.moe/02r5fg.jpg" alt="Telegram Link" />
+        <a class="telegram-button" href="https://t.me/YOUR_TELEGRAM_HANDLE" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram Icon" />
+
         </a>
       </div>
     </div>
@@ -300,7 +324,7 @@
       });
     });
 
-    const phrases = ["Welcome to My Site!"];
+    const phrases = ["Hardest Hitting C2!"];
     const speed = 100;
     const delayBetweenPhrases = 1500;
     const typewriterText = document.getElementById("typewriter-text");
@@ -323,6 +347,63 @@
     }
 
     type();
+
+  
+    const canvas = document.getElementById("mouse-canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+
+    class Particle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 4 + 1;
+        this.speedX = Math.random() * 2 - 1;
+        this.speedY = Math.random() * 2 - 1;
+        this.alpha = 1;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.alpha -= 0.02;
+      }
+
+      draw() {
+        ctx.fillStyle = `rgba(25, 148, 209,${this.alpha})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, i) => {
+        p.update();
+        p.draw();
+        if (p.alpha <= 0) {
+          particles.splice(i, 1);
+        }
+      });
+      requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener("mousemove", (e) => {
+      for (let i = 0; i < 3; i++) {
+        particles.push(new Particle(e.x, e.y));
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    animateParticles();
   </script>
 </body>
 </html>
