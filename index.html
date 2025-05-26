@@ -3,17 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=MedievalSharp&display=swap" rel="stylesheet">
+  <title>Login • Proxy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --midnight: #0d0d1a;
-      --gothic-purple: #4b0082;
-      --blood-red: #8b0000;
-      --crimson: #dc143c;
-      --bone: #e0d6cd;
-      --smoke: rgba(255, 255, 255, 0.05);
-      --flicker-speed: 0.15s;
+      --void: #000000;
+      --obsidian: #0a0a0f;
+      --carbon: #111118;
+      --slate: #1a1a2e;
+      --neon-red: #ff0844;
+      --electric-red: #ff1744;
+      --cyber-pink: #ff0080;
+      --plasma-blue: #00d4ff;
+      --quantum-purple: #8000ff;
+      --ghost-white: #f8f9fa;
+      --silver: #e2e8f0;
+      --glass-light: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --shadow-intense: rgba(255, 8, 68, 0.4);
+      --shadow-soft: rgba(0, 0, 0, 0.3);
     }
 
     * {
@@ -23,128 +31,437 @@
     }
 
     body {
-      background: linear-gradient(135deg, #0f0f1a, #1a001a, #2a0a2a);
-      color: var(--bone);
-      font-family: 'Inter', sans-serif;
+      background: 
+        radial-gradient(circle at 25% 25%, rgba(255, 8, 68, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 75% 75%, rgba(128, 0, 255, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        conic-gradient(from 180deg at 50% 50%, 
+          var(--void) 0deg, 
+          var(--obsidian) 60deg, 
+          var(--carbon) 120deg, 
+          var(--slate) 180deg, 
+          var(--carbon) 240deg, 
+          var(--obsidian) 300deg, 
+          var(--void) 360deg);
+      color: var(--ghost-white);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      font-size: 16px;
+      position: relative;
+    }
+
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,8,68,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>'),
+        radial-gradient(circle at 20% 20%, rgba(255, 8, 68, 0.3) 0%, transparent 25%),
+        radial-gradient(circle at 80% 80%, rgba(128, 0, 255, 0.2) 0%, transparent 25%);
+      animation: meshFloat 30s ease-in-out infinite;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    @keyframes meshFloat {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(-10px, -15px) rotate(1deg); }
+      66% { transform: translate(10px, -10px) rotate(-1deg); }
+    }
+
+
+    body::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 15% 35%, rgba(255, 8, 68, 0.4) 0%, transparent 30%),
+        radial-gradient(circle at 85% 15%, rgba(0, 212, 255, 0.3) 0%, transparent 25%),
+        radial-gradient(circle at 70% 85%, rgba(128, 0, 255, 0.35) 0%, transparent 28%);
+      animation: orbitalFloat 25s linear infinite;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    @keyframes orbitalFloat {
+      0% { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+      100% { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
     }
 
     .login-container {
-      background: var(--midnight);
-      padding: 3rem 2rem;
-      border: 2px solid var(--blood-red);
-      box-shadow: 0 0 40px rgba(220, 20, 60, 0.2), 0 0 60px rgba(75, 0, 130, 0.3);
-      border-radius: 12px;
-      max-width: 380px;
-      width: 90%;
-      animation: fadeIn 1.2s ease-out;
-      backdrop-filter: blur(8px);
+      position: relative;
+      background: 
+        linear-gradient(135deg, 
+          rgba(17, 17, 24, 0.95) 0%, 
+          rgba(26, 26, 46, 0.9) 50%, 
+          rgba(17, 17, 24, 0.95) 100%);
+      padding: 4rem 3rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      max-width: 480px;
+      width: 95%;
+      backdrop-filter: blur(40px) saturate(180%);
+      box-shadow: 
+        0 32px 64px var(--shadow-soft),
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 120px var(--shadow-intense);
+      animation: containerEntry 2s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
     }
 
-    @keyframes fadeIn {
+    .login-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--neon-red) 30%, 
+        var(--cyber-pink) 50%, 
+        var(--plasma-blue) 70%, 
+        transparent 100%);
+      animation: energyPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes energyPulse {
+      0%, 100% { opacity: 0.3; transform: translateX(-100%); }
+      50% { opacity: 1; transform: translateX(0%); }
+    }
+
+    @keyframes containerEntry {
       0% {
         opacity: 0;
-        transform: translateY(-30px);
+        transform: translateY(-80px) scale(0.8) rotateX(10deg);
+        filter: blur(20px);
+      }
+      70% {
+        opacity: 0.9;
+        transform: translateY(-5px) scale(1.02) rotateX(2deg);
+        filter: blur(2px);
       }
       100% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1) rotateX(0deg);
+        filter: blur(0);
       }
     }
 
-    .login-form h1 {
-      font-family: 'MedievalSharp', cursive;
-      font-size: 2.2rem;
-      color: var(--crimson);
-      margin-bottom: 25px;
-      text-shadow: 0 0 10px var(--blood-red);
+    .brand-header {
+      text-align: center;
+      margin-bottom: 3rem;
     }
 
-    .select-dropdown {
-      width: 100%;
-      margin: 20px 0;
-    }
-
-    .select-dropdown select {
-      width: 100%;
-      padding: 12px;
-      border-radius: 0;
-      border: 2px solid var(--blood-red);
-      background: #1a1a2e;
-      color: var(--bone);
-      font-size: 1rem;
-      font-family: 'Inter', sans-serif;
-      outline: none;
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .select-dropdown select:hover,
-    .select-dropdown select:focus {
-      border-color: var(--crimson);
-      box-shadow: 0 0 15px var(--crimson);
-    }
-
-    .links-container {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      margin-top: 2rem;
-    }
-
-    .link-btn {
+    .brand-logo {
+      font-family: 'Orbitron', monospace;
+      font-size: 3.2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, 
+        var(--neon-red) 0%, 
+        var(--cyber-pink) 30%, 
+        var(--plasma-blue) 60%, 
+        var(--quantum-purple) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+      letter-spacing: -2px;
+      text-shadow: 0 0 40px var(--shadow-intense);
+      animation: logoGlow 6s ease-in-out infinite alternate;
       position: relative;
-      padding: 1rem 2rem;
-      background: linear-gradient(to right, var(--midnight), var(--gothic-purple), var(--midnight));
-      color: var(--bone);
-      border: 2px solid var(--blood-red);
-      font-family: 'MedievalSharp', cursive;
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-decoration: none;
-      overflow: hidden;
-      transition: all 0.5s ease;
-      box-shadow:
-        0 0 10px rgba(139, 0, 0, 0.3),
-        inset 0 0 10px rgba(139, 0, 0, 0.3);
-      z-index: 1;
-      cursor: pointer;
     }
 
-    .link-btn::before {
+    .brand-logo::after {
+      content: 'Login';
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: linear-gradient(135deg, 
+        var(--quantum-purple) 0%, 
+        var(--plasma-blue) 50%, 
+        var(--neon-red) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0;
+      animation: glitchFlicker 8s infinite;
+    }
+
+    @keyframes logoGlow {
+      0% { filter: drop-shadow(0 0 10px var(--neon-red)); }
+      100% { filter: drop-shadow(0 0 30px var(--cyber-pink)) drop-shadow(0 0 50px var(--plasma-blue)); }
+    }
+
+    @keyframes glitchFlicker {
+      0%, 96%, 100% { opacity: 0; }
+      97%, 99% { opacity: 0.8; transform: translate(2px, -1px); }
+      98% { opacity: 0.6; transform: translate(-1px, 1px); }
+    }
+
+    .brand-subtitle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      color: var(--silver);
+      opacity: 0.7;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .form-section {
+      margin: 2.5rem 0;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .input-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--silver);
+      margin-bottom: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .select-wrapper {
+      position: relative;
+    }
+
+    .select-field {
+      width: 100%;
+      padding: 1.25rem 1.5rem;
+      padding-right: 3.5rem;
+      background: 
+        linear-gradient(145deg, 
+          rgba(26, 26, 46, 0.6) 0%, 
+          rgba(17, 17, 24, 0.8) 100%);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      color: var(--ghost-white);
+      font-size: 1.1rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(20px);
+      appearance: none;
+    }
+
+    .select-field:hover {
+      border-color: rgba(255, 8, 68, 0.4);
+      box-shadow: 
+        0 12px 32px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 8, 68, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .select-field:focus {
+      border-color: var(--neon-red);
+      box-shadow: 
+        0 0 0 4px rgba(255, 8, 68, 0.2),
+        0 16px 40px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      transform: translateY(-3px);
+    }
+
+    .select-icon {
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .select-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--silver);
+      transition: all 0.3s ease;
+    }
+
+    .select-wrapper:hover .select-icon svg {
+      stroke: var(--neon-red);
+      transform: rotate(180deg);
+    }
+
+    .select-field option {
+      background: var(--carbon);
+      color: var(--ghost-white);
+      padding: 1rem;
+      font-size: 1rem;
+    }
+
+    .submit-section {
+      margin-top: 3rem;
+    }
+
+    .submit-btn {
+      position: relative;
+      width: 100%;
+      padding: 1.25rem 2rem;
+      background: 
+        linear-gradient(135deg, 
+          rgba(255, 8, 68, 0.8) 0%, 
+          rgba(255, 0, 128, 0.9) 50%, 
+          rgba(128, 0, 255, 0.8) 100%);
+      color: var(--ghost-white);
+      border: none;
+      border-radius: 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 
+        0 16px 32px rgba(255, 8, 68, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .submit-btn::before {
       content: '';
       position: absolute;
       top: 0;
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.4), transparent);
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent);
+      transition: all 0.6s ease;
+    }
+
+    .submit-btn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
       transition: all 0.5s ease;
-      z-index: -1;
+      border-radius: 50%;
     }
 
-    .link-btn:hover {
-      color: white;
-      border-color: var(--crimson);
-      box-shadow: 0 0 20px var(--crimson), inset 0 0 20px rgba(220, 20, 60, 0.5);
-      transform: translateY(-3px);
+    .submit-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 
+        0 24px 48px rgba(255, 8, 68, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      background: 
+        linear-gradient(135deg, 
+          rgba(255, 8, 68, 1) 0%, 
+          rgba(255, 0, 128, 1) 50%, 
+          rgba(128, 0, 255, 1) 100%);
     }
 
-    .link-btn:hover::before {
+    .submit-btn:hover::before {
       left: 100%;
     }
 
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
+    .submit-btn:hover::after {
+      width: 300px;
+      height: 300px;
+    }
+
+    .submit-btn:active {
+      transform: translateY(-2px);
+      transition: all 0.1s ease;
+    }
+
+  
+    .submit-btn.loading {
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .submit-btn.loading::before {
+      animation: loadingSweep 1.5s ease-in-out infinite;
+    }
+
+    @keyframes loadingSweep {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+ 
+    @media (max-width: 640px) {
+      .login-container {
+        padding: 2.5rem 1.5rem;
+        margin: 1rem;
+        border-radius: 20px;
       }
-      20%, 22%, 24%, 55% {
-        opacity: 0.3;
+      
+      .brand-logo {
+        font-size: 2.5rem;
+      }
+      
+      .select-field,
+      .submit-btn {
+        font-size: 1rem;
+        padding: 1rem 1.25rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .brand-logo {
+        font-size: 2rem;
+      }
+      
+      .login-container {
+        padding: 2rem 1.25rem;
+      }
+    }
+
+ 
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: 
+          radial-gradient(circle at 25% 25%, rgba(255, 8, 68, 0.2) 0%, transparent 40%),
+          radial-gradient(circle at 75% 75%, rgba(128, 0, 255, 0.15) 0%, transparent 40%),
+          conic-gradient(from 180deg at 50% 50%, 
+            var(--void) 0deg, 
+            var(--obsidian) 60deg, 
+            var(--carbon) 120deg, 
+            var(--slate) 180deg, 
+            var(--carbon) 240deg, 
+            var(--obsidian) 300deg, 
+            var(--void) 360deg);
+      }
+    }
+
+  
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
@@ -152,32 +469,87 @@
 <body>
 
   <div class="login-container">
-    <div class="login-form">
-      <h1>Welcome, Wanderer</h1>
-      <form id="loginForm">
-        <div class="select-dropdown">
-          <select id="username" name="username" required>
-            <option value="" selected disabled>Select Your Path</option>
-            <option value="proxy">Proxy</option>
-            <option value="c2">C2</option>
-          </select>
-        </div>
-        <div class="links-container">
-          <button type="submit" class="link-btn">Enter</button>
-        </div>
-      </form>
+    <div class="brand-header">
+      <h1 class="brand-logo">Proxy</h1>
+      <p class="brand-subtitle">Access Terminal</p>
     </div>
+
+    <form id="loginForm" class="login-form">
+      <div class="form-section">
+        <div class="input-group">
+          <label for="username" class="input-label">Select Protocol</label>
+          <div class="select-wrapper">
+            <select id="username" name="username" class="select-field" required>
+              <option value="" selected disabled>Choose your access method</option>
+              <option value="proxy">🌐 Proxy Gateway</option>
+              <option value="c2">⚡ Command & Control</option>
+            </select>
+            <div class="select-icon">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="submit-section">
+        <button type="submit" class="submit-btn">
+          <span class="btn-text">Initialize Connection</span>
+        </button>
+      </div>
+    </form>
   </div>
+
   <script>
     document.querySelector("#loginForm").addEventListener("submit", function(event) {
       event.preventDefault();
       const selectedUser = document.getElementById("username").value;
-  
-      if (selectedUser === "proxy") {
-  window.location.href = "proxy";
-} else if (selectedUser === "c2") {
-  window.location.href = "c2";
-}
+      const btn = document.querySelector('.submit-btn');
+      const btnText = document.querySelector('.btn-text');
+      
+
+      btn.classList.add('loading');
+      btnText.textContent = 'Connecting...';
+      
+
+      setTimeout(() => {
+        btnText.textContent = 'Establishing Link...';
+      }, 500);
+      
+      setTimeout(() => {
+        if (selectedUser === "proxy") {
+          window.location.href = "proxy";
+        } else if (selectedUser === "c2") {
+          window.location.href = "c2";
+        }
+      }, 1200);
+    });
+
+ 
+    const container = document.querySelector('.login-container');
+    const logo = document.querySelector('.brand-logo');
+    
+    document.addEventListener('mousemove', (e) => {
+      const rect = container.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      
+      const xRotation = (y - 0.5) * 10;
+      const yRotation = (x - 0.5) * -10;
+      
+      container.style.transform = `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg)`;
+    });
+    
+    document.addEventListener('mouseleave', () => {
+      container.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+    });
+
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.ctrlKey) {
+        document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+      }
     });
   </script>
 
