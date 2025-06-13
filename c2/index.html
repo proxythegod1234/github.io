@@ -40,19 +40,6 @@
     }
 
 
-    .animated-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      background: radial-gradient(circle at 20% 80%, #120a8f 0%, transparent 50%),
-                  radial-gradient(circle at 80% 20%, #ff006e 0%, transparent 50%),
-                  radial-gradient(circle at 40% 40%, #8338ec 0%, transparent 50%),
-                  linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-      animation: bgShift 15s ease-in-out infinite;
-    }
 
     @keyframes bgShift {
       0%, 100% { filter: hue-rotate(0deg) brightness(1); }
@@ -96,7 +83,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: -3;
+      z-index: -1;
       filter: brightness(0.3) contrast(1.5) blur(2px);
       opacity: 0.6;
     }
@@ -116,28 +103,29 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: rgba(0, 0, 0, 0.95);
+      background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
       cursor: pointer;
       color: #00d4ff;
       font-size: 2.5rem;
       font-weight: 300;
-      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       font-family: 'JetBrains Mono', monospace;
       letter-spacing: 4px;
       text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+      z-index: 10;
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     #overlay::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-      animation: scanline 3s linear infinite;
+      background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+      animation: pulse 3s infinite;
     }
 
-    @keyframes scanline {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
     }
 
     #overlay:hover {
@@ -473,57 +461,23 @@
   </div>
 
   <script>
+  const overlay = document.getElementById("overlay");
+  const backgroundVideo = document.getElementById("background-video");
+  const content = document.querySelector(".content");
 
-    const overlay = document.getElementById("overlay");
-    const content = document.querySelector(".content");
-    const backgroundVideo = document.getElementById("background-video");
-    const particlesContainer = document.querySelector(".particles");
-    
-    backgroundVideo.volume = 0.2;
+  function playMusicAndHideOverlay() {
+    backgroundVideo.style.display = 'block';
+    backgroundVideo.play().catch(() => {
+      document.body.addEventListener('click', () => backgroundVideo.play());
+    });
 
-    
-    function playMusicAndHideOverlay() {
-      backgroundVideo.style.display = 'block';
-      backgroundVideo.play().catch(() => {
-        document.body.addEventListener('click', () => backgroundVideo.play());
-      });
-
-      overlay.classList.add("hidden");
-      setTimeout(() => {
-        overlay.style.display = "none";
-        content.style.display = "block";
-        initParticles();
-      }, 800);
-    }
-
- 
-    function initParticles() {
-      for (let i = 0; i < 50; i++) {
-        createParticle();
-      }
-    }
-
-    function createParticle() {
-      const particle = document.createElement('div');
-      particle.className = 'particle';
-      particle.style.left = Math.random() * 100 + '%';
-      particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
-      particle.style.animationDelay = Math.random() * 20 + 's';
-      particle.style.opacity = Math.random() * 0.8 + 0.2;
-      
-      const colors = ['#00d4ff', '#8338ec', '#ff006e', '#ffffff'];
-      particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-      particle.style.boxShadow = `0 0 6px ${particle.style.background}`;
-      
-      particlesContainer.appendChild(particle);
-      
-      setTimeout(() => {
-        if (particle.parentNode) {
-          particle.remove();
-          createParticle();
-        }
-      }, 25000);
-    }
+    overlay.classList.add("hidden");
+    setTimeout(() => {
+      overlay.style.display = "none";
+      content.style.display = "block"; 
+      content.style.opacity = "1"; 
+    }, 800);
+  }
 
 
     document.addEventListener('contextmenu', e => e.preventDefault());
@@ -686,5 +640,38 @@
       }
     }, 3000);
   </script>
+
+  <script>
+  const particlesContainer = document.querySelector('.particles');
+
+  function createParticle() {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = `${Math.random() * window.innerWidth}px`;
+    particle.style.top = `${Math.random() * window.innerHeight}px`;
+    particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+    particle.style.opacity = `${Math.random() * 0.5 + 0.5}`;
+    particlesContainer.appendChild(particle);
+
+
+    particle.addEventListener('animationend', () => {
+      particle.remove();
+    });
+  }
+
+  function generateParticles() {
+    for (let i = 0; i < 100; i++) {
+      createParticle();
+    }
+  }
+
+
+  generateParticles();
+
+
+  setInterval(() => {
+    createParticle();
+  }, 300);
+</script>
 </body>
 </html>
