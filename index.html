@@ -508,11 +508,9 @@
       const btn = document.querySelector('.submit-btn');
       const btnText = document.querySelector('.btn-text');
       
-
       btn.classList.add('loading');
       btnText.textContent = 'Connecting...';
       
-
       setTimeout(() => {
         btnText.textContent = 'Establishing Link...';
       }, 500);
@@ -526,7 +524,14 @@
       }, 1200);
     });
 
- 
+
+    window.addEventListener("pageshow", () => {
+      const btn = document.querySelector('.submit-btn');
+      const btnText = document.querySelector('.btn-text');
+      btn.classList.remove('loading');
+      btnText.textContent = 'Initialize Connection';
+    });
+
     const container = document.querySelector('.login-container');
     const logo = document.querySelector('.brand-logo');
     
@@ -544,7 +549,6 @@
     document.addEventListener('mouseleave', () => {
       container.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
     });
-
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && e.ctrlKey) {
