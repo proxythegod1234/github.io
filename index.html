@@ -482,7 +482,6 @@
             <select id="username" name="username" class="select-field" required>
               <option value="" selected disabled>Choose your access method</option>
               <option value="proxy">🌐 Proxy Gateway</option>
-              <option value="c2">⚡ Command & Control</option>
             </select>
             <div class="select-icon">
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -518,8 +517,6 @@
       setTimeout(() => {
         if (selectedUser === "proxy") {
           window.location.href = "proxy";
-        } else if (selectedUser === "c2") {
-          window.location.href = "c2";
         }
       }, 1200);
     });
