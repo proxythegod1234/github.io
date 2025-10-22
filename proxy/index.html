@@ -29,7 +29,6 @@
       font-family: 'UnifrakturCook';
       min-height: 100vh;
       overflow-x: hidden;
-      position: relative;
       display: flex;
       align-items: center;
       flex-direction: column;
@@ -79,7 +78,6 @@
       backdrop-filter: blur(20px);
       color: var(--text-primary);
       font-size: 2.5rem;
-      font-weight: 300;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -95,6 +93,7 @@
     .overlay-text {
       text-shadow: 0 0 20px var(--accent-red);
       margin-bottom: 1rem;
+      animation: glow 3s ease-in-out infinite alternate;
     }
 
     @keyframes glow {
@@ -110,6 +109,8 @@
       justify-content: center;
       min-height: 100vh;
       padding: 2rem;
+      opacity: 1;
+      transition: opacity 1.2s ease;
     }
 
     .tilt-wrapper {
@@ -138,18 +139,12 @@
       justify-content: space-between;
     }
 
-    .profile-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(45deg, transparent, rgba(220, 20, 60, 0.1), transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      border-radius: 24px;
+    .profile-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
     }
-
-    .profile-card:hover::before { opacity: 1; }
-    .profile-card:hover { box-shadow: 0 35px 70px rgba(220, 20, 60, 0.3); }
 
     .avatar-container {
       position: relative;
@@ -159,7 +154,10 @@
 
     .avatar-ring {
       position: absolute;
-      top: -10px; left: -10px; right: -10px; bottom: -10px;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
       border: 2px solid transparent;
       border-radius: 50%;
       background: linear-gradient(45deg, var(--accent-red), var(--accent-purple), var(--accent-red));
@@ -187,7 +185,6 @@
       position: relative;
       z-index: 2;
       filter: drop-shadow(0 10px 20px rgba(220, 20, 60, 0.4));
-      display: block;
     }
 
     .badge {
@@ -199,7 +196,6 @@
       background-clip: text;
       margin: 1rem 0;
       animation: shimmer 3s ease-in-out infinite;
-      position: relative;
     }
 
     @keyframes shimmer {
@@ -212,11 +208,8 @@
       background: linear-gradient(135deg, var(--accent-red), var(--accent-purple));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin: 0.5rem 0 1.5rem 0;
       animation: textGlow 4s ease-in-out infinite;
       text-shadow: 0 0 30px rgba(220, 20, 60, 0.5);
-      line-height: 1.2;
     }
 
     @keyframes textGlow {
@@ -224,38 +217,6 @@
       50% { filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.5)); }
     }
 
-    .typewriter-container {
-      margin: 1rem 0;
-      height: 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .typewriter-text {
-      font-size: 1.1rem;
-      font-weight: 300;
-      color: var(--text-secondary);
-      border-right: 2px solid var(--accent-red);
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-    .description {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      margin: 1.5rem 0;
-      opacity: 0.8;
-      animation: fadeInUp 1s ease-out 0.5s both;
-      line-height: 1.4;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 0.8; transform: translateY(0); }
-    }
-
-  
     .social-container {
       display: flex;
       justify-content: center;
@@ -264,14 +225,12 @@
       margin-top: 1rem;
       opacity: 0;
       transform: translateY(30px);
-      transition: all 0.8s ease-out;
-      pointer-events: none;
+      transition: opacity 1.5s ease, transform 1.5s ease;
     }
 
     .social-container.show {
       opacity: 1;
       transform: translateY(0);
-      pointer-events: auto;
     }
 
     .social-button {
@@ -289,16 +248,6 @@
       overflow: hidden;
     }
 
-    .social-button::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.6s ease;
-    }
-
-    .social-button:hover::before { left: 100%; }
     .social-button:hover {
       transform: translateY(-6px) scale(1.1);
       box-shadow: 0 15px 30px rgba(220, 20, 60, 0.3);
@@ -309,22 +258,19 @@
       width: 30px;
       height: 30px;
       object-fit: contain;
-      object-position: center;
-      transition: all 0.3s ease;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-    }
-
-    .social-button:hover img {
-      filter: drop-shadow(0 4px 8px rgba(220,20,60,0.4));
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
 
     #background-video {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       z-index: -1;
       opacity: 0.3;
+      display: none;
     }
   </style>
 </head>
@@ -336,7 +282,7 @@
     <div class="overlay-text">Enter the Crypt</div>
   </div>
 
-  <video id="background-video" disablePictureInPicture playsinline style="display: none;" loop>
+  <video id="background-video" disablePictureInPicture playsinline loop>
     <source src="https://pub-771679a3149d43669bc14f66cc6c90a8.r2.dev/GHXTY%20-%20NORTHSIDE%20G's%20-%20GHXTY%20(1080p%2C%20h264%2C%20youtube).mp4">
   </video>
 
@@ -353,18 +299,15 @@
 
         <div class="profile-content">
           <h1 class="name">proxy</h1>
-          <div class="typewriter-container">
-            <div class="typewriter-text" id="typewriter-text">Just a lost soul learning to code...</div>
-          </div>
           <p class="description">Wandering through the realms of code and chaos</p>
         </div>
 
         <div class="profile-footer">
-          <div class="social-container">
-            <a class="social-button" href="https://t.me/bleedable" target="_blank"><img src="https://r2.drifloons.us/telegram-svgrepo-com.svg" alt="Telegram" /></a>
-            <a class="social-button" href="https://x.com/trialware" target="_blank"><img src="https://r2.drifloons.us/twitter-round-svgrepo-com.svg" alt="X (Twitter)" /></a>
-            <a class="social-button" href="https://discord.com/users/842076404082409522" target="_blank"><img src="https://r2.drifloons.us/discord-svgrepo-com.svg" alt="Discord" /></a>
-            <a class="social-button" href="https://github.com/proxythegod1234" target="_blank"><img src="https://r2.drifloons.us/github-repo-git-octocat-svgrepo-com.svg" alt="GitHub" /></a>
+          <div class="social-container" id="socials">
+            <a class="social-button" href="https://t.me/bleedable" target="_blank"><img src="https://r2.drifloons.us/telegram-svgrepo-com.svg"></a>
+            <a class="social-button" href="https://x.com/trialware" target="_blank"><img src="https://r2.drifloons.us/twitter-round-svgrepo-com.svg"></a>
+            <a class="social-button" href="https://discord.com/users/842076404082409522" target="_blank"><img src="https://r2.drifloons.us/discord-svgrepo-com.svg"></a>
+            <a class="social-button" href="https://github.com/proxythegod1234" target="_blank"><img src="https://r2.drifloons.us/github-repo-git-octocat-svgrepo-com.svg"></a>
           </div>
         </div>
       </div>
@@ -373,25 +316,23 @@
 
   <script>
     function createParticles() {
-      const particlesContainer = document.getElementById('particles');
-      const particleCount = 50;
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 6 + 's';
-        particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
-        particlesContainer.appendChild(particle);
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 50; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = Math.random() * 100 + '%';
+        p.style.animationDelay = Math.random() * 6 + 's';
+        container.appendChild(p);
       }
     }
 
     function playMusicAndHideOverlay() {
       const overlay = document.getElementById('overlay');
       const video = document.getElementById('background-video');
-      const socials = document.querySelector('.social-container');
+      const socials = document.getElementById('socials');
 
-      video.volume = 0.05;
+      video.volume = 0.07; 
       overlay.style.opacity = '0';
       overlay.style.transform = 'scale(0.8)';
 
@@ -400,78 +341,14 @@
         video.style.display = 'block';
         video.play().catch(console.error);
 
-   
-        setTimeout(() => socials.classList.add('show'), 1000);
+       
+        setTimeout(() => {
+          socials.classList.add('show');
+        }, 1000);
       }, 800);
     }
 
-    function initTypewriter() {
-      const texts = [
-        "Just a lost soul learning to code...",
-        "Crafting digital nightmares...",
-        "Debugging in the darkness...",
-        "Building from the shadows..."
-      ];
-
-      let textIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
-      const typewriterElement = document.getElementById('typewriter-text');
-
-      function type() {
-        const currentText = texts[textIndex];
-        if (isDeleting) {
-          typewriterElement.textContent = currentText.substring(0, charIndex - 1);
-          charIndex--;
-        } else {
-          typewriterElement.textContent = currentText.substring(0, charIndex + 1);
-          charIndex++;
-        }
-
-        let typeSpeed = isDeleting ? 50 : 100;
-
-        if (!isDeleting && charIndex === currentText.length) {
-          typeSpeed = 2000;
-          isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-          isDeleting = false;
-          textIndex = (textIndex + 1) % texts.length;
-          typeSpeed = 500;
-        }
-
-        setTimeout(type, typeSpeed);
-      }
-      type();
-    }
-
-    function init3DTilt() {
-      const card = document.querySelector('.profile-card');
-      const wrapper = document.querySelector('.tilt-wrapper');
-
-      wrapper.addEventListener('mousemove', e => {
-        const rect = wrapper.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = (y - centerY) / centerY * -10;
-        const rotateY = (x - centerX) / centerX * 10;
-
-        requestAnimationFrame(() => {
-          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(15px)`;
-        });
-      });
-
-      wrapper.addEventListener('mouseleave', () => {
-        card.style.transition = 'transform 0.4s ease-out, box-shadow 0.3s ease';
-        card.style.transform = 'rotateX(0deg) rotateY(0deg)';
-        setTimeout(() => card.style.transition = '', 400);
-      });
-    }
-
-    createParticles();
-    initTypewriter();
-    init3DTilt();
+    document.addEventListener('DOMContentLoaded', createParticles);
   </script>
 </body>
 </html>
