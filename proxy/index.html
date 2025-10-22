@@ -6,165 +6,200 @@
 <title>Proxy's Crypt</title>
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
+* { margin:0; padding:0; box-sizing:border-box; }
 
-  body {
-    background-color: #0f0f0f;
-    color: #e0dcdc;
-    font-family: 'UnifrakturCook', cursive;
-    min-height: 100vh;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
+:root {
+  --primary-bg:#0a0a0f;
+  --secondary-bg:#1a1a25;
+  --accent-red:#dc143c;
+  --accent-purple:#8b5cf6;
+  --text-primary:#e0d6cd;
+  --text-secondary:#a0a0a0;
+  --glass-bg:rgba(26,26,37,0.4);
+  --glass-border:rgba(255,255,255,0.1);
+}
 
-  #background-video {
-    position: fixed;
-    top:0; left:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    z-index:-1;
-    display:none;
-    opacity:0.3;
-  }
+body {
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+  font-family: 'UnifrakturCook', cursive;
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
 
-  #overlay {
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: linear-gradient(135deg, rgba(10,10,15,0.95), rgba(26,10,26,0.95));
-    backdrop-filter: blur(20px);
-    color: #e0d6cd;
-    font-size:2.5rem;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor:pointer;
-    z-index:999;
-    transition: all 0.8s cubic-bezier(0.4,0,0.2,1);
-    background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
-    text-align: center;
-  }
-  .overlay-text { text-shadow:0 0 20px #dc143c; margin-bottom:1rem; }
-  .overlay-subtitle { font-size:1rem; opacity:0.7; }
+#background-video {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  z-index:-1;
+  display:none;
+  opacity:0.3;
+}
 
-  .volume-slider {
-    position: fixed;
-    top:20px; left:20px;
-    display:flex;
-    gap:10px;
-    align-items:center;
-    opacity:0;
-    z-index:20;
-    transition:opacity 1s ease;
-  }
-  .volume-slider.show { opacity:1; }
-  .volume-slider input[type="range"] { width:120px; accent-color:#dc143c; cursor:pointer; }
-  .volume-slider label { color:#dc143c; font-size:0.9em; }
+#overlay {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: linear-gradient(135deg, rgba(10,10,15,0.95), rgba(26,10,26,0.95));
+  backdrop-filter: blur(20px);
+  color: var(--text-primary);
+  font-size:2.5rem;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor:pointer;
+  z-index:999;
+  transition: all 0.8s cubic-bezier(0.4,0,0.2,1);
+  background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
+  text-align:center;
+}
 
-  .social-container {
-    position: fixed;
-    bottom: 40px;
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    width: 100%;
-    pointer-events: none;
-    z-index: 5;
-  }
-  .social-button {
-    border:1px solid #dc143c;
-    padding:10px 18px;
-    border-radius:12px;
-    background: rgba(26,26,37,0.5);
-    backdrop-filter: blur(6px);
-    color: #e0dcdc;
-    text-decoration: none;
-    font-weight:700;
-    opacity:0;
-    transform: translateY(40px);
-    transition: opacity 1s cubic-bezier(0.19,1,0.22,1),
-                transform 1s cubic-bezier(0.19,1,0.22,1);
-  }
-  .social-button.show { opacity:1; transform:translateY(0); pointer-events:auto; }
-  .social-button:hover { background:#dc143c; color:black; box-shadow:0 0 15px #dc143c,0 0 30px #8b5cf6; }
+.overlay-text { text-shadow:0 0 20px var(--accent-red); margin-bottom:1rem; }
+.overlay-subtitle { font-size:1rem; opacity:0.7; }
 
-  .particle {
-    position: fixed;
-    width: 2px; height:2px;
-    background:#dc143c; opacity:0.6;
-    border-radius:50%;
-    animation: float 10s linear infinite;
-  }
-  @keyframes float {
-    0% { transform: translateY(100vh) scale(0.5); opacity:0.2; }
-    50% { opacity:1; }
-    100% { transform: translateY(-10vh) scale(1); opacity:0.1; }
-  }
+.volume-slider {
+  position: fixed;
+  top:20px; left:20px;
+  display:flex; gap:10px; align-items:center;
+  opacity:0; z-index:20;
+  transition:opacity 1s ease;
+}
+.volume-slider.show { opacity:1; }
+.volume-slider input[type="range"] { width:120px; accent-color: var(--accent-red); cursor:pointer; }
+.volume-slider label { color: var(--accent-red); font-size:0.9em; }
+
+.particle {
+  position: fixed;
+  width:2px; height:2px;
+  background: var(--accent-red);
+  border-radius:50%;
+  animation: float 10s linear infinite;
+  opacity:0.6;
+}
+@keyframes float {
+  0% { transform: translateY(100vh) scale(0.5); opacity:0.2; }
+  50% { opacity:1; }
+  100% { transform: translateY(-10vh) scale(1); opacity:0.1; }
+}
 
 
-  .content { position: relative; z-index:10; display:flex; justify-content:center; align-items:center; padding:2rem; }
-  .tilt-wrapper { perspective:1000px; display:flex; justify-content:center; align-items:center; }
-  .profile-card {
-    background: rgba(26,26,37,0.4);
-    backdrop-filter: blur(20px);
-    border:1px solid rgba(255,255,255,0.1);
-    border-radius:24px;
-    padding:3rem 4rem;
-    text-align:center;
-    transition: transform 0.1s ease-out, box-shadow 0.3s ease;
-    transform-style: preserve-3d;
-    position: relative;
-    overflow: hidden;
-    width:550px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-  }
-  .profile-card:hover { box-shadow:0 35px 70px rgba(220,20,60,0.3); }
+.content { position: relative; z-index:10; display:flex; justify-content:center; align-items:center; padding:2rem; }
+.tilt-wrapper { perspective:1000px; display:flex; justify-content:center; align-items:center; }
 
-  .avatar-container { position:relative; display:inline-block; margin-bottom:1.5rem; }
-  .avatar-ring {
-    position:absolute;
-    top:-10px; left:-10px; right:-10px; bottom:-10px;
-    border:2px solid transparent;
-    border-radius:50%;
-    background: linear-gradient(45deg, #dc143c, #8b5cf6, #dc143c);
-    animation: rotate 4s linear infinite;
-  }
-  .avatar-ring::before {
-    content:''; position:absolute; inset:2px; background:#0a0a0f; border-radius:50%;
-  }
-  @keyframes rotate { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+.profile-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border:1px solid var(--glass-border);
+  border-radius:24px;
+  padding:3rem 4rem;
+  text-align:center;
+  transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+  width:550px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
 
-  .profile-avatar { width:130px; height:130px; border-radius:50%; z-index:2; filter:drop-shadow(0 10px 20px rgba(220,20,60,0.4)); }
+.profile-card:hover { box-shadow:0 35px 70px rgba(220,20,60,0.3); }
 
-  .badge { font-size:0.95rem; background:linear-gradient(45deg,#dc143c,#8b5cf6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin:1rem 0; animation: shimmer 3s ease-in-out infinite; }
-  @keyframes shimmer { 0%,100%{filter:brightness(1);} 50%{filter:brightness(1.5);} }
+.avatar-container { position:relative; display:inline-block; margin-bottom:1.5rem; }
+.avatar-ring {
+  position:absolute;
+  top:-10px; left:-10px; right:-10px; bottom:-10px;
+  border:2px solid transparent;
+  border-radius:50%;
+  background: linear-gradient(45deg,var(--accent-red),var(--accent-purple),var(--accent-red));
+  animation: rotate 4s linear infinite;
+}
+.avatar-ring::before {
+  content:''; position:absolute; inset:2px; background: var(--primary-bg); border-radius:50%;
+}
+@keyframes rotate { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
 
-  .name { font-size:3.2rem; background:linear-gradient(135deg,#dc143c,#8b5cf6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin:0.5rem 0 1.5rem 0; text-shadow:0 0 30px rgba(220,20,60,0.5); }
+.profile-avatar { width:130px; height:130px; border-radius:50%; z-index:2; filter: drop-shadow(0 10px 20px rgba(220,20,60,0.4)); }
 
-  .typewriter-container { margin:1rem 0; height:2.5rem; display:flex; align-items:center; justify-content:center; }
-  .typewriter-text { font-size:1.1rem; color:#a0a0a0; border-right:2px solid #dc143c; white-space:nowrap; overflow:hidden; }
+.badge { font-size:0.95rem; background: linear-gradient(45deg,var(--accent-red),var(--accent-purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin:1rem 0; animation: shimmer 3s ease-in-out infinite; }
+@keyframes shimmer { 0%,100%{filter:brightness(1);} 50%{filter:brightness(1.5);} }
 
-  .description { font-size:0.95rem; color:#a0a0a0; margin:1.5rem 0; opacity:0.8; line-height:1.4; }
+.name { font-size:3.2rem; background:linear-gradient(135deg,var(--accent-red),var(--accent-purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin:0.5rem 0 1.5rem 0; text-shadow:0 0 30px rgba(220,20,60,0.5); }
 
-  @media (max-width:768px){
-    .profile-card{max-width:90vw;}
-    .profile-avatar{width:110px;height:110px;}
-    .name{font-size:2.8rem;}
-  }
-  @media (max-width:480px){
-    .profile-card{max-width:95vw;}
-    .name{font-size:2.2rem;}
-    .typewriter-text{font-size:1rem;}
-    .description{font-size:0.9rem;}
-  }
+.typewriter-container { margin:1rem 0; height:2.5rem; display:flex; align-items:center; justify-content:center; }
+.typewriter-text { font-size:1.1rem; color: var(--text-secondary); border-right:2px solid var(--accent-red); white-space:nowrap; overflow:hidden; }
+
+.description { font-size:0.95rem; color: var(--text-secondary); margin:1.5rem 0; opacity:0.8; line-height:1.4; }
+
+.profile-footer { margin-top:2rem; }
+
+.social-container {
+  display:flex;
+  justify-content:center;
+  gap:2rem;
+  flex-wrap:wrap;
+  opacity:0;
+}
+
+.social-button {
+  position: relative;
+  width:65px; height:65px;
+  border-radius:16px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border:1px solid var(--glass-border);
+  display:flex;
+  align-items:center; justify-content:center;
+  overflow:hidden;
+  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+.social-button img {
+  width:30px; height:30px;
+  object-fit:contain;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.social-button::before {
+  content:'';
+  position:absolute;
+  top:0; left:-100%;
+  width:100%; height:100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition:left 0.6s ease;
+}
+
+.social-button:hover::before { left:100%; }
+
+.social-button:hover {
+  transform: translateY(-6px) scale(1.1);
+  box-shadow:0 15px 30px rgba(220,20,60,0.3);
+  border-color: var(--accent-red);
+}
+
+.social-button:hover img {
+  filter: drop-shadow(0 4px 8px rgba(220,20,60,0.4));
+}
+
+@media (max-width:768px){
+  .profile-card{max-width:90vw;}
+  .profile-avatar{width:110px;height:110px;}
+  .name{font-size:2.8rem;}
+}
+@media (max-width:480px){
+  .profile-card{max-width:95vw;}
+  .name{font-size:2.2rem;}
+  .typewriter-text{font-size:1rem;}
+  .description{font-size:0.9rem;}
+}
 </style>
 </head>
 <body>
@@ -195,110 +230,79 @@
       <div class="typewriter-text" id="typewriter-text">Just a lost soul learning to code...</div>
     </div>
     <p class="description">Wandering through the realms of code and chaos</p>
+    <div class="profile-footer">
+      <div class="social-container">
+        <a href="https://t.me/bleedable" target="_blank" class="social-button"><img src="https://r2.drifloons.us/telegram-svgrepo-com.svg" alt="Telegram"></a>
+        <a href="https://x.com/trialware" target="_blank" class="social-button"><img src="https://r2.drifloons.us/twitter-round-svgrepo-com.svg" alt="X"></a>
+        <a href="https://discord.com/users/842076404082409522" target="_blank" class="social-button"><img src="https://r2.drifloons.us/discord-svgrepo-com.svg" alt="Discord"></a>
+        <a href="https://github.com/proxythegod1234" target="_blank" class="social-button"><img src="https://r2.drifloons.us/github-repo-git-octocat-svgrepo-com.svg" alt="GitHub"></a>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="social-container">
-  <a href="https://t.me/bleedable" target="_blank" class="social-button">Telegram</a>
-  <a href="https://x.com/trialware" target="_blank" class="social-button">X</a>
-  <a href="https://discord.com/users/842076404082409522" target="_blank" class="social-button">Discord</a>
-  <a href="https://github.com/proxythegod1234" target="_blank" class="social-button">GitHub</a>
-</div>
-
-<audio id="background-audio" loop>
-  <source src="https://pub-771679a3149d43669bc14f66cc6c90a8.r2.dev/GHXTY%20-%20NORTHSIDE%20G's%20-%20GHXTY%20(1080p%2C%20h264%2C%20youtube).mp3" type="audio/mpeg">
-</audio>
-
 <script>
-const video = document.getElementById('background-video');
-const audio = document.getElementById('background-audio');
-const volumeSlider = document.getElementById('volumeRange');
-const volumeControl = document.getElementById('volumeControl');
-const typewriterText = document.getElementById('typewriter-text');
 
-volumeSlider.addEventListener('input', ()=>{ audio.volume = volumeSlider.value; });
+function createParticles(){ for(let i=0;i<50;i++){ let p=document.createElement('div'); p.className='particle'; p.style.left=Math.random()*100+'%'; p.style.top=Math.random()*100+'%'; document.body.appendChild(p); } }
 
-function createParticles(){
-  for(let i=0;i<50;i++){
-    const p = document.createElement('div');
-    p.classList.add('particle');
-    p.style.left=Math.random()*100+'vw';
-    p.style.animationDuration=6+Math.random()*10+'s';
-    document.body.appendChild(p);
-  }
-}
-
-function playMusicAndHideOverlay(){
-  const overlay = document.getElementById('overlay');
-  const socials = document.querySelectorAll('.social-button');
-
-  overlay.style.opacity='0';
-  overlay.style.transform='scale(0.8)';
-
-  setTimeout(()=>{
-    overlay.style.display='none';
-    video.style.display='block';
-    audio.volume=volumeSlider.value;
-    audio.play().catch(console.error);
-
-    setTimeout(()=>volumeControl.classList.add('show'),500);
-
-    socials.forEach((btn,i)=>{
-      setTimeout(()=>{btn.classList.add('show');},800+i*200);
-    });
-  },800);
-}
 
 function init3DTilt(){
-  const card = document.querySelector('.profile-card');
-  const wrapper = document.querySelector('.tilt-wrapper');
-
+  const card=document.querySelector('.profile-card');
+  const wrapper=document.querySelector('.tilt-wrapper');
   wrapper.addEventListener('mousemove', e=>{
-    const rect = wrapper.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width/2;
-    const centerY = rect.height/2;
-    const rotateX = (y-centerY)/centerY*-10;
-    const rotateY = (x-centerX)/centerX*10;
-    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(15px)`;
+    const rect=wrapper.getBoundingClientRect();
+    const rotateX=(e.clientY-rect.top-rect.height/2)/(rect.height/2)*-10;
+    const rotateY=(e.clientX-rect.left-rect.width/2)/(rect.width/2)*10;
+    card.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(15px)`;
   });
-  wrapper.addEventListener('mouseleave', ()=>{
-    card.style.transition='transform 0.4s ease-out';
-    card.style.transform='rotateX(0deg) rotateY(0deg) translateZ(0px)';
-    setTimeout(()=>{card.style.transition='';},400);
-  });
+  wrapper.addEventListener('mouseleave', ()=>{ card.style.transition='transform 0.4s ease-out'; card.style.transform='rotateX(0) rotateY(0) translateZ(0)'; setTimeout(()=>{card.style.transition='';},400); });
 }
 
+
 function initTypewriter(){
-  const texts=[
-    "Just a lost soul learning to code...",
-    "Crafting digital nightmares...",
-    "Debugging in the darkness...",
-    "Building from the shadows..."
-  ];
+  const texts=["Just a lost soul learning to code...","Crafting digital nightmares...","Debugging in the darkness...","Building from the shadows..."];
   let textIndex=0,charIndex=0,isDeleting=false;
-
   function type(){
-    const currentText=texts[textIndex];
-    if(isDeleting){
-      charIndex--; typewriterText.textContent=currentText.substring(0,charIndex);
-    } else {
-      charIndex++; typewriterText.textContent=currentText.substring(0,charIndex);
-    }
-
-    let speed = isDeleting?50:100;
-    if(!isDeleting && charIndex===currentText.length){ speed=2000; isDeleting=true; }
-    else if(isDeleting && charIndex===0){ isDeleting=false; textIndex=(textIndex+1)%texts.length; speed=500; }
-
+    const current=texts[textIndex];
+    if(isDeleting){ charIndex--; } else { charIndex++; }
+    document.getElementById('typewriter-text').textContent=current.substring(0,charIndex);
+    let speed=isDeleting?50:100;
+    if(!isDeleting&&charIndex===current.length){ speed=2000; isDeleting=true; }
+    else if(isDeleting&&charIndex===0){ isDeleting=false;textIndex=(textIndex+1)%texts.length; speed=500; }
     setTimeout(type,speed);
   }
   type();
 }
 
-createParticles();
-init3DTilt();
-setTimeout(initTypewriter,1000);
+
+function playMusicAndHideOverlay(){
+  const overlay=document.getElementById('overlay');
+  const video=document.getElementById('background-video');
+  const socials=document.querySelectorAll('.social-container');
+  const volumeSlider=document.getElementById('volumeControl');
+  video.volume=document.getElementById('volumeRange').value;
+  overlay.style.opacity='0'; overlay.style.transform='scale(0.8)';
+  setTimeout(()=>{
+    overlay.style.display='none';
+    video.style.display='block';
+    video.play().catch(console.error);
+  
+    socials[0].style.opacity='1';
+    socials[0].style.transition='opacity 1s ease';
+    volumeSlider.classList.add('show');
+  },800);
+}
+
+
+document.getElementById('volumeRange').addEventListener('input', e=>{
+  document.getElementById('background-video').volume=e.target.value;
+});
+
+document.addEventListener('DOMContentLoaded',()=>{
+  createParticles();
+  init3DTilt();
+  setTimeout(initTypewriter,1000);
+});
 </script>
 </body>
 </html>
