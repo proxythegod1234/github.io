@@ -32,6 +32,7 @@ body {
   position: relative;
 }
 
+
 #background-video {
   position: fixed;
   top:0; left:0;
@@ -41,6 +42,7 @@ body {
   display:none;
   opacity:0.3;
 }
+
 
 #overlay {
   position: fixed;
@@ -60,9 +62,9 @@ body {
   background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
   text-align:center;
 }
-
 .overlay-text { text-shadow:0 0 20px var(--accent-red); margin-bottom:1rem; }
 .overlay-subtitle { font-size:1rem; opacity:0.7; }
+
 
 .volume-slider {
   position: fixed;
@@ -74,6 +76,7 @@ body {
 .volume-slider.show { opacity:1; }
 .volume-slider input[type="range"] { width:120px; accent-color: var(--accent-red); cursor:pointer; }
 .volume-slider label { color: var(--accent-red); font-size:0.9em; }
+
 
 .particle {
   position: fixed;
@@ -109,7 +112,6 @@ body {
   flex-direction:column;
   align-items:center;
 }
-
 .profile-card:hover { box-shadow:0 35px 70px rgba(220,20,60,0.3); }
 
 .avatar-container { position:relative; display:inline-block; margin-bottom:1.5rem; }
@@ -145,7 +147,6 @@ body {
   justify-content:center;
   gap:2rem;
   flex-wrap:wrap;
-  opacity:0;
 }
 
 .social-button {
@@ -158,16 +159,16 @@ body {
   display:flex;
   align-items:center; justify-content:center;
   overflow:hidden;
-  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  opacity:0;
+  transform:translateY(40px);
+  transition: all 0.5s ease;
 }
-
 .social-button img {
   width:30px; height:30px;
   object-fit:contain;
   transition: all 0.3s ease;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
-
 .social-button::before {
   content:'';
   position:absolute;
@@ -176,18 +177,13 @@ body {
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   transition:left 0.6s ease;
 }
-
 .social-button:hover::before { left:100%; }
-
 .social-button:hover {
   transform: translateY(-6px) scale(1.1);
   box-shadow:0 15px 30px rgba(220,20,60,0.3);
   border-color: var(--accent-red);
 }
-
-.social-button:hover img {
-  filter: drop-shadow(0 4px 8px rgba(220,20,60,0.4));
-}
+.social-button:hover img { filter: drop-shadow(0 4px 8px rgba(220,20,60,0.4)); }
 
 @media (max-width:768px){
   .profile-card{max-width:90vw;}
@@ -243,7 +239,15 @@ body {
 
 <script>
 
-function createParticles(){ for(let i=0;i<50;i++){ let p=document.createElement('div'); p.className='particle'; p.style.left=Math.random()*100+'%'; p.style.top=Math.random()*100+'%'; document.body.appendChild(p); } }
+function createParticles(){
+  for(let i=0;i<50;i++){
+    let p=document.createElement('div');
+    p.className='particle';
+    p.style.left=Math.random()*100+'%';
+    p.style.top=Math.random()*100+'%';
+    document.body.appendChild(p);
+  }
+}
 
 
 function init3DTilt(){
@@ -278,23 +282,31 @@ function initTypewriter(){
 function playMusicAndHideOverlay(){
   const overlay=document.getElementById('overlay');
   const video=document.getElementById('background-video');
-  const socials=document.querySelectorAll('.social-container');
+  const socialButtons=document.querySelectorAll('.social-button');
   const volumeSlider=document.getElementById('volumeControl');
+
   video.volume=document.getElementById('volumeRange').value;
-  overlay.style.opacity='0'; overlay.style.transform='scale(0.8)';
+  overlay.style.opacity='0';
+  overlay.style.transform='scale(0.8)';
+
   setTimeout(()=>{
     overlay.style.display='none';
     video.style.display='block';
     video.play().catch(console.error);
-  
-    socials[0].style.opacity='1';
-    socials[0].style.transition='opacity 1s ease';
     volumeSlider.classList.add('show');
+
+
+    socialButtons.forEach((btn,index)=>{
+      setTimeout(()=>{
+        btn.style.opacity='1';
+        btn.style.transform='translateY(0)';
+        btn.style.transition='all 0.5s ease';
+      }, index*300);
+    });
   },800);
 }
 
 
-document.getElementById('volumeRange').addEventListener('input', e=>{
   document.getElementById('background-video').volume=e.target.value;
 });
 
