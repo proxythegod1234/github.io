@@ -77,17 +77,8 @@
       gap: 20px;
       justify-content: center;
       width: 100%;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
       pointer-events: none;
       z-index: 5;
-    }
-
-    .social-container.show {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
     }
 
     .social-button {
@@ -95,16 +86,19 @@
       padding: 12px 20px;
       text-decoration: none;
       color: #0f0;
-      transition: all 0.3s ease-in-out;
       border-radius: 8px;
       background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(4px);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s cubic-bezier(0.19, 1, 0.22, 1),
+                  transform 1s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
-    .social-button:hover {
-      background: #0f0;
-      color: black;
-      box-shadow: 0 0 15px #0f0;
+    .social-button.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
 
 
@@ -201,7 +195,7 @@
 
     function playMusicAndHideOverlay() {
       const overlay = document.getElementById('overlay');
-      const socials = document.querySelector('.social-container');
+      const socials = document.querySelectorAll('.social-button');
 
       overlay.style.opacity = '0';
       overlay.style.transform = 'scale(0.8)';
@@ -212,11 +206,17 @@
         audio.volume = volumeSlider.value;
         audio.play().catch(console.error);
 
-
+    
         setTimeout(() => {
-          socials.classList.add('show');
           volumeControl.classList.add('show');
-        }, 800);
+        }, 500);
+
+     
+        socials.forEach((btn, i) => {
+          setTimeout(() => {
+            btn.classList.add('show');
+          }, 800 + i * 200);
+        });
       }, 800);
     }
 
