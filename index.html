@@ -144,17 +144,17 @@
     @keyframes containerEntry {
       0% {
         opacity: 0;
-        transform: translateY(-80px) scale(0.8) rotateX(10deg);
+        transform: translateY(-80px) scale(0.8);
         filter: blur(20px);
       }
       70% {
         opacity: 0.9;
-        transform: translateY(-5px) scale(1.02) rotateX(2deg);
+        transform: translateY(-5px) scale(1.02);
         filter: blur(2px);
       }
       100% {
         opacity: 1;
-        transform: translateY(0) scale(1) rotateX(0deg);
+        transform: translateY(0) scale(1);
         filter: blur(0);
       }
     }
@@ -529,23 +529,7 @@
       btnText.textContent = 'Initialize Connection';
     });
 
-    const container = document.querySelector('.login-container');
     const logo = document.querySelector('.brand-logo');
-    
-    document.addEventListener('mousemove', (e) => {
-      const rect = container.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = (e.clientY - rect.top) / rect.height;
-      
-      const xRotation = (y - 0.5) * 10;
-      const yRotation = (x - 0.5) * -10;
-      
-      container.style.transform = `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg)`;
-    });
-    
-    document.addEventListener('mouseleave', () => {
-      container.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-    });
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && e.ctrlKey) {
